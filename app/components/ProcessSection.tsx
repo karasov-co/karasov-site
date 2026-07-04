@@ -120,7 +120,7 @@ export default function ProcessSection() {
             className="text-white/80 text-sm"
             style={{ fontFamily: "var(--font-inter), sans-serif" }}
           >
-            Typical project: 1–3 weeks.
+            Typical project: 3–4 weeks.
           </p>
           <p
             className="text-[#888888] text-sm"

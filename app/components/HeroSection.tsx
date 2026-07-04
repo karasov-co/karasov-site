@@ -128,7 +128,7 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section ref={heroRef} className="relative min-h-screen flex items-center py-16 md:py-0 overflow-hidden">
+    <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden pt-24 pb-20 md:pt-28 md:pb-24">
       {/* ── Background ── */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         {/* Parallax bg image */}
@@ -184,7 +184,7 @@ export default function HeroSection() {
           </motion.div>
 
           {/* Text — second in DOM (bottom on mobile), left on desktop */}
-          <div className="order-last md:order-first flex flex-col gap-6 text-center md:text-left">
+          <div className="order-last md:order-first flex flex-col gap-5 text-center md:text-left">
             {/* Award badge */}
             <motion.div
               className="flex justify-center md:justify-start"
@@ -202,11 +202,11 @@ export default function HeroSection() {
 
             {/* Name — staggered lines */}
             <h1
-              className="text-white leading-none md:translate-y-8"
+              className="text-white leading-none"
               style={{
                 fontFamily: "var(--font-space-grotesk), sans-serif",
                 fontWeight: 700,
-                fontSize: "clamp(4rem, 12vw, 9rem)",
+                fontSize: "clamp(3.25rem, 9vw, 7rem)",
                 letterSpacing: "0.05em",
                 textTransform: "uppercase",
                 textShadow: "0 0 80px rgba(212,168,83,0.15)",
@@ -229,8 +229,6 @@ export default function HeroSection() {
                 KARASOV
               </motion.span>
             </h1>
-
-            <div className="md:h-4" />
 
             {/* Tagline line 1 */}
             <motion.p
@@ -264,8 +262,6 @@ export default function HeroSection() {
             >
               AI ENGINEER&nbsp;·&nbsp;PRODUCT MANAGER&nbsp;·&nbsp;MSC&nbsp;·&nbsp;PRINCE2
             </motion.p>
-
-            <div className="md:h-2" />
 
             {/* Buttons */}
             <motion.div
@@ -302,7 +298,7 @@ export default function HeroSection() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 1.0, ease }}
             >
-              3rd of 731 teams @ Europe&apos;s largest AI event&nbsp;·&nbsp;3h research → 2min&nbsp;·&nbsp;30 posts for $1&nbsp;·&nbsp;10,000+ production runs
+              3rd of 731 teams @ Europe&apos;s largest AI event&nbsp;·&nbsp;3h research → 2min&nbsp;·&nbsp;30&nbsp;posts&nbsp;for&nbsp;$1&nbsp;·&nbsp;10,000+&nbsp;production&nbsp;runs
             </motion.p>
           </div>
         </div>

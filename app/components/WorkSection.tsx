@@ -12,6 +12,8 @@ interface WorkCard {
   demoLabel?: string;
   githubUrl?: string;
   award?: string;
+  statusStrip?: string;
+  stats?: { value: string; label: string }[];
 }
 
 const mainWorks: WorkCard[] = [
@@ -27,11 +29,20 @@ const mainWorks: WorkCard[] = [
   },
   {
     title: "LEAD OPS SYSTEM — ATAMAN STUDIO",
+    statusStrip: "● LIVE IN PRODUCTION",
     clientLine: "Design-build studio, Los Angeles — custom homes, ADUs, permit-ready plans",
     description:
       "Leads booked calls, meetings went well — then went cold. Follow-ups depended on memory, call notes lived in people's heads, and the CRM was permanently out of date.\n\nBuilt a 7-scenario lead lifecycle system on Make.com: every Calendly booking creates a lead in ClickUp; every inbound email is parsed and routed; every sales call transcript from Otter turns into an AI summary with a drafted reply; automated follow-ups fire at 2, 5, and 10 days; the sequence stops itself the second the client replies; a sent-mail detector keeps CRM status in sync — no human touches it.\n\nResult: 10,000+ production runs. Every call documented, every lead followed up on schedule, zero manual CRM upkeep.",
     tags: ["Make.com", "ClickUp", "OpenAI", "Otter", "Calendly", "Gmail"],
-    // TODO: record Loom walkthrough for this case
+    stats: [
+      { value: "10,000+", label: "production runs" },
+      { value: "7", label: "Make.com scenarios" },
+      { value: "2·5·10", label: "day follow-up cadence" },
+      { value: "0", label: "manual CRM upkeep" },
+    ],
+    // 👇 PASTE THE ATAMAN LOOM SHARE URL HERE once you record it (replace the placeholder below)
+    demoUrl: "https://www.loom.com/share/PASTE-ATAMAN-LOOM-ID-HERE",
+    demoLabel: "Watch Demo",
   },
   {
     title: "AI CONTENT ENGINE",
@@ -404,6 +415,17 @@ function WorkCard({
         </div>
       )}
 
+      {card.statusStrip && (
+        <div className="px-8 md:px-10 py-2.5 bg-green-500/[0.06] border-b border-green-500/20">
+          <span
+            className="text-[10px] md:text-[11px] text-green-400/90 tracking-[0.08em] leading-relaxed"
+            style={{ fontFamily: "var(--font-jetbrains-mono), monospace" }}
+          >
+            {card.statusStrip}
+          </span>
+        </div>
+      )}
+
       <div className="p-8 md:p-10 flex flex-col gap-5 flex-1">
         <span
           className="text-xs text-[#2A2A2A]"
@@ -429,13 +451,37 @@ function WorkCard({
         )}
 
         <p
-          className="text-[#888888] text-sm leading-[1.75] flex-1 whitespace-pre-line"
+          className="text-[#888888] text-sm leading-[1.75] whitespace-pre-line"
           style={{ fontFamily: "var(--font-inter), sans-serif" }}
         >
           {card.description}
         </p>
 
-        <div className="flex flex-wrap gap-2">
+        {card.stats && (
+          <div className="grid grid-cols-2 gap-3">
+            {card.stats.map((s) => (
+              <div
+                key={s.label}
+                className="rounded-lg border border-[#1E1E1E] bg-[#0D0D0D] px-4 py-3"
+              >
+                <div
+                  className="text-[#D4A853] text-xl font-bold leading-none"
+                  style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
+                >
+                  {s.value}
+                </div>
+                <div
+                  className="text-[#666666] text-[11px] mt-1.5"
+                  style={{ fontFamily: "var(--font-jetbrains-mono), monospace" }}
+                >
+                  {s.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <div className="flex flex-wrap gap-2 mt-auto">
           {card.tags.map((tag) => (
             <span
               key={tag}
