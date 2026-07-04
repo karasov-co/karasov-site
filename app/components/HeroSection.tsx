@@ -185,6 +185,21 @@ export default function HeroSection() {
 
           {/* Text — second in DOM (bottom on mobile), left on desktop */}
           <div className="order-last md:order-first flex flex-col gap-6 text-center md:text-left">
+            {/* Award badge */}
+            <motion.div
+              className="flex justify-center md:justify-start"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.05, ease }}
+            >
+              <span
+                className="inline-block max-w-full rounded-2xl border border-[#D4A853]/30 bg-[#D4A853]/[0.08] px-4 py-2 text-[10px] md:text-xs tracking-[0.08em] leading-relaxed text-[#E8C46A] text-center md:text-left"
+                style={{ fontFamily: "var(--font-jetbrains-mono), monospace" }}
+              >
+                🏆 AWARD WINNER — AI AGENT OLYMPICS&nbsp;·&nbsp;AI WEEK MILAN 2026
+              </span>
+            </motion.div>
+
             {/* Name — staggered lines */}
             <h1
               className="text-white leading-none md:translate-y-8"
@@ -225,7 +240,7 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.55, ease }}
             >
-              I build AI-powered systems that replace manual workflows.
+              Your payroll is full of work AI should be doing.
             </motion.p>
 
             {/* Tagline line 2 */}
@@ -236,7 +251,7 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.65, ease }}
             >
-              Product Manager who ships — from problem definition to working system. No dev team. Takes days, not months.
+              I find it and replace it with systems that run 24/7: every lead answered in 5 seconds, every follow-up sent on time, 3-hour research done in 2 minutes. Live in days — at a fraction of one salary.
             </motion.p>
 
             {/* Tags */}
@@ -247,7 +262,7 @@ export default function HeroSection() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.75, ease }}
             >
-              AI AUTOMATION ENGINEER&nbsp;·&nbsp;PRODUCT MANAGER&nbsp;·&nbsp;MSC&nbsp;·&nbsp;PRINCE2
+              AI ENGINEER&nbsp;·&nbsp;PRODUCT MANAGER&nbsp;·&nbsp;MSC&nbsp;·&nbsp;PRINCE2
             </motion.p>
 
             <div className="md:h-2" />
@@ -281,13 +296,13 @@ export default function HeroSection() {
 
             {/* Metrics */}
             <motion.p
-              className="text-sm text-[#555555] tracking-wide text-center md:text-left"
+              className="text-[11px] md:text-sm text-[#555555] tracking-wide text-center md:text-left leading-relaxed"
               style={{ fontFamily: "var(--font-jetbrains-mono), monospace" }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 1.0, ease }}
             >
-              3h → 2min&nbsp;&nbsp;·&nbsp;&nbsp;30 posts for $1&nbsp;&nbsp;·&nbsp;&nbsp;GTM plan in &lt;5min
+              3rd of 731 teams @ Europe&apos;s largest AI event&nbsp;·&nbsp;3h research → 2min&nbsp;·&nbsp;30 posts for $1&nbsp;·&nbsp;10,000+ production runs
             </motion.p>
           </div>
         </div>

@@ -5,13 +5,34 @@ import { motion, useInView } from "framer-motion";
 
 interface WorkCard {
   title: string;
+  clientLine?: string;
   description: string;
   tags: string[];
-  demoUrl: string;
+  demoUrl?: string;
+  demoLabel?: string;
   githubUrl?: string;
+  award?: string;
 }
 
 const mainWorks: WorkCard[] = [
+  {
+    title: "SENTINEL — ADVERSARIAL AI COURT",
+    award: "🏆 AWARD WINNER · AI WEEK MILAN 2026 · 3RD OF 731 TEAMS · SOLO",
+    description:
+      "Tens of millions of police interactions are recorded on bodycams every year. Less than 1% are ever audited — the officer's written report becomes the de-facto truth.\n\nBuilt solo in 7 days at the AI Agent Olympics (AI Week Milan 2026, Europe's largest AI event): a three-layer multi-agent court. Layer 1 streams Speechmatics realtime transcription with diarization and flags violations in under 2 seconds per utterance. Layer 2 runs an adversarial council — a Prosecution agent (gpt-oss-120b) argues against a Defense agent (gemma-3-26B), deliberately different model families so neither side dominates, while a Vision agent (Gemini 3.1 Pro) reads the actual video. Layer 3: a Judge agent weighs both sides and issues per-rule verdicts, drillable from rule ID → reasoning → exact utterance timestamp → video frame. FAISS retrieval over US / EU / Italy case-law packs.\n\nResult: a court-defensible audit at ~$0.10–0.20 per recording — cheap enough to audit every interaction, not 1%.",
+    tags: ["Next.js 16", "FastAPI", "Speechmatics", "Gemini 3.1 Pro", "FAISS", "Vultr"],
+    demoUrl: "https://sentinel-audit.co",
+    demoLabel: "Live Demo",
+    githubUrl: "https://github.com/vkarasovpm-dotcom/bodycam-intelligence",
+  },
+  {
+    title: "LEAD OPS SYSTEM — ATAMAN STUDIO",
+    clientLine: "Design-build studio, Los Angeles — custom homes, ADUs, permit-ready plans",
+    description:
+      "Leads booked calls, meetings went well — then went cold. Follow-ups depended on memory, call notes lived in people's heads, and the CRM was permanently out of date.\n\nBuilt a 7-scenario lead lifecycle system on Make.com: every Calendly booking creates a lead in ClickUp; every inbound email is parsed and routed; every sales call transcript from Otter turns into an AI summary with a drafted reply; automated follow-ups fire at 2, 5, and 10 days; the sequence stops itself the second the client replies; a sent-mail detector keeps CRM status in sync — no human touches it.\n\nResult: 10,000+ production runs. Every call documented, every lead followed up on schedule, zero manual CRM upkeep.",
+    tags: ["Make.com", "ClickUp", "OpenAI", "Otter", "Calendly", "Gmail"],
+    // TODO: record Loom walkthrough for this case
+  },
   {
     title: "AI CONTENT ENGINE",
     description:
@@ -242,7 +263,100 @@ function VisualDevToolkit() {
   );
 }
 
+function VisualSentinel() {
+  return (
+    <div className={visualBase} style={visualBoxShadow}>
+      <div className="absolute inset-0" style={gridBg} />
+      <svg
+        viewBox="0 0 280 120"
+        className="relative w-full max-w-[280px] h-auto px-4"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        {/* PROSECUTION (top-left) */}
+        <rect x="6" y="16" width="96" height="24" rx="2" fill="none" stroke="rgba(212,168,83,0.32)" strokeWidth="1" />
+        <text x="54" y="31" textAnchor="middle" fill="#999" fontSize="8" fontFamily="monospace">PROSECUTION</text>
+        {/* DEFENSE (bottom-left) */}
+        <rect x="6" y="80" width="96" height="24" rx="2" fill="none" stroke="rgba(212,168,83,0.32)" strokeWidth="1" />
+        <text x="54" y="95" textAnchor="middle" fill="#999" fontSize="8" fontFamily="monospace">DEFENSE</text>
+        {/* Adversarial clash */}
+        <line x1="54" y1="40" x2="54" y2="80" stroke="rgba(212,168,83,0.15)" strokeWidth="1" strokeDasharray="2,2" />
+        <text x="54" y="63" textAnchor="middle" fill="rgba(212,168,83,0.55)" fontSize="9" fontFamily="monospace">VS</text>
+        {/* Converging to JUDGE */}
+        <path d="M102,28 C142,28 150,58 186,58" fill="none" stroke="rgba(212,168,83,0.3)" strokeWidth="1" />
+        <path d="M102,92 C142,92 150,62 186,62" fill="none" stroke="rgba(212,168,83,0.3)" strokeWidth="1" />
+        {/* JUDGE (right, highlighted) */}
+        <rect x="186" y="48" width="88" height="24" rx="3" fill="rgba(212,168,83,0.05)" stroke="rgba(212,168,83,0.65)" strokeWidth="1.5" />
+        <text x="230" y="63" textAnchor="middle" fill="rgba(212,168,83,0.85)" fontSize="9" fontFamily="monospace">JUDGE</text>
+      </svg>
+    </div>
+  );
+}
+
+function VisualAtaman() {
+  const steps = ["CALENDLY", "OTTER", "CLICKUP", "OPENAI", "GMAIL"];
+  const followups = [
+    { label: "2", x: 74 },
+    { label: "5", x: 132 },
+    { label: "10", x: 190 },
+  ];
+  return (
+    <div className={visualBase} style={visualBoxShadow}>
+      <div className="absolute inset-0" style={gridBg} />
+      <svg
+        viewBox="0 0 280 120"
+        className="relative w-full max-w-[280px] h-auto px-4"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        {/* Pipeline */}
+        {steps.map((label, i) => {
+          const x = 4 + i * 56;
+          const hi = i === 0 || i === steps.length - 1;
+          return (
+            <g key={label}>
+              <rect
+                x={x}
+                y="26"
+                width="46"
+                height="22"
+                rx="2"
+                fill="none"
+                stroke={hi ? "rgba(212,168,83,0.6)" : "rgba(212,168,83,0.24)"}
+                strokeWidth={hi ? 1.3 : 1}
+              />
+              <text
+                x={x + 23}
+                y="40"
+                textAnchor="middle"
+                fill={hi ? "rgba(212,168,83,0.85)" : "#888"}
+                fontSize="7"
+                fontFamily="monospace"
+              >
+                {label}
+              </text>
+              {i < steps.length - 1 && (
+                <line x1={x + 46} y1="37" x2={x + 56} y2="37" stroke="rgba(212,168,83,0.3)" strokeWidth="1" />
+              )}
+            </g>
+          );
+        })}
+        {/* Follow-up cadence */}
+        <text x="4" y="86" fill="rgba(212,168,83,0.5)" fontSize="7" fontFamily="monospace">FOLLOW-UP</text>
+        <line x1="66" y1="83" x2="200" y2="83" stroke="rgba(212,168,83,0.18)" strokeWidth="1" strokeDasharray="3,3" />
+        {followups.map(({ label, x }) => (
+          <g key={label}>
+            <circle cx={x} cy="83" r="8" fill="#0a0a0a" stroke="rgba(212,168,83,0.35)" strokeWidth="1" />
+            <text x={x} y="86" textAnchor="middle" fill="#999" fontSize="7" fontFamily="monospace">{label}</text>
+          </g>
+        ))}
+        <text x="210" y="86" fill="#666" fontSize="7" fontFamily="monospace">DAYS</text>
+      </svg>
+    </div>
+  );
+}
+
 const mainVisuals = [
+  <VisualSentinel key="sentinel" />,
+  <VisualAtaman key="ataman" />,
   <VisualContentEngine key="content" />,
   <VisualMarketIntel key="market" />,
   <VisualResearchEngine key="research" />,
@@ -279,6 +393,17 @@ function WorkCard({
     >
       {visual}
 
+      {card.award && (
+        <div className="px-8 md:px-10 py-2.5 bg-[#D4A853]/[0.07] border-b border-[#D4A853]/20">
+          <span
+            className="text-[10px] md:text-[11px] text-[#E8C46A] tracking-[0.08em] leading-relaxed"
+            style={{ fontFamily: "var(--font-jetbrains-mono), monospace" }}
+          >
+            {card.award}
+          </span>
+        </div>
+      )}
+
       <div className="p-8 md:p-10 flex flex-col gap-5 flex-1">
         <span
           className="text-xs text-[#2A2A2A]"
@@ -293,6 +418,15 @@ function WorkCard({
         >
           {card.title}
         </h3>
+
+        {card.clientLine && (
+          <p
+            className="text-[#666666] text-xs -mt-3 leading-relaxed"
+            style={{ fontFamily: "var(--font-jetbrains-mono), monospace" }}
+          >
+            {card.clientLine}
+          </p>
+        )}
 
         <p
           className="text-[#888888] text-sm leading-[1.75] flex-1 whitespace-pre-line"
@@ -313,31 +447,35 @@ function WorkCard({
           ))}
         </div>
 
-        <div className="flex items-center gap-5 flex-wrap">
-          <a
-            href={card.demoUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm text-[#D4A853] font-medium hover:text-[#E8C46A] transition-colors duration-200"
-            style={{ fontFamily: "var(--font-inter), sans-serif" }}
-          >
-            <span>▶</span> Watch Demo
-          </a>
-          {card.githubUrl && (
-            <a
-              href={card.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm text-[#555555] hover:text-[#D4A853] transition-colors duration-200"
-              style={{ fontFamily: "var(--font-inter), sans-serif" }}
-            >
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
-              </svg>
-              GitHub
-            </a>
-          )}
-        </div>
+        {(card.demoUrl || card.githubUrl) && (
+          <div className="flex items-center gap-5 flex-wrap">
+            {card.demoUrl && (
+              <a
+                href={card.demoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm text-[#D4A853] font-medium hover:text-[#E8C46A] transition-colors duration-200"
+                style={{ fontFamily: "var(--font-inter), sans-serif" }}
+              >
+                <span>▶</span> {card.demoLabel ?? "Watch Demo"}
+              </a>
+            )}
+            {card.githubUrl && (
+              <a
+                href={card.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm text-[#555555] hover:text-[#D4A853] transition-colors duration-200"
+                style={{ fontFamily: "var(--font-inter), sans-serif" }}
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
+                </svg>
+                GitHub
+              </a>
+            )}
+          </div>
+        )}
       </div>
     </motion.div>
   );

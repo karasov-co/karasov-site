@@ -15,12 +15,12 @@ const galleryImages = [
 
 const bioParagraphs = [
   "I'm Vitalii Karasov — a product manager who builds.",
-  "MSc in Strategic Project Management, Lazarski University Warsaw. PRINCE2 certified. 4+ years running products — EdTech platform launch, AI content pipelines, crisis response operations with a 1.5M+ PLN budget.",
-  "Now I am building AI automation systems independently. All in production.",
+  "MSc in Strategic Project Management (Lazarski University, Warsaw), PRINCE2 certified, five years of product and operations before going full-time on AI — EdTech launch, media production, crisis response with a 1.5M+ PLN budget. In 2026, my solo build took an award at the AI Agent Olympics, the official hackathon of AI Week Milan — Europe's largest AI event, 731 teams.",
+  "Now I build AI systems independently — multi-agent, RAG, voice. All in production.",
   "Beyond systems — I document the world through a lens on Panasonic Lumix S5II. Aesthetics and structure matter to me — whether it's the architecture of an AI pipeline or the composition of a photograph.",
 ];
 
-const tags = ["PRINCE2", "MSc Strategy", "EdTech", "AI Systems", "Photography"];
+const tags = ["PRINCE2", "MSc Strategy", "Award Winner '26", "AI Systems", "Photography"];
 
 function Lightbox({
   images,

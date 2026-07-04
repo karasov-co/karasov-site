@@ -5,12 +5,12 @@ import { motion, useInView } from "framer-motion";
 
 const timeline = [
   {
-    year: "2026 — Present",
-    role: "AI Automation Engineer — Independent",
-    desc: "Scoping, building, and deploying AI automation systems for founders and small teams.\n\nMulti-agent research (3h → 2min) · AI content engine (30 posts for $1) · Market intelligence (<5min to GTM) · Lead qualification (5 sec/lead).",
+    year: "2025 — Present",
+    role: "AI Engineer — Independent",
+    desc: "Production multi-agent systems, RAG pipelines, voice AI, and end-to-end automation for clients across US, EU, and Asia.\n🏆 Award winner at AI Agent Olympics — official hackathon of AI Week Milan 2026, Europe's largest AI event (3rd of 731 teams, solo).\nLead-ops system for an LA design-build studio (10,000+ runs) · Multi-agent research (3h → 2min) · AI content engine (30 posts for $1) · Lead qualification (5 sec/lead).",
   },
   {
-    year: "2025",
+    year: "2025 – 2026",
     role: "Product Manager & AI Lead — Human Gambit Media",
     desc: "Led The Human Gambit — analytical media brand covering power systems, markets, and geopolitics.\nFull product ownership: editorial strategy, production, distribution, AI pipeline (Make.com + OpenAI API).\n−30% turnaround time · distributed team · broadcast delivery.",
   },

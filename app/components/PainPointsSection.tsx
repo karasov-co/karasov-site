@@ -12,6 +12,10 @@ const quotes = [
     text: "Hired an AI agency, paid $15k, got a chatbot that could've been built in a weekend with the OpenAI docs.",
     source: "— Reddit, r/artificial",
   },
+  {
+    text: "Our sales guy takes great discovery calls. Then he forgets to follow up and the lead buys from someone who didn't.",
+    source: "— every service business owner, eventually",
+  },
 ];
 
 export default function PainPointsSection() {
