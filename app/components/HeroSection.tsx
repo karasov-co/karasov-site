@@ -185,21 +185,6 @@ export default function HeroSection() {
 
           {/* Text — second in DOM (bottom on mobile), left on desktop */}
           <div className="order-last md:order-first flex flex-col gap-5 text-center md:text-left">
-            {/* Award badge */}
-            <motion.div
-              className="flex justify-center md:justify-start"
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.05, ease }}
-            >
-              <span
-                className="inline-block max-w-full rounded-2xl border border-[#D4A853]/30 bg-[#D4A853]/[0.08] px-4 py-2 text-[10px] md:text-xs tracking-[0.08em] leading-relaxed text-[#E8C46A] text-center md:text-left"
-                style={{ fontFamily: "var(--font-jetbrains-mono), monospace" }}
-              >
-                🏆 AWARD WINNER — AI AGENT OLYMPICS&nbsp;·&nbsp;AI WEEK MILAN 2026
-              </span>
-            </motion.div>
-
             {/* Name — staggered lines */}
             <h1
               className="text-white leading-none"
@@ -238,7 +223,7 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.55, ease }}
             >
-              Your payroll is full of work AI should be doing.
+              AI systems for construction &amp; home-service companies.
             </motion.p>
 
             {/* Tagline line 2 */}
@@ -249,7 +234,7 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.65, ease }}
             >
-              I find it and replace it with systems that run 24/7: every lead answered in 5 seconds, every follow-up sent on time, 3-hour research done in 2 minutes. Live in days — at a fraction of one salary.
+              Every call answered. Every estimate followed up. Every job documented. Your office runs itself — without hiring another office person.
             </motion.p>
 
             {/* Tags */}
@@ -260,8 +245,23 @@ export default function HeroSection() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.75, ease }}
             >
-              AI ENGINEER&nbsp;·&nbsp;PRODUCT MANAGER&nbsp;·&nbsp;MSC&nbsp;·&nbsp;PRINCE2
+              BUILT FOR CONTRACTORS, DESIGN-BUILD &amp; HOME SERVICES&nbsp;·&nbsp;US &amp; EU CLIENTS
             </motion.p>
+
+            {/* Award badge — demoted, below the subheadline */}
+            <motion.div
+              className="flex justify-center md:justify-start"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.8, ease }}
+            >
+              <span
+                className="inline-block max-w-full rounded-xl border border-[#D4A853]/25 bg-[#D4A853]/[0.06] px-3 py-1.5 text-[10px] tracking-[0.05em] leading-relaxed text-[#E8C46A]/80 text-center md:text-left"
+                style={{ fontFamily: "var(--font-jetbrains-mono), monospace" }}
+              >
+                🏆 3rd of 731 teams — AI Agent Olympics, AI Week Milan 2026
+              </span>
+            </motion.div>
 
             {/* Buttons */}
             <motion.div
@@ -277,17 +277,19 @@ export default function HeroSection() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                See What I Built ↓
+                See how it works ↓
               </motion.button>
-              <motion.button
-                onClick={() => scrollTo("#contact")}
-                className="border border-[#D4A853]/50 text-[#D4A853] px-8 py-4 rounded-lg hover:bg-[#D4A853]/10 transition-colors duration-200 cursor-pointer text-sm tracking-wide w-full sm:w-auto"
+              <motion.a
+                href="https://calendly.com/v-karasov-pm/30min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="border border-[#D4A853]/50 text-[#D4A853] px-8 py-4 rounded-lg hover:bg-[#D4A853]/10 transition-colors duration-200 cursor-pointer text-sm tracking-wide w-full sm:w-auto text-center"
                 style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                Let&apos;s Talk ↓
-              </motion.button>
+                Book a call →
+              </motion.a>
             </motion.div>
 
             {/* Metrics */}
@@ -298,7 +300,7 @@ export default function HeroSection() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 1.0, ease }}
             >
-              3rd of 731 teams @ Europe&apos;s largest AI event&nbsp;·&nbsp;3h research → 2min&nbsp;·&nbsp;30&nbsp;posts&nbsp;for&nbsp;$1&nbsp;·&nbsp;10,000+&nbsp;production&nbsp;runs
+              10,000+ automated runs in production for an LA design-build studio&nbsp;·&nbsp;follow-ups at day 2 / 5 / 10, automatically&nbsp;·&nbsp;leads answered in under 5 seconds&nbsp;·&nbsp;systems from $5,000
             </motion.p>
           </div>
         </div>

@@ -8,16 +8,13 @@ const galleryImages = [
   { src: "/images/gallery-1.jpg", alt: "Kyoto pagoda at night" },
   { src: "/images/gallery-2.jpg", alt: "Angkor Wat at sunset" },
   { src: "/images/gallery-3.jpg", alt: "Photography series — frame 3" },
-  { src: "/images/gallery-4.jpg", alt: "Photography series — frame 4" },
-  { src: "/images/gallery-5.jpg", alt: "Photography series — frame 5" },
-  { src: "/images/gallery-6.jpg", alt: "Photography series — frame 6" },
 ];
 
 const bioParagraphs = [
   "I'm Vitalii Karasov — a product manager who builds.",
-  "MSc in Strategic Project Management (Lazarski University, Warsaw), PRINCE2 certified, five years of product and operations before going full-time on AI — EdTech launch, media production, crisis response with a 1.5M+ PLN budget. In 2026, my solo build took an award at the AI Agent Olympics, the official hackathon of AI Week Milan — Europe's largest AI event, 731 teams.",
-  "Now I build AI systems independently — multi-agent, RAG, voice. All in production.",
-  "Beyond systems — I document the world through a lens on Panasonic Lumix S5II. Aesthetics and structure matter to me — whether it's the architecture of an AI pipeline or the composition of a photograph.",
+  "Five years of operations and product management before going full-time on AI systems: EdTech launch, media production, crisis logistics with a 1.5M+ PLN budget and zero audit findings. MSc in Strategic Project Management, PRINCE2 certified.",
+  "In 2026 my solo build took 3rd of 731 teams at the AI Agent Olympics — the official hackathon of AI Week Milan, Europe's largest AI event.",
+  "Now I build one thing: operations systems for construction and home-service companies. Deep, not wide.",
 ];
 
 const tags = ["PRINCE2", "MSc Strategy", "Award Winner '26", "AI Systems", "Photography"];

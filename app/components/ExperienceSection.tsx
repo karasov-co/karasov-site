@@ -6,8 +6,8 @@ import { motion, useInView } from "framer-motion";
 const timeline = [
   {
     year: "2025 — Present",
-    role: "AI Engineer — Independent",
-    desc: "Production multi-agent systems, RAG pipelines, voice AI, and end-to-end automation for clients across US, EU, and Asia.\n🏆 Award winner at AI Agent Olympics — official hackathon of AI Week Milan 2026, Europe's largest AI event (3rd of 731 teams, solo).\nLead-ops system for an LA design-build studio (10,000+ runs) · Multi-agent research (3h → 2min) · AI content engine (30 posts for $1) · Lead qualification (5 sec/lead).",
+    role: "AI Systems for Construction & Home Services — Independent",
+    desc: "Lead-to-contract and back-office systems for contractors, design-build and home-service companies in the US and EU.\n🏆 Award winner at AI Agent Olympics (AI Week Milan 2026, 3rd of 731 teams, solo).\nLead-ops system for an LA design-build studio (10,000+ runs) · instant lead response (under 5 seconds) · production work under NDA.",
   },
   {
     year: "2025 – 2026",

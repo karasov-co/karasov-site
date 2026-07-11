@@ -2,11 +2,13 @@ import Navbar from "./components/Navbar";
 import HeroSection from "./components/HeroSection";
 import PainPointsSection from "./components/PainPointsSection";
 import WorkSection from "./components/WorkSection";
-import ExperienceSection from "./components/ExperienceSection";
-import StackSection from "./components/StackSection";
+import OfferSection from "./components/OfferSection";
+import YourWorldSection from "./components/YourWorldSection";
 import ProcessSection from "./components/ProcessSection";
+import ToolsSection from "./components/ToolsSection";
 import AboutSection from "./components/AboutSection";
-import StrategySection from "./components/StrategySection";
+import ExperienceSection from "./components/ExperienceSection";
+import FaqSection from "./components/FaqSection";
 import ContactSection from "./components/ContactSection";
 import CursorGlow from "./components/CursorGlow";
 import PageLoadOverlay from "./components/PageLoadOverlay";
@@ -30,15 +32,19 @@ export default function Home() {
         <Divider />
         <WorkSection />
         <Divider />
-        <ExperienceSection />
+        <OfferSection />
         <Divider />
-        <StackSection />
+        <YourWorldSection />
         <Divider />
         <ProcessSection />
         <Divider />
+        <ToolsSection />
+        <Divider />
         <AboutSection />
         <Divider />
-        <StrategySection />
+        <ExperienceSection />
+        <Divider />
+        <FaqSection />
         <Divider />
         <ContactSection />
       </main>

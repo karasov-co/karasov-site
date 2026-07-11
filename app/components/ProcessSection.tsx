@@ -9,7 +9,7 @@ const steps = [
     name: "DISCOVERY",
     time: "30 minutes",
     description:
-      "You describe the problem. I map the process and identify what's actually worth automating — and what isn't.",
+      "You describe how jobs come in and where they leak. I map it and tell you what's worth automating — and what isn't. If the numbers don't work, I'll say so.",
   },
   {
     number: "02",
@@ -30,7 +30,7 @@ const steps = [
     name: "DEPLOY + HANDOFF",
     time: null,
     description:
-      "Full documentation. The system runs without me. Retainer available for iteration and improvements.",
+      "Full documentation. The system runs without me. Care plan available — most clients keep it, because the system keeps paying for itself.",
   },
 ];
 
@@ -126,13 +126,19 @@ export default function ProcessSection() {
             className="text-[#888888] text-sm"
             style={{ fontFamily: "var(--font-inter), sans-serif" }}
           >
-            I work on 1–2 projects at a time.
+            I take 2–3 new builds per quarter. Care-plan clients get priority.
           </p>
           <p
             className="text-[#888888] text-sm"
             style={{ fontFamily: "var(--font-inter), sans-serif" }}
           >
             Reply within a few hours.
+          </p>
+          <p
+            className="text-[#888888] text-sm"
+            style={{ fontFamily: "var(--font-inter), sans-serif" }}
+          >
+            I overlap with US mornings every workday.
           </p>
         </motion.div>
       </div>

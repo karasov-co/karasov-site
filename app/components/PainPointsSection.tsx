@@ -5,16 +5,16 @@ import { motion, useInView } from "framer-motion";
 
 const quotes = [
   {
-    text: "We wrote a 30-page PRD and the devs still built the wrong thing. Three months wasted.",
-    source: "— Reddit, r/productmanagement",
+    text: "A lead called Saturday morning. Nobody picked up. By Monday they'd signed with another contractor.",
+    source: "",
   },
   {
-    text: "Hired an AI agency, paid $15k, got a chatbot that could've been built in a weekend with the OpenAI docs.",
-    source: "— Reddit, r/artificial",
+    text: "The estimate went out Tuesday. Then nothing. Everyone's on site — nobody's job is to follow up.",
+    source: "",
   },
   {
-    text: "Our sales guy takes great discovery calls. Then he forgets to follow up and the lead buys from someone who didn't.",
-    source: "— every service business owner, eventually",
+    text: "Call notes live in the office manager's head. When she's out, your pipeline is out too.",
+    source: "— every contractor, eventually",
   },
 ];
 
@@ -23,7 +23,7 @@ export default function PainPointsSection() {
   const isInView = useInView(ref, { once: true, margin: "-80px 0px" });
 
   return (
-    <section className="py-12 md:py-20 px-6">
+    <section id="what-i-fix" className="py-12 md:py-20 px-6">
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <motion.p
@@ -34,7 +34,7 @@ export default function PainPointsSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.4 }}
         >
-          The problem I solve
+          What I fix
         </motion.p>
         <motion.h2
           className="text-section-title text-[#D4A853] mb-12"
@@ -67,12 +67,14 @@ export default function PainPointsSection() {
               >
                 &ldquo;{q.text}&rdquo;
               </p>
-              <p
-                className="text-[#555555] text-sm mt-4"
-                style={{ fontFamily: "var(--font-jetbrains-mono), monospace" }}
-              >
-                {q.source}
-              </p>
+              {q.source && (
+                <p
+                  className="text-[#555555] text-sm mt-4"
+                  style={{ fontFamily: "var(--font-jetbrains-mono), monospace" }}
+                >
+                  {q.source}
+                </p>
+              )}
             </motion.div>
           ))}
         </div>
@@ -88,7 +90,7 @@ export default function PainPointsSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
         >
-          That&apos;s the gap I close.
+          One missed $12,000 job pays for this system twice. That&apos;s the math I fix.
         </motion.p>
       </div>
     </section>
