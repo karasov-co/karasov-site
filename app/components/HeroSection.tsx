@@ -159,7 +159,7 @@ export default function HeroSection() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10 w-full">
         <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-6 md:gap-16 items-center">
 
-          {/* Portrait — first in DOM (top on mobile), right on desktop */}
+          {/* Portrait - first in DOM (top on mobile), right on desktop */}
           <motion.div
             className="order-first md:order-last flex justify-center md:justify-end"
             initial={{ opacity: 0, scale: 0.95 }}
@@ -183,9 +183,9 @@ export default function HeroSection() {
             </div>
           </motion.div>
 
-          {/* Text — second in DOM (bottom on mobile), left on desktop */}
+          {/* Text - second in DOM (bottom on mobile), left on desktop */}
           <div className="order-last md:order-first flex flex-col gap-5 text-center md:text-left">
-            {/* Name — staggered lines */}
+            {/* Name - staggered lines */}
             <h1
               className="text-white leading-none"
               style={{
@@ -234,21 +234,10 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.65, ease }}
             >
-              Every call answered. Every estimate followed up. Every job documented. Your office runs itself — without hiring another office person.
+              Every call answered. Every estimate followed up. Every job documented. Your office runs itself - without hiring another office person.
             </motion.p>
 
-            {/* Tags */}
-            <motion.p
-              className="text-base text-[#999999] tracking-[0.08em] -translate-y-1 md:translate-y-0"
-              style={{ fontFamily: "var(--font-inter), sans-serif", fontWeight: 400 }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.75, ease }}
-            >
-              BUILT FOR CONTRACTORS, DESIGN-BUILD &amp; HOME SERVICES&nbsp;·&nbsp;US &amp; EU CLIENTS
-            </motion.p>
-
-            {/* Award badge — demoted, below the subheadline */}
+            {/* Award badge - demoted, below the subheadline */}
             <motion.div
               className="flex justify-center md:justify-start"
               initial={{ opacity: 0 }}
@@ -259,7 +248,7 @@ export default function HeroSection() {
                 className="inline-block max-w-full rounded-xl border border-[#D4A853]/25 bg-[#D4A853]/[0.06] px-3 py-1.5 text-[10px] tracking-[0.05em] leading-relaxed text-[#E8C46A]/80 text-center md:text-left"
                 style={{ fontFamily: "var(--font-jetbrains-mono), monospace" }}
               >
-                🏆 3rd of 731 teams — AI Agent Olympics, AI Week Milan 2026
+                🏆 3rd of 731 teams - AI Agent Olympics, AI Week Milan 2026
               </span>
             </motion.div>
 

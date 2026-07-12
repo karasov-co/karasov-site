@@ -23,9 +23,9 @@ const jetbrainsMono = JetBrains_Mono({
 const siteUrl = "https://karasov.co";
 
 export const metadata: Metadata = {
-  title: "Vitalii Karasov — AI Systems for Construction & Home-Service Companies",
+  title: "Vitalii Karasov - AI Systems for Construction & Home-Service Companies",
   description:
-    "Lead-to-contract systems for contractors, design-build and home-service companies. Every call answered, every follow-up sent, every job documented — without hiring another office person. Live in weeks.",
+    "Lead-to-contract systems for contractors, design-build and home-service companies. Every call answered, every follow-up sent, every job documented - without hiring another office person. Live in weeks.",
   keywords: [
     "construction automation",
     "contractor CRM automation",
@@ -40,14 +40,14 @@ export const metadata: Metadata = {
   authors: [{ name: "Vitalii Karasov" }],
   metadataBase: new URL(siteUrl),
   openGraph: {
-    title: "Vitalii Karasov — AI Systems for Construction & Home-Service Companies",
+    title: "Vitalii Karasov - AI Systems for Construction & Home-Service Companies",
     description:
-      "Lead-to-contract systems for contractors, design-build and home-service companies. Every call answered, every follow-up sent, every job documented — without hiring another office person. Live in weeks.",
+      "Lead-to-contract systems for contractors, design-build and home-service companies. Every call answered, every follow-up sent, every job documented - without hiring another office person. Live in weeks.",
     type: "website",
     url: siteUrl,
     images: [
       {
-        // TODO: regenerate og-image.png — drop the old AI-engineer tagline, reflect the
+        // TODO: regenerate og-image.png - drop the old AI-engineer tagline, reflect the
         // construction & home-service positioning (see meta title/description above)
         url: "/images/og-image.png",
         width: 1200,
@@ -58,9 +58,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Vitalii Karasov — AI Systems for Construction & Home-Service Companies",
+    title: "Vitalii Karasov - AI Systems for Construction & Home-Service Companies",
     description:
-      "Lead-to-contract systems for contractors, design-build and home-service companies. Every call answered, every follow-up sent, every job documented — without hiring another office person. Live in weeks.",
+      "Lead-to-contract systems for contractors, design-build and home-service companies. Every call answered, every follow-up sent, every job documented - without hiring another office person. Live in weeks.",
   },
 };
 

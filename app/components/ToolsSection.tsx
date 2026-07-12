@@ -58,7 +58,7 @@ export default function ToolsSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          — plus the AI engineering underneath:{" "}
+          - plus the AI engineering underneath:{" "}
           <span className="text-[#D4A853]">
             Claude, OpenAI, n8n, Make.com (Advanced Certified)
           </span>

@@ -1,166 +1,32 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 
-const galleryImages = [
-  { src: "/images/gallery-1.jpg", alt: "Kyoto pagoda at night" },
-  { src: "/images/gallery-2.jpg", alt: "Angkor Wat at sunset" },
-  { src: "/images/gallery-3.jpg", alt: "Photography series — frame 3" },
-];
-
 const bioParagraphs = [
-  "I'm Vitalii Karasov — a product manager who builds.",
+  "I'm Vitalii Karasov - a product manager who builds.",
   "Five years of operations and product management before going full-time on AI systems: EdTech launch, media production, crisis logistics with a 1.5M+ PLN budget and zero audit findings. MSc in Strategic Project Management, PRINCE2 certified.",
-  "In 2026 my solo build took 3rd of 731 teams at the AI Agent Olympics — the official hackathon of AI Week Milan, Europe's largest AI event.",
+  "In 2026 my solo build took 3rd of 731 teams at the AI Agent Olympics - the official hackathon of AI Week Milan, Europe's largest AI event.",
   "Now I build one thing: operations systems for construction and home-service companies. Deep, not wide.",
 ];
 
-const tags = ["PRINCE2", "MSc Strategy", "Award Winner '26", "AI Systems", "Photography"];
-
-function Lightbox({
-  images,
-  index,
-  onClose,
-  onPrev,
-  onNext,
-}: {
-  images: typeof galleryImages;
-  index: number;
-  onClose: () => void;
-  onPrev: () => void;
-  onNext: () => void;
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.25 }}
-      className="fixed inset-0 z-[60] bg-black/95 flex items-center justify-center"
-      onClick={onClose}
-    >
-      {/* Image */}
-      <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.9, opacity: 0 }}
-        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-        className="relative max-w-[90vw] max-h-[90vh]"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={images[index].src}
-          alt={images[index].alt}
-          className="max-w-[90vw] max-h-[90vh] object-contain"
-        />
-      </motion.div>
-
-      {/* Prev */}
-      {index > 0 && (
-        <button
-          onClick={(e) => { e.stopPropagation(); onPrev(); }}
-          className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center text-white/60 hover:text-[#D4A853] transition-colors duration-200 text-2xl border border-white/10 hover:border-[#D4A853]/40 rounded"
-          aria-label="Previous"
-        >
-          ←
-        </button>
-      )}
-
-      {/* Next */}
-      {index < images.length - 1 && (
-        <button
-          onClick={(e) => { e.stopPropagation(); onNext(); }}
-          className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center text-white/60 hover:text-[#D4A853] transition-colors duration-200 text-2xl border border-white/10 hover:border-[#D4A853]/40 rounded"
-          aria-label="Next"
-        >
-          →
-        </button>
-      )}
-
-      {/* Close */}
-      <button
-        onClick={onClose}
-        className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center text-white/50 hover:text-white transition-colors duration-200 text-2xl"
-        aria-label="Close"
-      >
-        ×
-      </button>
-
-      {/* Counter */}
-      <span
-        className="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs text-[#555]"
-        style={{ fontFamily: "var(--font-jetbrains-mono), monospace" }}
-      >
-        {index + 1} / {images.length}
-      </span>
-    </motion.div>
-  );
-}
+const tags = ["PRINCE2", "MSc Strategy", "Award Winner '26", "AI Systems"];
 
 export default function AboutSection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px 0px" });
 
-  const galleryRef = useRef<HTMLDivElement>(null);
-  const isDragging = useRef(false);
-  const startX = useRef(0);
-  const scrollLeft = useRef(0);
-  const dragDistance = useRef(0);
-
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [lightboxIndex, setLightboxIndex] = useState(0);
-
-  // Body scroll lock
-  useEffect(() => {
-    document.body.style.overflow = lightboxOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [lightboxOpen]);
-
-  // Keyboard navigation
-  useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => {
-      if (!lightboxOpen) return;
-      if (e.key === "Escape") setLightboxOpen(false);
-      if (e.key === "ArrowLeft") setLightboxIndex((p) => Math.max(0, p - 1));
-      if (e.key === "ArrowRight")
-        setLightboxIndex((p) => Math.min(galleryImages.length - 1, p + 1));
-    };
-    window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
-  }, [lightboxOpen]);
-
-  const onMouseDown = (e: React.MouseEvent) => {
-    if (!galleryRef.current) return;
-    isDragging.current = true;
-    startX.current = e.pageX - galleryRef.current.offsetLeft;
-    scrollLeft.current = galleryRef.current.scrollLeft;
-    dragDistance.current = 0;
-    galleryRef.current.style.cursor = "grabbing";
-  };
-  const onMouseUp = () => {
-    isDragging.current = false;
-    if (galleryRef.current) galleryRef.current.style.cursor = "grab";
-  };
-  const onMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging.current || !galleryRef.current) return;
-    e.preventDefault();
-    const x = e.pageX - galleryRef.current.offsetLeft;
-    const walk = (x - startX.current) * 1.5;
-    dragDistance.current = Math.abs(x - startX.current);
-    galleryRef.current.scrollLeft = scrollLeft.current - walk;
-  };
-
-  const openLightbox = (index: number) => {
-    if (dragDistance.current > 5) return;
-    setLightboxIndex(index);
-    setLightboxOpen(true);
-  };
-
   return (
-    <section id="about" className="py-12 md:py-20 px-6" style={{ backgroundImage: "linear-gradient(rgba(212,168,83,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(212,168,83,0.018) 1px, transparent 1px)", backgroundSize: "80px 80px" }}>
+    <section
+      id="about"
+      className="py-12 md:py-20 px-6"
+      style={{
+        backgroundImage:
+          "linear-gradient(rgba(212,168,83,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(212,168,83,0.018) 1px, transparent 1px)",
+        backgroundSize: "80px 80px",
+      }}
+    >
       <div className="max-w-7xl mx-auto">
         <motion.p
           className="text-xs text-[#E8C46A]/60 tracking-[0.25em] uppercase mb-4"
@@ -248,75 +114,7 @@ export default function AboutSection() {
             </motion.div>
           </motion.div>
         </div>
-
-        {/* Gallery */}
-        <motion.div
-          className="mt-20"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          <p
-            className="text-xs text-[#555555] tracking-[0.2em] uppercase mb-6"
-            style={{ fontFamily: "var(--font-jetbrains-mono), monospace" }}
-          >
-            Through the lens
-          </p>
-
-          <div
-            ref={galleryRef}
-            className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-3 -mx-6 px-6"
-            style={{
-              cursor: "grab",
-              scrollbarWidth: "none",
-              msOverflowStyle: "none",
-              WebkitOverflowScrolling: "touch",
-            } as React.CSSProperties}
-            onMouseDown={onMouseDown}
-            onMouseUp={onMouseUp}
-            onMouseLeave={onMouseUp}
-            onMouseMove={onMouseMove}
-          >
-            {galleryImages.map((img, i) => (
-              <motion.div
-                key={img.src}
-                className="relative flex-shrink-0 h-[300px] md:h-[400px] w-[220px] md:w-[370px] rounded-xl overflow-hidden snap-start border border-[#1A1A1A] hover:border-[#D4A853]/20 transition-colors duration-300 cursor-pointer"
-                initial={{ opacity: 0, scale: 0.97 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.07 }}
-                whileHover={{ scale: 1.02 }}
-                onClick={() => openLightbox(i)}
-              >
-                <Image
-                  src={img.src}
-                  alt={img.alt}
-                  fill
-                  className="object-cover pointer-events-none"
-                  sizes="(max-width: 768px) 220px, 370px"
-                  draggable={false}
-                />
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
       </div>
-
-      {/* Lightbox */}
-      <AnimatePresence>
-        {lightboxOpen && (
-          <Lightbox
-            images={galleryImages}
-            index={lightboxIndex}
-            onClose={() => setLightboxOpen(false)}
-            onPrev={() => setLightboxIndex((p) => Math.max(0, p - 1))}
-            onNext={() =>
-              setLightboxIndex((p) => Math.min(galleryImages.length - 1, p + 1))
-            }
-          />
-        )}
-      </AnimatePresence>
     </section>
   );
 }

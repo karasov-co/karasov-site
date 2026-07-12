@@ -9,28 +9,28 @@ const steps = [
     name: "DISCOVERY",
     time: "30 minutes",
     description:
-      "You describe how jobs come in and where they leak. I map it and tell you what's worth automating — and what isn't. If the numbers don't work, I'll say so.",
+      "You describe how jobs come in and where they leak. I map it and tell you what's worth automating - and what isn't. If the numbers don't work, I'll say so.",
   },
   {
     number: "02",
     name: "ARCHITECTURE",
-    time: "1–2 days",
+    time: "1-2 days",
     description:
       "System design before any code. Tool selection with reasoning. You see the blueprint and approve it.",
   },
   {
     number: "03",
     name: "BUILD",
-    time: "3–7 days",
+    time: "3-7 days",
     description:
-      "Daily progress updates. No black box. Error handling, monitoring, and fallbacks built in from the start — not added later.",
+      "Daily progress updates. No black box. Error handling, monitoring, and fallbacks built in from the start - not added later.",
   },
   {
     number: "04",
     name: "DEPLOY + HANDOFF",
     time: null,
     description:
-      "Full documentation. The system runs without me. Care plan available — most clients keep it, because the system keeps paying for itself.",
+      "Full documentation. The system runs without me. Care plan available - most clients keep it, because the system keeps paying for itself.",
   },
 ];
 
@@ -86,7 +86,7 @@ export default function ProcessSection() {
                   className="text-[#D4A853] font-bold text-base"
                   style={{ fontFamily: "var(--font-space-grotesk), sans-serif" }}
                 >
-                  {step.number} — {step.name}
+                  {step.number} - {step.name}
                 </span>
                 {step.time && (
                   <span
@@ -120,25 +120,19 @@ export default function ProcessSection() {
             className="text-white/80 text-sm"
             style={{ fontFamily: "var(--font-inter), sans-serif" }}
           >
-            Typical project: 3–4 weeks.
+            Typical project: 3-4 weeks.
           </p>
           <p
             className="text-[#888888] text-sm"
             style={{ fontFamily: "var(--font-inter), sans-serif" }}
           >
-            I take 2–3 new builds per quarter. Care-plan clients get priority.
+            I take 2-3 new builds per quarter. Care-plan clients get priority.
           </p>
           <p
             className="text-[#888888] text-sm"
             style={{ fontFamily: "var(--font-inter), sans-serif" }}
           >
-            Reply within a few hours.
-          </p>
-          <p
-            className="text-[#888888] text-sm"
-            style={{ fontFamily: "var(--font-inter), sans-serif" }}
-          >
-            I overlap with US mornings every workday.
+            Reply within a few hours - any time zone.
           </p>
         </motion.div>
       </div>

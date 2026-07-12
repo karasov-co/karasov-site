@@ -9,12 +9,12 @@ const quotes = [
     source: "",
   },
   {
-    text: "The estimate went out Tuesday. Then nothing. Everyone's on site — nobody's job is to follow up.",
+    text: "The estimate went out Tuesday. Then nothing. Everyone's on site - nobody's job is to follow up.",
     source: "",
   },
   {
     text: "Call notes live in the office manager's head. When she's out, your pipeline is out too.",
-    source: "— every contractor, eventually",
+    source: "- every contractor, eventually",
   },
 ];
 

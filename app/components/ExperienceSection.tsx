@@ -5,24 +5,24 @@ import { motion, useInView } from "framer-motion";
 
 const timeline = [
   {
-    year: "2025 — Present",
-    role: "AI Systems for Construction & Home Services — Independent",
-    desc: "Lead-to-contract and back-office systems for contractors, design-build and home-service companies in the US and EU.\n🏆 Award winner at AI Agent Olympics (AI Week Milan 2026, 3rd of 731 teams, solo).\nLead-ops system for an LA design-build studio (10,000+ runs) · instant lead response (under 5 seconds) · production work under NDA.",
+    year: "2025 - Present",
+    role: "AI Systems for Construction & Home Services - Independent",
+    desc: "Lead-to-contract and back-office systems for contractors, design-build and home-service companies.\n🏆 Award winner at AI Agent Olympics (AI Week Milan 2026, 3rd of 731 teams, solo).\nLead-ops system for an LA design-build studio (10,000+ runs) · instant lead response (under 5 seconds) · production work under NDA.",
   },
   {
-    year: "2025 – 2026",
-    role: "Product Manager & AI Lead — Human Gambit Media",
-    desc: "Led The Human Gambit — analytical media brand covering power systems, markets, and geopolitics.\nFull product ownership: editorial strategy, production, distribution, AI pipeline (Make.com + OpenAI API).\n−30% turnaround time · distributed team · broadcast delivery.",
+    year: "2025 - 2026",
+    role: "Product Manager & AI Lead - Human Gambit Media",
+    desc: "Led The Human Gambit - analytical media brand covering power systems, markets, and geopolitics.\nFull product ownership: editorial strategy, production, distribution, AI pipeline (Make.com + OpenAI API).\n-30% turnaround time · distributed team · broadcast delivery.",
   },
   {
     year: "2023",
-    role: "Product Manager — Imperium Academy (EdTech)",
+    role: "Product Manager - Imperium Academy (EdTech)",
     desc: "Launched EdTech platform 0→1 across US, EU, and Asia.\n+15% user retention via GA4-driven onboarding optimization.\nMulti-market expansion: GDPR/COPPA compliance.\nSCORM/xAPI alignment for enterprise integration.",
   },
   {
     year: "2022",
-    role: "Crisis Project Manager — SOS Children's Villages",
-    desc: "1.5M+ PLN portfolio · 2,000+ international entities.\nZero non-compliance findings across all UN/EU audits.\n−95% processing errors.\nCoordinated in 4 languages: EN, PL, UA, RU.",
+    role: "Crisis Project Manager - SOS Children's Villages",
+    desc: "1.5M+ PLN portfolio · 2,000+ international entities.\nZero non-compliance findings across all UN/EU audits.\n-95% processing errors.\nCoordinated in 4 languages: EN, PL, UA, RU.",
   },
 ];
 
@@ -40,7 +40,7 @@ function TimelineItem({
 
   return (
     <div ref={ref} className="relative pl-14 pb-14 last:pb-0">
-      {/* Vertical line — gradient from amber (top) to transparent (bottom) */}
+      {/* Vertical line - gradient from amber (top) to transparent (bottom) */}
       {!isLast && (
         <div
           className="absolute left-[9px] top-4 bottom-0 w-px"

@@ -39,7 +39,7 @@ const videos: VideoData[] = [
   {
     videoId: "GOwcbihQRWA",
     title: "BUKELE: WHY 85% LOVE AN AUTHORITARIAN",
-    description: "When approval ratings defy democratic logic — a case study in power.",
+    description: "When approval ratings defy democratic logic - a case study in power.",
     url: "https://youtu.be/GOwcbihQRWA",
   },
   {
@@ -69,7 +69,7 @@ const videos: VideoData[] = [
   {
     videoId: "tNhxFHN8Wu4",
     title: "KHMELNYTSKY: TRAITOR OR HERO?",
-    description: "How one man's rebellion shaped a nation — and divided it for centuries.",
+    description: "How one man's rebellion shaped a nation - and divided it for centuries.",
     url: "https://youtu.be/tNhxFHN8Wu4",
   },
 ];
@@ -193,7 +193,7 @@ export default function StrategySection() {
             transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
             {[
-              "I study how systems work — from markets to power structures — and break them down into actionable frameworks.",
+              "I study how systems work - from markets to power structures - and break them down into actionable frameworks.",
               "The same analytical approach I apply to these deep dives is how I scope every product: map the system, find the leverage point, build.",
               "Original content in Ukrainian with English dubbing & subtitles.",
             ].map((p) => (
@@ -208,7 +208,7 @@ export default function StrategySection() {
           </motion.div>
         </div>
 
-        {/* Cards — horizontal scroll on mobile, 5-col grid on desktop */}
+        {/* Cards - horizontal scroll on mobile, 5-col grid on desktop */}
         <div className="overflow-x-auto pb-4 -mx-6 px-6">
           <div className="flex gap-5 w-max md:w-auto md:grid md:grid-cols-5">
             {videos.map((v, i) => (

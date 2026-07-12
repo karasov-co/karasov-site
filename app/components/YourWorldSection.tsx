@@ -6,15 +6,15 @@ import { motion, useInView } from "framer-motion";
 const items = [
   {
     label: "Where leads come from",
-    body: "Your leads come from Google LSA, Angi, Thumbtack, Houzz and referrals — and half of them call, not email.",
+    body: "Your leads come from Google LSA, Angi, Thumbtack, Houzz and referrals - and half of them call, not email.",
   },
   {
     label: "The field",
-    body: "Your crews are in the field with phones, not laptops. Anything I build works over text, Telegram or a tap — not another login to forget.",
+    body: "Your crews are in the field with phones, not laptops. Anything I build works over text, Telegram or a tap - not another login to forget.",
   },
   {
     label: "Your stack",
-    body: "Your office already lives in some mix of Gmail, QuickBooks, spreadsheets and a CRM — Buildertrend, JobTread, Housecall Pro, ServiceTitan, Jobber, or “the whiteboard.” I plug into what you have.",
+    body: "Your office already lives in some mix of Gmail, QuickBooks, spreadsheets and a CRM - Buildertrend, JobTread, Housecall Pro, ServiceTitan, Jobber, or “the whiteboard.” I plug into what you have.",
   },
   {
     label: "The reality",

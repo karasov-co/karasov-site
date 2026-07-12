@@ -4,9 +4,9 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
 const buildBullets = [
-  "Scoped in one call, priced upfront — no hourly billing",
-  "Live in 2–4 weeks",
-  "Works with the tools you already use — no rip-and-replace",
+  "Scoped in one call, priced upfront - no hourly billing",
+  "Live in 2-4 weeks",
+  "Works with the tools you already use - no rip-and-replace",
   "Your team touches nothing new: it runs behind Gmail, your CRM and your phone",
   "50% to start, 50% at launch. No invoices until scope is agreed in writing.",
 ];
@@ -14,18 +14,18 @@ const buildBullets = [
 const careBullets = [
   "Monitoring & same-day fixes",
   "Monthly improvements as your business changes",
-  "A monthly report in dollars and jobs — not tech jargon",
-  "Month-to-month. Cancel anytime — you keep everything I built.",
+  "A monthly report in dollars and jobs - not tech jargon",
+  "Month-to-month. Cancel anytime - you keep everything I built.",
 ];
 
 const notAFit = [
-  "Single-truck operations — my systems would be overkill for you yet",
-  "GCs above ~$50M — you need an enterprise Procore/ServiceTitan team",
+  "Single-truck operations - my systems would be overkill for you yet",
+  "GCs above ~$50M - you need an enterprise Procore/ServiceTitan team",
   "Anyone who wants a chatbot on the website and nothing else",
 ];
 
 const closing =
-  "Every system pays for itself with the first saved job. If yours can't, I'll tell you on the first call — and won't take the project.";
+  "Every system pays for itself with the first saved job. If yours can't, I'll tell you on the first call - and won't take the project.";
 
 function OfferCard({
   name,
@@ -120,7 +120,7 @@ export default function OfferSection() {
           <OfferCard
             name="THE BUILD"
             price="from $5,000"
-            intro="A fixed-scope system for your exact bottleneck — lead follow-up, missed-call recovery, estimate chasing, email & document processing."
+            intro="A fixed-scope system for your exact bottleneck - lead follow-up, missed-call recovery, estimate chasing, email & document processing."
             bullets={buildBullets}
             index={0}
             isInView={isInView}

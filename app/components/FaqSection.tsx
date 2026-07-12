@@ -6,15 +6,15 @@ import { motion, AnimatePresence } from "framer-motion";
 const faqs = [
   {
     q: "Why not just buy an AI answering platform for $500/mo?",
-    a: "If all you need is the phone answered — buy one, some are decent. Platforms handle one channel with one script. I build the layer they can't: your calls, emails, estimates, CRM and follow-ups working as one system, shaped around how YOUR company runs jobs. And you own all of it — accounts, workflows, documentation. No subscription hostage.",
+    a: "If all you need is the phone answered - buy one, some are decent. Platforms handle one channel with one script. I build the layer they can't: your calls, emails, estimates, CRM and follow-ups working as one system, shaped around how YOUR company runs jobs. And you own all of it - accounts, workflows, documentation. No subscription hostage.",
   },
   {
     q: "You're not local. What happens when something breaks at 6 PM?",
-    a: "The system is monitored 24/7 and alerts me before you notice. I overlap with US business hours every workday, and every build ships with fallbacks: if any step fails, leads still land in your inbox — nothing silently disappears.",
+    a: "The system is monitored 24/7 and alerts me before you notice. I'm reachable across US, EU and Gulf business hours, and every build ships with fallbacks: if any step fails, leads still land in your inbox - nothing silently disappears.",
   },
   {
     q: "What if it breaks while your crew is on a job?",
-    a: "Systems ship with monitoring, alerts and fallbacks. On a care plan, I know something failed before you do — and fix it same day.",
+    a: "Systems ship with monitoring, alerts and fallbacks. On a care plan, I know something failed before you do - and fix it same day.",
   },
   {
     q: "Do we need to switch CRMs or buy new software?",
@@ -22,15 +22,15 @@ const faqs = [
   },
   {
     q: "How is this different from hiring an “AI agency”?",
-    a: "You work with the person who builds it. Fixed price, 2–4 weeks, and you own everything — accounts, workflows, documentation.",
+    a: "You work with the person who builds it. Fixed price, 2-4 weeks, and you own everything - accounts, workflows, documentation.",
   },
   {
     q: "We're not technical. At all.",
-    a: "Good — you shouldn't have to be. Your team keeps working in Gmail and their phones. The system runs underneath.",
+    a: "Good - you shouldn't have to be. Your team keeps working in Gmail and their phones. The system runs underneath.",
   },
   {
     q: "What does it cost?",
-    a: "Builds from $5,000. Care plans from $2,000/mo. If a missed job costs you $8–12K, the math is short.",
+    a: "Builds from $5,000. Care plans from $2,000/mo. If a missed job costs you $8-12K, the math is short.",
   },
 ];
 

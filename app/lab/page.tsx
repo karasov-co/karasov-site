@@ -5,10 +5,6 @@ import { motion } from "framer-motion";
 import type { ReactElement } from "react";
 import {
   WorkCard,
-  VisualContentEngine,
-  VisualMarketIntel,
-  VisualResearchEngine,
-  VisualPhotoCulling,
   VisualDevToolkit,
   type WorkCardData,
 } from "../components/work-shared";
@@ -16,51 +12,16 @@ import StackSection from "../components/StackSection";
 
 const labCases: WorkCardData[] = [
   {
-    title: "AI CONTENT ENGINE",
-    description:
-      "Writing branded content at scale — consistent voice, audience-relevant topics, multiple platforms — was taking hours every week with inconsistent results.\n\nBuilt a 6-scenario closed-loop pipeline: brand voice, audience pain points, and top-performing posts stored as vectors in Pinecone. Claude generates 6 post variants per topic using RAG context. Feedback loop auto-enriches the style bank from engagement data. Reddit monitoring keeps audience language current automatically.\n\nResult: 30 branded posts for $1 in API costs. Zero manual writing. System improves with each cycle.",
-    tags: ["Make.com", "Claude API", "Pinecone", "Buffer", "RAG"],
-    demoUrl: "https://www.loom.com/share/3e08552f874f407bad4b558bd0bdf9d8",
-  },
-  {
-    title: "MARKET INTELLIGENCE SYSTEM",
-    description:
-      "A founder needed competitive analysis and a go-to-market plan for a new product. Manual research took 3+ days and was outdated before it was finished.\n\nBuilt a form-triggered pipeline: 5 sub-workflows run in parallel — input validation, Gemini Deep Research autonomous agent, market strategy synthesis, GTM planning, and quality evaluation. Grounding ratio 1.0 — every claim backed by a real web source. Results delivered to Airtable and Slack automatically.\n\nResult: competitive analysis + quality scoring + 90-day GTM plan in under 5 minutes.",
-    tags: ["n8n", "Gemini Deep Research", "Airtable", "Slack"],
-    demoUrl: "https://www.loom.com/share/6a08c5221efd444db95ee0275247f288",
-  },
-  {
-    title: "MULTI-AGENT RESEARCH ENGINE",
-    description:
-      "A client's research team was spending 15+ hours per week on manual competitive analysis. I identified the bottleneck, designed a multi-agent pipeline with 4 specialized AI roles, built and deployed it in 5 days.\n\nResult: 3-hour research tasks completed in 2 minutes. Fully automated, one webhook call.",
-    tags: ["n8n", "Claude API", "Supabase pgvector", "Webhooks"],
-    demoUrl: "https://www.loom.com/share/d99029c2ac5b4969823c818cb81ef0d5",
-  },
-  {
-    title: "AI PHOTO CULLING TOOL",
-    description:
-      "After every photoshoot, I was spending 1–2 hours manually reviewing hundreds of RAW files. I defined the scoring criteria, designed the workflow, and built a CLI tool that reads RAW files, extracts EXIF data, and uses GPT Vision to score each photo 1–1000.\n\nProcessed 121 photos in 15 minutes for ~$0.35.",
-    tags: ["Python", "OpenAI Vision API", "Pillow", "rawpy"],
-    demoUrl: "https://www.loom.com/share/adb04c24f46540d8b544de8e488eb88c",
-    githubUrl: "https://github.com/vkarasovpm-dotcom/photo-ai-toolkit",
-  },
-  {
     title: "FREELANCER DEV TOOLKIT",
     description:
-      "I was repeating the same setup steps on every new project — scaffolding, linting, deploy scripts, client reports. I productized my workflow into a reusable toolkit: custom Claude Code commands for project init, automated code review, deploy checklists, and client-facing reports.\n\nSaved 2+ hours per project start.",
+      "I was repeating the same setup steps on every new project - scaffolding, linting, deploy scripts, client reports. I productized my workflow into a reusable toolkit: custom Claude Code commands for project init, automated code review, deploy checklists, and client-facing reports.\n\nSaved 2+ hours per project start.",
     tags: ["Claude Code", "Python", "Shell", "Git"],
     demoUrl: "https://www.loom.com/share/28366f5e5ffd4ad3a3e7f922e9afcf10",
     githubUrl: "https://github.com/vkarasovpm-dotcom/freelancer-toolkit",
   },
 ];
 
-const labVisuals: ReactElement[] = [
-  <VisualContentEngine key="content" />,
-  <VisualMarketIntel key="market" />,
-  <VisualResearchEngine key="research" />,
-  <VisualPhotoCulling key="photo" />,
-  <VisualDevToolkit key="dev" />,
-];
+const labVisuals: ReactElement[] = [<VisualDevToolkit key="dev" />];
 
 export default function LabPage() {
   return (

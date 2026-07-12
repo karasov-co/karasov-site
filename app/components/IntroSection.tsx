@@ -56,9 +56,9 @@ export default function IntroSection() {
       <div className="max-w-3xl mx-auto text-center">
         <div className="flex flex-col gap-5 mb-20">
           {[
-            "Most product managers hand off specs and wait. I write the spec, build the system, and ship it — in days, not quarters.",
-            "I work with founders and teams who need to move fast: validate an idea, automate a painful workflow, or launch an AI-powered MVP from scratch. No handoffs, no telephone game between PM and dev — one person who owns the product end to end.",
-            "MSc in Strategic Project Management. PRINCE2 Certified. 4+ years managing products, teams, and budgets up to 1.5M+ PLN — from EdTech platforms to humanitarian crisis operations.",
+            "Most product managers hand off specs and wait. I write the spec, build the system, and ship it - in days, not quarters.",
+            "I work with founders and teams who need to move fast: validate an idea, automate a painful workflow, or launch an AI-powered MVP from scratch. No handoffs, no telephone game between PM and dev - one person who owns the product end to end.",
+            "MSc in Strategic Project Management. PRINCE2 Certified. 4+ years managing products, teams, and budgets up to 1.5M+ PLN - from EdTech platforms to humanitarian crisis operations.",
           ].map((text, i) => (
             <motion.p
               key={i}
