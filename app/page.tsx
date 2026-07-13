@@ -88,10 +88,10 @@ const WORLD: [string, string][] = [
 
 type CaseItem = {
   num: string; title: string; hook: string; body: string; stack: string;
-  demo: string | null; demoLabel: string; github: string | null;
+  demo: string | null; demoLabel: string; github: string | null; badge?: string;
 };
 const CASES: CaseItem[] = [
-  { num: "01", title: "Lead-to-contract system", hook: "LA design-build studio · The 7 scenarios running the entire lead lifecycle end to end.", body: "Intake, scoring, follow-up, contract detection. Every inbound lead handled without a single manual touch — every booked call becomes a lead card, every inbound email is read and routed, every sales call is transcribed with a reply drafted, and follow-ups fire on their own until the client replies.", stack: "Make.com · ClickUp · OpenAI · Otter · Calendly · Gmail", demo: null, demoLabel: "", github: null },
+  { num: "01", title: "ATAMAN Studio — lead-to-contract system", hook: "Seven automations running the lead lifecycle end to end.", badge: "CLIENT · PRODUCTION · LA DESIGN-BUILD", body: "Seven connected automations covering intake, qualification, call transcription, follow-up and contract detection. Every inbound lead handled without a single manual touch — every booked call becomes a lead card, every inbound email is read and routed, every sales call is transcribed with a reply drafted, and follow-ups fire on their own until the client replies.", stack: "Make.com · ClickUp · OpenAI · Otter · Calendly · Gmail", demo: null, demoLabel: "", github: null },
   { num: "02", title: "Instant lead response & scoring", hook: "Every lead answered and scored in under 5 seconds.", body: "Inbound leads were falling through the cracks — slow responses, no prioritization, manual copy-paste into spreadsheets. Now hot leads get flagged for an immediate call, warm ones enter a nurture sequence, junk gets filtered out. Speed-to-lead wins jobs: the first company to respond wins most of them.", stack: "n8n · Claude API · Google Sheets · REST API", demo: "https://www.loom.com/share/9c2ef40dee6543f897060ef4b8596d74", demoLabel: "Watch demo", github: null },
   { num: "03", title: "Marketing content on autopilot", hook: "30 branded posts for $1 in AI costs. Zero manual writing.", body: "A closed-loop content system: your brand voice, your audience’s pain points and your best-performing posts stored as knowledge; AI drafts platform-ready posts on schedule; engagement data feeds back in, so the system writes better every cycle. Your company stays visible while you run jobs.", stack: "Make.com · Claude API · Pinecone · Buffer · RAG", demo: "https://www.loom.com/share/3e08552f874f407bad4b558bd0bdf9d8", demoLabel: "Watch demo", github: null },
   { num: "04", title: "Market & competitor intelligence", hook: "3+ days of research in under 5 minutes, every claim sourced.", body: "A form-triggered pipeline: five research workflows run in parallel and return a full competitive picture — pricing, positioning, trends — with every claim backed by a real source. Delivered to a spreadsheet and Slack automatically.", stack: "n8n · Gemini Deep Research · Airtable · Slack", demo: "https://www.loom.com/share/6a08c5221efd444db95ee0275247f288", demoLabel: "Watch demo", github: null },
@@ -353,7 +353,8 @@ export default function Page() {
         <section id="cases" style={{ ...goldBorder, background: "#0C0C0C" }}>
           <div className="fd-pad" style={container}>
             <p style={eyebrow}>04 — CASES</p>
-            <h2 style={{ margin: "0 0 64px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.9rem, 4vw, 3rem)", letterSpacing: "-0.025em", lineHeight: 1.03, color: "#EDEDED", maxWidth: 760 }}>32 systems built. 6 shown here. All running in production right now.</h2>
+            <h2 style={{ margin: "0 0 20px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.9rem, 4vw, 3rem)", letterSpacing: "-0.025em", lineHeight: 1.03, color: "#EDEDED", maxWidth: 760 }}>32 systems built. 7 selected examples below.</h2>
+            <p style={{ margin: "0 0 56px", fontSize: 16, color: "#9A9A9A", lineHeight: 1.7, maxWidth: 720 }}>Client production systems, internal tools, open-source builds and an award-winning hackathon project.</p>
 
             <div className="fd-3col" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 1, background: "#1E1E1E", border: "1px solid #1E1E1E", borderRadius: 12, overflow: "hidden", marginBottom: 64 }}>
               {([["<5s", "Every lead answered and scored — hot ones flagged for an immediate call. The first company to respond wins most jobs."], ["2·5·10", "Day follow-up cadence on every estimate — stops itself the second the client replies. No deal goes quiet unnoticed."], ["0", "Manual CRM upkeep. Every call transcribed, summarized and filed; every email routed. It just stays correct."]] as [string, string][]).map(([n, d]) => (
@@ -376,12 +377,15 @@ export default function Page() {
                       <span style={{ color: GOLD, fontSize: 20, flexShrink: 0, transform: `rotate(${open ? 45 : 0}deg)`, transition: "transform 0.2s", display: "inline-block", lineHeight: 1 }}>+</span>
                     </button>
                     <div style={{ display: open ? "block" : "none", padding: "0 4px 28px 54px" }}>
-                      <p style={{ margin: "0 0 14px", fontSize: 14, color: "#9A9A9A", lineHeight: 1.75, maxWidth: 700 }}>{c.body}</p>
-                      <div className="fd-wrap" style={{ display: "flex", alignItems: "center", gap: 18, flexWrap: "wrap" }}>
-                        <span style={{ fontFamily: JB, fontSize: 11, color: "#666666" }}>{c.stack}</span>
-                        {c.demo && <a href={c.demo} target="_blank" rel="noopener noreferrer" className="ks-gold" style={{ fontSize: 13, color: GOLD, fontWeight: 500 }}>▶ {c.demoLabel}</a>}
-                        {c.github && <a href={c.github} target="_blank" rel="noopener noreferrer" className="ks-dim" style={{ fontSize: 13, color: "#777777" }}>GitHub ↗</a>}
-                      </div>
+                      {c.badge && <p style={{ margin: "0 0 12px", fontFamily: JB, fontSize: 11, letterSpacing: "0.18em", color: "#A98A47" }}>{c.badge}</p>}
+                      <p style={{ margin: "0 0 18px", fontSize: 14, color: "#9A9A9A", lineHeight: 1.75, maxWidth: 700 }}>{c.body}</p>
+                      <p style={{ margin: "0 0 16px", fontFamily: JB, fontSize: 11, color: "#666666" }}>{c.stack}</p>
+                      {(c.demo || c.github) && (
+                        <div className="fd-wrap" style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+                          {c.demo && <a href={c.demo} target="_blank" rel="noopener noreferrer" className="ks-btn-outline" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#1E1B12", border: "1px solid rgba(212,168,83,0.5)", color: "#E8C46A", fontWeight: 600, fontSize: 13, padding: "10px 18px", borderRadius: 6, fontFamily: SG }}>▶ {c.demoLabel} →</a>}
+                          {c.github && <a href={c.github} target="_blank" rel="noopener noreferrer" className="ks-navcta" style={{ display: "inline-flex", alignItems: "center", gap: 8, border: "1px solid #2A2A2A", color: "#B5B5B5", fontWeight: 600, fontSize: 13, padding: "10px 18px", borderRadius: 6, fontFamily: SG }}>View GitHub →</a>}
+                        </div>
+                      )}
                     </div>
                   </div>
                 );
@@ -551,7 +555,7 @@ export default function Page() {
             <p style={{ margin: "0 0 56px", fontSize: 14, color: "#777777" }}>or email <a href="mailto:vitalii@karasov.co?subject=Karasov%20Systems%20inquiry" className="ks-gold" style={{ color: GOLD, textDecoration: "underline", textUnderlineOffset: 4 }}>vitalii@karasov.co</a></p>
             <div className="fd-stack" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 20, borderTop: "1px solid #1E1E1E", paddingTop: 28 }}>
               <div>
-                <p style={{ margin: "0 0 6px", fontSize: 12, color: "#555555", fontFamily: JB }}>KARASOV SYSTEMS by Vitalii Karasov · 2026</p>
+                <p style={{ margin: "0 0 6px", fontSize: 12, color: "#555555", fontFamily: JB }}>© 2026 Karasov Systems · Vitalii Karasov, sole proprietor, Ukraine</p>
                 <p style={{ margin: 0, fontSize: 12, color: "#555555", lineHeight: 1.6 }}>Working with contractors and studios across the US, UAE and Europe. Same-business-day response in your timezone.</p>
               </div>
               <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
