@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Karasov Systems — Deck</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; background: #050505; overflow: hidden; font-family: 'Inter', -apple-system, sans-serif; }
+  a { color: #D4A853; text-decoration: none; }
+  a:hover { color: #E8C46A; }
+
+  #deck { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+  #stage {
+    width: 1920px; height: 1080px; position: relative; flex: 0 0 auto;
+    transform-origin: center center; will-change: transform;
+    box-shadow: 0 40px 140px rgba(0,0,0,0.6);
+  }
+  .slide {
+    position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden;
+    opacity: 0; visibility: hidden; transition: opacity 0.4s ease;
+  }
+  .slide.active { opacity: 1; visibility: visible; }
+
+  /* Presentation chrome */
+  #hud {
+    position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); z-index: 60;
+    display: flex; align-items: center; gap: 14px; padding: 9px 14px;
+    background: rgba(14,14,14,0.72); backdrop-filter: blur(10px);
+    border: 1px solid #222; border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #9A9A9A;
+    user-select: none; opacity: 0.9; transition: opacity 0.3s;
+  }
+  #hud:hover { opacity: 1; }
+  #hud button {
+    background: none; border: none; color: #9A9A9A; cursor: pointer;
+    font-size: 15px; line-height: 1; padding: 4px 7px; border-radius: 7px;
+  }
+  #hud button:hover { color: #D4A853; background: rgba(212,168,83,0.1); }
+  #counter { min-width: 54px; text-align: center; letter-spacing: 0.12em; color: #CFCFCF; }
+  #label { color: #D4A853; letter-spacing: 0.08em; text-transform: uppercase; font-size: 11px; }
+  #sep { color: #333; }
+  .navzone { position: fixed; top: 0; height: 100%; width: 14%; z-index: 50; cursor: pointer; }
+  .navzone.left { left: 0; } .navzone.right { right: 0; }
+
+  @media print {
+    html, body { overflow: visible; height: auto; background: #0A0A0A; }
+    #deck { position: static; display: block; }
+    #stage { transform: none !important; width: 1920px; height: auto; box-shadow: none; }
+    .slide {
+      position: relative; inset: auto; opacity: 1 !important; visibility: visible !important;
+      width: 1920px; height: 1080px; break-after: page; page-break-after: always;
+    }
+    #hud, .navzone { display: none !important; }
+    @page { size: 1920px 1080px; margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div id="deck">
+  <div id="stage">
+
+    <!-- 1 · Title -->
+    <section class="slide active" data-label="Title" style="background: #0A0A0A; color: #EDEDED; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; justify-content: space-between; padding: 90px 110px; box-sizing: border-box; background-image: linear-gradient(rgba(212,168,83,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(212,168,83,0.04) 1px, transparent 1px); background-size: 64px 64px;">
+      <div>
+        <p style="margin: 0 0 10px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 40px; letter-spacing: 0.1em; line-height: 1;">KARASOV <span style="color: #D4A853;">SYSTEMS</span></p>
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <span style="display: block; width: 60px; height: 2px; background: #D4A853;"></span>
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 22px; color: #8A8A8A;">by Vitalii Karasov</span>
+        </div>
+      </div>
+      <div>
+        <h1 style="margin: 0 0 36px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 108px; line-height: 0.98; letter-spacing: -0.035em; max-width: 1400px;">The operational brain your company <span style="color: #D4A853;">was supposed to have.</span></h1>
+        <p style="margin: 0; font-size: 30px; color: #9A9A9A; max-width: 1150px; line-height: 1.5;">Personal AI systems for construction, design-build and home-service companies — one intelligent layer behind the tools you already use.</p>
+      </div>
+      <div style="display: flex; align-items: center; gap: 24px;">
+        <img src="/images/portrait-hero.jpg" alt="Vitalii Karasov" style="width: 92px; height: 92px; border-radius: 50%; object-fit: cover; object-position: top; border: 2px solid rgba(212,168,83,0.4);">
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 22px; color: #D4A853;">▸ Winner, AI Agent Olympics — Milan AI Week 2026, Europe's largest AI event</p>
+          <p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 22px; color: #8A8A8A;">▸ US · UAE · EU · same-business-day response</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 · The problem -->
+    <section class="slide" data-label="The Problem" style="background: #0A0A0A; color: #EDEDED; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; padding: 90px 110px; box-sizing: border-box;">
+      <p style="margin: 0 0 56px; font-family: 'JetBrains Mono', monospace; font-size: 24px; color: #A98A47; letter-spacing: 0.2em;">01 — YOU KNOW THESE MORNINGS</p>
+      <div style="display: flex; flex-direction: column; gap: 48px; flex: 1; justify-content: center;">
+        <p style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 46px; line-height: 1.2; letter-spacing: -0.02em; max-width: 1500px;">“The estimate went out Tuesday. Then nothing. Everyone's on site — <span style="color: #D4A853;">nobody's job is to follow up.</span>”</p>
+        <p style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 46px; line-height: 1.2; letter-spacing: -0.02em; max-width: 1500px; align-self: flex-end; text-align: right;">“The whole company lives in my head. I take a week off — <span style="color: #D4A853;">everything stops.</span>”</p>
+        <p style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 46px; line-height: 1.2; letter-spacing: -0.02em; max-width: 1500px;">Three people spend forty minutes searching for an answer <span style="color: #D4A853;">that was decided six weeks ago.</span></p>
+      </div>
+      <p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 28px; color: #D4A853; letter-spacing: 0.08em;">This is what I fix.</p>
+    </section>
+
+    <!-- 3 · What I build -->
+    <section class="slide" data-label="What I Build" style="background: #0C0C0C; color: #EDEDED; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; padding: 90px 110px; box-sizing: border-box;">
+      <p style="margin: 0 0 18px; font-family: 'JetBrains Mono', monospace; font-size: 24px; color: #A98A47; letter-spacing: 0.2em;">02 — WHAT I BUILD</p>
+      <h2 style="margin: 0 0 52px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 54px; letter-spacing: -0.02em; line-height: 1.1; max-width: 1500px;">An operational layer that captures, organizes and retrieves everything your business already knows — <span style="color: #D4A853;">without asking anyone to type it in.</span></h2>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 22px 80px; flex: 1; align-content: center;">
+        <div style="display: flex; gap: 24px; align-items: baseline;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 26px; color: #D4A853; width: 340px; flex-shrink: 0;">▸ LEAD OPS</span><span style="font-size: 24px; color: #9A9A9A;">Answering, scoring, missed-call recovery</span></div>
+        <div style="display: flex; gap: 24px; align-items: baseline;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 26px; color: #D4A853; width: 340px; flex-shrink: 0;">▸ COMMS OPS</span><span style="font-size: 24px; color: #9A9A9A;">Field-to-office translation, auto-logged</span></div>
+        <div style="display: flex; gap: 24px; align-items: baseline;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 26px; color: #D4A853; width: 340px; flex-shrink: 0;">▸ ESTIMATE OPS</span><span style="font-size: 24px; color: #9A9A9A;">Quotes from photos, day 2/5/10 chase</span></div>
+        <div style="display: flex; gap: 24px; align-items: baseline;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 26px; color: #D4A853; width: 340px; flex-shrink: 0;">▸ DOCUMENT OPS</span><span style="font-size: 24px; color: #9A9A9A;">RFIs, change orders, client updates — drafted</span></div>
+        <div style="display: flex; gap: 24px; align-items: baseline;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 26px; color: #D4A853; width: 340px; flex-shrink: 0;">▸ PROJECT KNOWLEDGE</span><span style="font-size: 24px; color: #9A9A9A;">A searchable brain for every project</span></div>
+        <div style="display: flex; gap: 24px; align-items: baseline;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 26px; color: #D4A853; width: 340px; flex-shrink: 0;">▸ REPORT OPS</span><span style="font-size: 24px; color: #9A9A9A;">Owner digest, rollups, client progress</span></div>
+        <div style="display: flex; gap: 24px; align-items: baseline;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 26px; color: #D4A853; width: 340px; flex-shrink: 0;">▸ FIELD OPS</span><span style="font-size: 24px; color: #9A9A9A;">Check-in, time tracking, proof-of-work</span></div>
+        <div style="display: flex; gap: 24px; align-items: baseline;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 26px; color: #D4A853; width: 340px; flex-shrink: 0;">▸ COMPANY SOP</span><span style="font-size: 24px; color: #9A9A9A;">Procedures and checklists, instantly retrievable</span></div>
+        <div style="display: flex; gap: 24px; align-items: baseline;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 26px; color: #D4A853; width: 340px; flex-shrink: 0;">▸ SUPPLIER OPS</span><span style="font-size: 24px; color: #9A9A9A;">Orders, deliveries, invoice reconciliation</span></div>
+        <div style="display: flex; gap: 24px; align-items: baseline;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 26px; color: #D4A853; width: 340px; flex-shrink: 0;">▸ DECISION SUPPORT</span><span style="font-size: 24px; color: #9A9A9A;">Risks and trends from your own data</span></div>
+      </div>
+      <p style="margin: 40px 0 0; font-size: 24px; color: #C9C9C9; border: 1px solid rgba(212,168,83,0.3); border-radius: 12px; padding: 28px 34px; line-height: 1.5;"><span style="font-family: 'JetBrains Mono', monospace; color: #A98A47; letter-spacing: 0.15em; font-size: 20px;">VOICE-FIRST · </span>Your crew keeps talking the way they already talk — the office gets structured data on the other side.</p>
+    </section>
+
+    <!-- 4 · Scope -->
+    <section class="slide" data-label="Scope" style="background: #0A0A0A; color: #EDEDED; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; justify-content: center; padding: 90px 110px; box-sizing: border-box;">
+      <p style="margin: 0 0 28px; font-family: 'JetBrains Mono', monospace; font-size: 24px; color: #A98A47; letter-spacing: 0.2em;">03 — SCOPE</p>
+      <h2 style="margin: 0 0 56px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 84px; letter-spacing: -0.025em; line-height: 1.02; max-width: 1300px;">Same principles, three depths of engagement.</h2>
+      <p style="margin: 0 0 32px; font-size: 30px; color: #9A9A9A; line-height: 1.6; max-width: 1350px;">Some clients start with one broken workflow and stay there. Some grow into a full company operating layer over 6-18 months. The system is designed to support both.</p>
+      <p style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 40px; color: #D4A853; line-height: 1.4; max-width: 1350px;">Data collection comes first. Automation comes second.<br>That's the order that survives.</p>
+    </section>
+
+    <!-- 5 · Proof -->
+    <section class="slide" data-label="Proof" style="background: #0C0C0C; color: #EDEDED; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; padding: 90px 110px; box-sizing: border-box;">
+      <p style="margin: 0 0 18px; font-family: 'JetBrains Mono', monospace; font-size: 24px; color: #A98A47; letter-spacing: 0.2em;">04 — PROOF, NOT PROMISES</p>
+      <h2 style="margin: 0 0 64px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 64px; letter-spacing: -0.025em; line-height: 1.05; max-width: 1500px;"><span style="font-family: 'JetBrains Mono', monospace; font-weight: 500;">10,000+</span> automated runs at Ataman Studio, an LA design-build firm. In production. Right now.</h2>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: #1E1E1E; border: 1px solid #1E1E1E; border-radius: 16px; overflow: hidden; flex: 1;">
+        <div style="background: #0E0E0E; padding: 56px 48px;">
+          <div style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 96px; color: #D4A853; line-height: 1;">&lt;5s</div>
+          <p style="margin: 28px 0 0; font-size: 26px; color: #9A9A9A; line-height: 1.55;">Every lead answered and scored — hot ones flagged for an immediate call.</p>
+        </div>
+        <div style="background: #0E0E0E; padding: 56px 48px;">
+          <div style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 96px; color: #D4A853; line-height: 1;">2·5·10</div>
+          <p style="margin: 28px 0 0; font-size: 26px; color: #9A9A9A; line-height: 1.55;">Day follow-up cadence on every estimate — stops the second the client replies.</p>
+        </div>
+        <div style="background: #0E0E0E; padding: 56px 48px;">
+          <div style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 96px; color: #D4A853; line-height: 1;">0</div>
+          <p style="margin: 28px 0 0; font-size: 26px; color: #9A9A9A; line-height: 1.55;">Manual CRM upkeep. Every call transcribed, filed and routed automatically.</p>
+        </div>
+      </div>
+      <p style="margin: 48px 0 0; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 38px; color: #D4A853;">“Cut our missed-call revenue leak to near zero.”</p>
+    </section>
+
+    <!-- 6 · Cases -->
+    <section class="slide" data-label="Cases" style="background: #0A0A0A; color: #EDEDED; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; padding: 90px 110px; box-sizing: border-box;">
+      <p style="margin: 0 0 18px; font-family: 'JetBrains Mono', monospace; font-size: 24px; color: #A98A47; letter-spacing: 0.2em;">04 — CASES</p>
+      <h2 style="margin: 0 0 56px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 60px; letter-spacing: -0.025em; line-height: 1.05;">Seven live systems. Hundreds of workflows in production.</h2>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px 80px; flex: 1; align-content: center;">
+        <div style="display: flex; gap: 24px; align-items: baseline; border-bottom: 1px solid #1E1E1E; padding-bottom: 20px;"><span style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 28px; flex: 1;">Lead-to-contract · Ataman Studio</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 26px; color: #D4A853;">10,000+ runs</span></div>
+        <div style="display: flex; gap: 24px; align-items: baseline; border-bottom: 1px solid #1E1E1E; padding-bottom: 20px;"><span style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 28px; flex: 1;">Research engine</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 26px; color: #D4A853;">3h → 2min</span></div>
+        <div style="display: flex; gap: 24px; align-items: baseline; border-bottom: 1px solid #1E1E1E; padding-bottom: 20px;"><span style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 28px; flex: 1;">Instant lead response &amp; scoring</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 26px; color: #D4A853;">&lt;5s</span></div>
+        <div style="display: flex; gap: 24px; align-items: baseline; border-bottom: 1px solid #1E1E1E; padding-bottom: 20px;"><span style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 28px; flex: 1;">Project photo AI · open source</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 26px; color: #D4A853;">121 photos · $0.35</span></div>
+        <div style="display: flex; gap: 24px; align-items: baseline; border-bottom: 1px solid #1E1E1E; padding-bottom: 20px;"><span style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 28px; flex: 1;">Marketing content on autopilot</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 26px; color: #D4A853;">30 posts · $1</span></div>
+        <div style="display: flex; gap: 24px; align-items: baseline; border-bottom: 1px solid #1E1E1E; padding-bottom: 20px;"><span style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 28px; flex: 1;">Sentinel — adversarial AI court</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 26px; color: #D4A853;">WINNER · Milan 2026</span></div>
+        <div style="display: flex; gap: 24px; align-items: baseline; border-bottom: 1px solid #1E1E1E; padding-bottom: 20px;"><span style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 28px; flex: 1;">Market &amp; competitor intelligence</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 26px; color: #D4A853;">3 days → 5 min</span></div>
+        <div style="display: flex; gap: 24px; align-items: baseline; border-bottom: 1px solid #1E1E1E; padding-bottom: 20px;"><span style="font-size: 24px; color: #666666; flex: 1;">Some work runs under strict NDA</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 22px; color: #555555;">REFERENCES ON CALL</span></div>
+      </div>
+    </section>
+
+    <!-- 7 · Pricing -->
+    <section class="slide" data-label="Pricing" style="background: #0C0C0C; color: #EDEDED; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; padding: 90px 110px; box-sizing: border-box;">
+      <p style="margin: 0 0 18px; font-family: 'JetBrains Mono', monospace; font-size: 24px; color: #A98A47; letter-spacing: 0.2em;">05 — PRICING</p>
+      <h2 style="margin: 0 0 56px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 60px; letter-spacing: -0.025em; line-height: 1.05;">Start with one bottleneck. Grow as far as the math takes you.</h2>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; flex: 1;">
+        <div style="border: 2px solid rgba(212,168,83,0.35); border-radius: 16px; padding: 48px 44px; background: linear-gradient(180deg, rgba(212,168,83,0.05), transparent 40%);">
+          <p style="margin: 0 0 8px; font-family: 'JetBrains Mono', monospace; font-size: 22px; letter-spacing: 0.2em; color: #A98A47;">PILOT</p>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 46px; margin-bottom: 8px;">$3,000 – $8,000</div>
+          <p style="margin: 0 0 28px; font-family: 'JetBrains Mono', monospace; font-size: 20px; color: #A98A47; letter-spacing: 0.08em;">FIXED PRICE</p>
+          <p style="margin: 0; font-size: 25px; color: #C9C9C9; line-height: 1.6;">One system, one bottleneck, live in 2-4 weeks. 50% at signature, 50% at launch. Yours to keep — code, credentials, docs.</p>
+        </div>
+        <div style="border: 1px solid #1E1E1E; border-radius: 16px; padding: 48px 44px;">
+          <p style="margin: 0 0 8px; font-family: 'JetBrains Mono', monospace; font-size: 22px; letter-spacing: 0.2em; color: #777777;">OPERATE</p>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 46px; margin-bottom: 8px;">from $2,000<span style="font-size: 26px; color: #777777;">/mo</span></div>
+          <p style="margin: 0 0 28px; font-family: 'JetBrains Mono', monospace; font-size: 20px; color: #777777; letter-spacing: 0.08em;">MONTH-TO-MONTH</p>
+          <p style="margin: 0; font-size: 25px; color: #C9C9C9; line-height: 1.6;">Monitoring, same-day fixes, monthly improvements, new modules as you grow. Cancel anytime, keep everything.</p>
+        </div>
+        <div style="border: 1px solid #1E1E1E; border-radius: 16px; padding: 48px 44px;">
+          <p style="margin: 0 0 8px; font-family: 'JetBrains Mono', monospace; font-size: 22px; letter-spacing: 0.2em; color: #777777;">PLATFORM</p>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 46px; margin-bottom: 8px;">engagement</div>
+          <p style="margin: 0 0 28px; font-family: 'JetBrains Mono', monospace; font-size: 20px; color: #777777; letter-spacing: 0.08em;">SCOPED PER BUSINESS</p>
+          <p style="margin: 0; font-size: 25px; color: #C9C9C9; line-height: 1.6;">Full operational layer in phases over 6-18 months, shipped in working 2-4 week increments. NDA-friendly.</p>
+        </div>
+      </div>
+      <p style="margin: 40px 0 0; font-size: 24px; color: #808080;">Equity or revenue-share arrangements available for early-stage companies with strong traction.</p>
+    </section>
+
+    <!-- 8 · How it lands -->
+    <section class="slide" data-label="How It Lands" style="background: #0A0A0A; color: #EDEDED; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; padding: 90px 110px; box-sizing: border-box;">
+      <p style="margin: 0 0 18px; font-family: 'JetBrains Mono', monospace; font-size: 24px; color: #A98A47; letter-spacing: 0.2em;">06 — HOW IT LANDS</p>
+      <h2 style="margin: 0 0 64px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 72px; letter-spacing: -0.025em; line-height: 1.02;">Four steps. No black box.</h2>
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; flex: 1; align-content: start;">
+        <div style="border-top: 3px solid #D4A853; padding-top: 32px;">
+          <p style="margin: 0 0 14px; font-family: 'JetBrains Mono', monospace; font-size: 22px; color: #A98A47;">▸ 30 MINUTES</p>
+          <h3 style="margin: 0 0 16px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px;">Discovery</h3>
+          <p style="margin: 0; font-size: 24px; color: #9A9A9A; line-height: 1.6;">You describe where jobs leak. I tell you what's worth automating and what isn't. Written scope in 24 hours.</p>
+        </div>
+        <div style="border-top: 3px solid #3A3A3A; padding-top: 32px;">
+          <p style="margin: 0 0 14px; font-family: 'JetBrains Mono', monospace; font-size: 22px; color: #777777;">▸ 1-2 DAYS</p>
+          <h3 style="margin: 0 0 16px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px;">Architecture</h3>
+          <p style="margin: 0; font-size: 24px; color: #9A9A9A; line-height: 1.6;">Design before any code. You approve the blueprint. Wrong architecture gets fixed on paper — not in production.</p>
+        </div>
+        <div style="border-top: 3px solid #3A3A3A; padding-top: 32px;">
+          <p style="margin: 0 0 14px; font-family: 'JetBrains Mono', monospace; font-size: 22px; color: #777777;">▸ 3-7 DAYS</p>
+          <h3 style="margin: 0 0 16px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px;">Build</h3>
+          <p style="margin: 0; font-size: 24px; color: #9A9A9A; line-height: 1.6;">Daily updates. Error handling, monitoring and fallbacks from the start. Nothing ships without tests.</p>
+        </div>
+        <div style="border-top: 3px solid #3A3A3A; padding-top: 32px;">
+          <p style="margin: 0 0 14px; font-family: 'JetBrains Mono', monospace; font-size: 22px; color: #777777;">▸ FINAL</p>
+          <h3 style="margin: 0 0 16px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px;">Deploy + own it</h3>
+          <p style="margin: 0; font-size: 24px; color: #9A9A9A; line-height: 1.6;">Docs, source code, credentials — all yours from day one. The system runs without me.</p>
+        </div>
+      </div>
+      <p style="margin: 0; font-size: 24px; color: #808080; line-height: 1.6;">For phased platform builds, this rhythm repeats in 2-4 week increments — each one ships something that works.</p>
+    </section>
+
+    <!-- 9 · Who builds it -->
+    <section class="slide" data-label="Who Builds It" style="background: #0C0C0C; color: #EDEDED; font-family: 'Inter', sans-serif; display: flex; gap: 90px; padding: 90px 110px; box-sizing: border-box; align-items: center;">
+      <img src="/images/portrait-about.jpg" alt="Vitalii Karasov" style="width: 430px; aspect-ratio: 3/4; object-fit: cover; border-radius: 16px; border: 1px solid #1E1E1E; filter: grayscale(25%); flex-shrink: 0;">
+      <div>
+        <p style="margin: 0 0 18px; font-family: 'JetBrains Mono', monospace; font-size: 24px; color: #A98A47; letter-spacing: 0.2em;">08 — WHO BUILDS IT</p>
+        <h2 style="margin: 0 0 32px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 56px; letter-spacing: -0.02em; line-height: 1.05;">Vitalii Karasov — a product manager who builds.</h2>
+        <p style="margin: 0 0 24px; font-size: 27px; color: #9A9A9A; line-height: 1.6;">Five years in operations, product and delivery: EdTech, media production, humanitarian crisis logistics with a 1.5M+ PLN budget and zero audit findings. MSc in Strategic Project Management. PRINCE2.</p>
+        <p style="margin: 0 0 24px; font-size: 27px; color: #9A9A9A; line-height: 1.6;">In 2026 my solo build won at the <span style="color: #D4A853;">AI Agent Olympics at Milan AI Week</span> — Europe's largest AI event.</p>
+        <p style="margin: 0 0 24px; font-size: 27px; color: #EDEDED; line-height: 1.6; font-weight: 500;">Now I build one thing: the operational layer for construction and home-service companies. Deep, not wide.</p>
+        <p style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 21px; color: #666666; line-height: 1.8;">Gmail · QuickBooks · Buildertrend · JobTread · Housecall Pro · ServiceTitan · Jobber · Procore · Calendly · WhatsApp · Zoho — GDPR, PDPL and CCPA mapping in every build.</p>
+      </div>
+    </section>
+
+    <!-- 10 · CTA -->
+    <section class="slide" data-label="CTA" style="background: #0A0A0A; color: #EDEDED; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; justify-content: center; padding: 90px 110px; box-sizing: border-box; background-image: linear-gradient(rgba(212,168,83,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(212,168,83,0.04) 1px, transparent 1px); background-size: 64px 64px;">
+      <h2 style="margin: 0 0 48px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 76px; letter-spacing: -0.03em; line-height: 1.1; max-width: 1500px;">Losing leads you already paid for?<br>Chasing information that's already in your inbox?<br><span style="color: #D4A853;">Running a business inside your own head?</span></h2>
+      <p style="margin: 0 0 56px; font-size: 30px; color: #9A9A9A; line-height: 1.6; max-width: 1200px;">One message. I'll tell you what's leaking and what it would take to fix it — even if we don't end up working together.</p>
+      <div style="display: flex; gap: 28px; align-items: center;">
+        <a href="https://wa.me/karvitalii" style="background: #D4A853; color: #0A0A0A; font-weight: 600; padding: 26px 52px; border-radius: 12px; font-size: 28px; font-family: 'Space Grotesk', sans-serif;">💬 WhatsApp — same-day reply</a>
+        <a href="https://calendly.com/v-karasov-pm/30min" style="border: 2px solid rgba(212,168,83,0.5); color: #E8C46A; font-weight: 600; padding: 24px 52px; border-radius: 12px; font-size: 28px; font-family: 'Space Grotesk', sans-serif;">📅 Book a 30-min call</a>
+        <a href="mailto:vitalii@karasov.co" style="font-family: 'JetBrains Mono', monospace; font-size: 24px; color: #777777;">vitalii@karasov.co</a>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<div class="navzone left" id="navLeft" aria-label="Previous slide"></div>
+<div class="navzone right" id="navRight" aria-label="Next slide"></div>
+
+<div id="hud">
+  <button id="prev" title="Previous (←)">◀</button>
+  <span id="counter">1 / 10</span>
+  <button id="next" title="Next (→)">▶</button>
+  <span id="sep">·</span>
+  <span id="label">Title</span>
+  <span id="sep">·</span>
+  <button id="fs" title="Fullscreen (F)">⛶</button>
+  <button id="print" title="Print / PDF">⎙</button>
+</div>
+
+<script>
+  (function () {
+    var stage = document.getElementById('stage');
+    var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+    var counter = document.getElementById('counter');
+    var label = document.getElementById('label');
+    var i = 0;
+
+    function fit() {
+      var s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+      stage.style.transform = 'scale(' + s + ')';
+    }
+    window.addEventListener('resize', fit);
+    fit();
+
+    function show(n) {
+      i = Math.max(0, Math.min(slides.length - 1, n));
+      for (var k = 0; k < slides.length; k++) {
+        slides[k].classList.toggle('active', k === i);
+      }
+      counter.textContent = (i + 1) + ' / ' + slides.length;
+      label.textContent = slides[i].getAttribute('data-label') || '';
+      if (history.replaceState) history.replaceState(null, '', '#' + (i + 1));
+    }
+    function next() { show(i + 1); }
+    function prev() { show(i - 1); }
+
+    document.addEventListener('keydown', function (e) {
+      var k = e.key;
+      if (k === 'ArrowRight' || k === 'PageDown' || k === ' ') { e.preventDefault(); next(); }
+      else if (k === 'ArrowLeft' || k === 'PageUp') { e.preventDefault(); prev(); }
+      else if (k === 'Home') { show(0); }
+      else if (k === 'End') { show(slides.length - 1); }
+      else if (k === 'f' || k === 'F') {
+        if (!document.fullscreenElement) { document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); }
+        else { document.exitFullscreen && document.exitFullscreen(); }
+      }
+    });
+
+    document.getElementById('next').addEventListener('click', next);
+    document.getElementById('prev').addEventListener('click', prev);
+    document.getElementById('navRight').addEventListener('click', next);
+    document.getElementById('navLeft').addEventListener('click', prev);
+    document.getElementById('fs').addEventListener('click', function () {
+      if (!document.fullscreenElement) { document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); }
+      else { document.exitFullscreen && document.exitFullscreen(); }
+    });
+    document.getElementById('print').addEventListener('click', function () { window.print(); });
+
+    window.addEventListener('hashchange', function () {
+      var n = parseInt((location.hash || '').slice(1), 10);
+      if (!isNaN(n)) show(n - 1);
+    });
+
+    var start = parseInt((location.hash || '').slice(1), 10);
+    show(isNaN(start) ? 0 : start - 1);
+  })();
+</script>
+
+</body>
+</html>
