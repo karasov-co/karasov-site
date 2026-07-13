@@ -23,9 +23,9 @@ const jetbrainsMono = JetBrains_Mono({
 const siteUrl = "https://karasov.co";
 
 export const metadata: Metadata = {
-  title: "Vitalii Karasov - AI Systems for Construction & Home-Service Companies",
+  title: "Karasov Systems · The operational brain your company was supposed to have",
   description:
-    "Lead-to-contract systems for contractors, design-build and home-service companies. Every call answered, every follow-up sent, every job documented - without hiring another office person. Live in weeks.",
+    "Personal AI systems for construction, design-build and home-service companies. Leads, estimates, project knowledge, documents and reports running as one intelligent operational layer behind the tools you already use.",
   keywords: [
     "construction automation",
     "contractor CRM automation",
@@ -40,9 +40,9 @@ export const metadata: Metadata = {
   authors: [{ name: "Vitalii Karasov" }],
   metadataBase: new URL(siteUrl),
   openGraph: {
-    title: "Vitalii Karasov - AI Systems for Construction & Home-Service Companies",
+    title: "Karasov Systems · The operational brain your company was supposed to have",
     description:
-      "Lead-to-contract systems for contractors, design-build and home-service companies. Every call answered, every follow-up sent, every job documented - without hiring another office person. Live in weeks.",
+      "Personal AI systems for construction, design-build and home-service companies. Leads, estimates, project knowledge, documents and reports running as one intelligent operational layer behind the tools you already use.",
     type: "website",
     url: siteUrl,
     images: [
@@ -58,9 +58,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Vitalii Karasov - AI Systems for Construction & Home-Service Companies",
+    title: "Karasov Systems · The operational brain your company was supposed to have",
     description:
-      "Lead-to-contract systems for contractors, design-build and home-service companies. Every call answered, every follow-up sent, every job documented - without hiring another office person. Live in weeks.",
+      "Personal AI systems for construction, design-build and home-service companies. Leads, estimates, project knowledge, documents and reports running as one intelligent operational layer behind the tools you already use.",
   },
 };
 
@@ -68,7 +68,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Vitalii Karasov",
-  jobTitle: "AI Systems Builder for Construction & Home-Service Companies",
+  jobTitle: "AI operational systems for construction & home-service companies",
   url: siteUrl,
   email: "v.karasov.pm@gmail.com",
   sameAs: [

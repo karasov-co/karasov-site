@@ -1,53 +1,595 @@
-import Navbar from "./components/Navbar";
-import HeroSection from "./components/HeroSection";
-import PainPointsSection from "./components/PainPointsSection";
-import WorkSection from "./components/WorkSection";
-import OfferSection from "./components/OfferSection";
-import YourWorldSection from "./components/YourWorldSection";
-import ProcessSection from "./components/ProcessSection";
-import ToolsSection from "./components/ToolsSection";
-import AboutSection from "./components/AboutSection";
-import ExperienceSection from "./components/ExperienceSection";
-import FaqSection from "./components/FaqSection";
-import ContactSection from "./components/ContactSection";
-import CursorGlow from "./components/CursorGlow";
-import PageLoadOverlay from "./components/PageLoadOverlay";
-import ScrollProgressBar from "./components/ScrollProgressBar";
+"use client";
 
-function Divider() {
-  return <div className="h-px bg-[#1A1A1A]" />;
+/* eslint-disable @next/next/no-img-element */
+import { useState, useEffect, useRef, type CSSProperties } from "react";
+
+const SG = "var(--font-space-grotesk), sans-serif";
+const IN = "var(--font-inter), sans-serif";
+const JB = "var(--font-jetbrains-mono), monospace";
+const GOLD = "#D4A853";
+
+const WA =
+  "https://wa.me/karvitalii?text=Hi%20Vitalii%2C%20I%20saw%20your%20site%20and%20want%20to%20talk%20about%20my%20operations.";
+const CAL = "https://calendly.com/v-karasov-pm/30min";
+
+type FeedItem = { time: string; mod: string; text: string; rev: number };
+
+const FEED: FeedItem[] = [
+  { time: "06:47 AM", mod: "LEAD", text: "Missed call recovered · text-back sent in 4 sec · $8,400 lead booked", rev: 8400 },
+  { time: "08:12 AM", mod: "LEAD", text: "Website form filled · scored HOT · owner notified", rev: 6800 },
+  { time: "09:15 AM", mod: "LEAD", text: "Angi lead deduplicated · already in CRM from last month", rev: 0 },
+  { time: "10:33 AM", mod: "LEAD", text: "Cold lead re-engaged · 90-day silence · replied “still interested”", rev: 5600 },
+  { time: "02:41 PM", mod: "LEAD", text: "Voicemail transcribed · classified urgent · SMS sent to on-call", rev: 0 },
+  { time: "07:03 AM", mod: "ESTIMATE", text: "Estimate #218 · day 2 follow-up · client replied “🙏”", rev: 0 },
+  { time: "09:22 AM", mod: "ESTIMATE", text: "Quote drafted from site photos · $14,200 · sent for approval", rev: 14200 },
+  { time: "11:14 AM", mod: "ESTIMATE", text: "Estimate went quiet on day 5 · nudge scheduled · gentle tone", rev: 0 },
+  { time: "01:30 PM", mod: "ESTIMATE", text: "Client asked “can you do it cheaper?” · 3 options drafted for owner", rev: 0 },
+  { time: "03:15 PM", mod: "ESTIMATE", text: "Signed contract detected in Gmail · CRM updated · job created", rev: 24000 },
+  { time: "06:12 AM", mod: "SUPPLIER", text: "Lumber order placed · Home Depot #4471 · $2,340", rev: 2340 },
+  { time: "08:45 AM", mod: "SUPPLIER", text: "Invoice reconciled · flagged $340 mismatch on cement delivery", rev: 340 },
+  { time: "10:20 AM", mod: "SUPPLIER", text: "Delivery delayed 2 days · project timeline adjusted · foreman alerted", rev: 0 },
+  { time: "12:15 PM", mod: "SUPPLIER", text: "Recurring order triggered · drywall for Site B · standard SKU", rev: 1180 },
+  { time: "04:30 PM", mod: "SUPPLIER", text: "Supplier email parsed · price change on rebar · logged for review", rev: 0 },
+  { time: "07:30 AM", mod: "JOB", text: "Job #142 photos categorized · 47 images filed · Foundation phase", rev: 0 },
+  { time: "09:45 AM", mod: "JOB", text: "Permit deadline in 3 days · reminder sent to office", rev: 0 },
+  { time: "11:50 AM", mod: "JOB", text: "Change order documented · $2,800 · client signed via DocuSign", rev: 2800 },
+  { time: "02:20 PM", mod: "JOB", text: "Warranty period ending · client contacted for annual check", rev: 0 },
+  { time: "05:00 PM", mod: "JOB", text: "Completion photos requested from crew · WhatsApp thread opened", rev: 0 },
+  { time: "07:15 AM", mod: "COMMS", text: "Field crew message translated · voice note → text summary", rev: 0 },
+  { time: "10:30 AM", mod: "COMMS", text: "WhatsApp thread → CRM notes · no manual entry", rev: 0 },
+  { time: "12:40 PM", mod: "COMMS", text: "Client asked status via SMS · auto-reply with photo update", rev: 0 },
+  { time: "03:22 PM", mod: "COMMS", text: "Owner CC’d on 8 threads · dashboard shows only 2 need attention", rev: 0 },
+  { time: "06:00 PM", mod: "COMMS", text: "Weekly recap sent to 12 clients · “here’s what happened this week”", rev: 0 },
+  { time: "07:00 AM", mod: "REPORT", text: "Owner morning digest ready · 3 things that need your call today", rev: 0 },
+  { time: "09:00 AM", mod: "REPORT", text: "Weekly financial rollup · gross margin per project", rev: 0 },
+  { time: "11:00 AM", mod: "REPORT", text: "Client update generated · “Where’s my kitchen?” · sent with photos", rev: 0 },
+  { time: "02:00 PM", mod: "REPORT", text: "Subcontractor performance report · on-time %, rework rate", rev: 0 },
+  { time: "05:30 PM", mod: "REPORT", text: "Monthly investor summary drafted · numbers only, no fluff", rev: 0 },
+  { time: "08:00 AM", mod: "DATA", text: "New knowledge indexed · 340 emails · searchable in 4 minutes", rev: 0 },
+  { time: "10:15 AM", mod: "DATA", text: "Owner asked “who signed the Miller contract?” · answered in 3 sec", rev: 0 },
+  { time: "12:30 PM", mod: "DATA", text: "Duplicate client records merged · 3 entries → 1 · history preserved", rev: 0 },
+  { time: "02:45 PM", mod: "DATA", text: "Historical estimate pulled · similar project 2023 · $18K avg", rev: 0 },
+  { time: "04:00 PM", mod: "DATA", text: "Vendor contact enriched · phone, address, tax ID auto-filled", rev: 0 },
+  { time: "07:45 AM", mod: "CUSTOM", text: "Payroll draft ready · 8 crew · 312 hours · Friday disbursement", rev: 0 },
+  { time: "09:30 AM", mod: "CUSTOM", text: "Insurance certificate expiring · renewal reminder sent", rev: 0 },
+  { time: "11:20 AM", mod: "CUSTOM", text: "Google review response drafted · owner approved in 1 tap", rev: 0 },
+  { time: "01:45 PM", mod: "CUSTOM", text: "Google Business Profile updated · new project photos", rev: 0 },
+  { time: "04:15 PM", mod: "CUSTOM", text: "Lead source ROI calculated · Angi $412 CAC vs Google $187", rev: 0 },
+];
+
+const MODULES: [string, string][] = [
+  ["▸ LEAD OPS", "Call answering, scoring, follow-up cadences, missed-call recovery. Every inbound handled in seconds."],
+  ["▸ ESTIMATE OPS", "Quote generation from site photos and voice notes, day 2/5/10 follow-up, silent-deal alerts, contract detection in inbox."],
+  ["▸ PROJECT KNOWLEDGE", "A searchable brain for every project — blueprints, specs, contracts, emails, RFIs, submittals, meeting notes, photos. Ask in plain English: “what light fixtures are in the master bath?” — answer in three seconds."],
+  ["▸ FIELD OPS", "Worker check-in, GPS verification, time tracking, daily reports, material requests, proof-of-work photos, voice notes turned into structured records."],
+  ["▸ SUPPLIER OPS", "Order placement, delivery tracking, invoice reconciliation, price-change monitoring, recurring order automation."],
+  ["▸ COMMS OPS", "Field-to-office translation. WhatsApp threads, voice notes and SMS parsed into structured records, routed to the right person, logged automatically."],
+  ["▸ DOCUMENT OPS", "Automatic generation of RFIs, submittals, meeting minutes, daily reports, change orders, purchase orders, client updates. You review and approve. The system drafts."],
+  ["▸ REPORT OPS", "Owner morning digest, weekly financial rollups, client progress updates, subcontractor performance, labor-hour tracking. Ask any question about your business — get an answer, not a report you have to read."],
+  ["▸ COMPANY SOP", "Your standard operating procedures, videos, checklists and drawings — instantly retrievable. “How do we frame a pocket door?” gets an answer with photos and checklist attached."],
+  ["▸ DECISION SUPPORT", "Schedule risks, budget risks, recurring project issues, material shortages, productivity trends — surfaced from your own data, not a benchmark report."],
+];
+
+const STEPS: [string, string, string, boolean][] = [
+  ["▸ 30 MIN", "Discovery", "You describe how jobs come in and where they leak. I ask specific questions. By the end I tell you what’s worth automating, what isn’t, what it costs, and how long. Written scope in 24 hours.", true],
+  ["▸ 1-2 D", "Architecture", "System design before any code. You see the blueprint and approve it. If the architecture is wrong, we fix it on paper — not in production.", false],
+  ["▸ 3-7 D", "Build", "Daily updates. Error handling, monitoring and fallbacks built in from the start. Nothing ships without tests.", false],
+  ["▸ FINAL", "Deploy + own it", "Full documentation, source code, credentials — all yours from day one. The system runs without me. Handoff call walks your team through everything.", false],
+];
+
+const WORLD: [string, string][] = [
+  ["Your leads", " come from Google LSA, Angi, Thumbtack, Houzz, Instagram DMs and referrals — and half of them call, not email."],
+  ["Your crews", " are in the field with phones, not laptops. Everything works over text or a tap. No logins to forget."],
+  ["Your data", " lives in twelve places — Gmail, WhatsApp, spreadsheets, the CRM, QuickBooks, Google Drive, the whiteboard, three notebooks and one office manager’s head. I don’t replace any of them. I connect them."],
+  ["Your materials", " get ordered by phone or in a WhatsApp thread. Then nobody knows where the invoice went, or whether the price was right."],
+  ["Your projects", " run late and over budget more often than they should — not because your crew can’t build, but because communication falls apart between the field and the office."],
+  ["Your reality:", " nobody has time to “learn a new tool.” So there’s nothing to learn. The system runs underneath what you already use."],
+];
+
+type CaseItem = {
+  num: string; title: string; hook: string; body: string; stack: string;
+  demo: string | null; demoLabel: string; github: string | null;
+};
+const CASES: CaseItem[] = [
+  { num: "01", title: "Lead-to-contract system · Ataman Studio", hook: "The flagship: 7 scenarios running the whole lead lifecycle for an LA design-build studio.", body: "Follow-ups depended on memory, call notes lived in people’s heads, the CRM was always out of date. Now every booked call creates a lead card automatically; every inbound email is read and routed; every sales call is transcribed and summarized with a reply drafted; follow-ups go out at day 2, 5 and 10 — and stop themselves the second the client replies. 10,000+ production runs, zero manual CRM upkeep.", stack: "Make.com · ClickUp · OpenAI · Otter · Calendly · Gmail", demo: null, demoLabel: "", github: null },
+  { num: "02", title: "Instant lead response & scoring", hook: "Every lead answered and scored in under 5 seconds.", body: "Inbound leads were falling through the cracks — slow responses, no prioritization, manual copy-paste into spreadsheets. Now hot leads get flagged for an immediate call, warm ones enter a nurture sequence, junk gets filtered out. Speed-to-lead wins jobs: the first company to respond wins most of them.", stack: "n8n · Claude API · Google Sheets · REST API", demo: "https://www.loom.com/share/9c2ef40dee6543f897060ef4b8596d74", demoLabel: "Watch demo", github: null },
+  { num: "03", title: "Marketing content on autopilot", hook: "30 branded posts for $1 in AI costs. Zero manual writing.", body: "A closed-loop content system: your brand voice, your audience’s pain points and your best-performing posts stored as knowledge; AI drafts platform-ready posts on schedule; engagement data feeds back in, so the system writes better every cycle. Your company stays visible while you run jobs.", stack: "Make.com · Claude API · Pinecone · Buffer · RAG", demo: "https://www.loom.com/share/3e08552f874f407bad4b558bd0bdf9d8", demoLabel: "Watch demo", github: null },
+  { num: "04", title: "Market & competitor intelligence", hook: "3+ days of research in under 5 minutes, every claim sourced.", body: "A form-triggered pipeline: five research workflows run in parallel and return a full competitive picture — pricing, positioning, trends — with every claim backed by a real source. Delivered to a spreadsheet and Slack automatically.", stack: "n8n · Gemini Deep Research · Airtable · Slack", demo: "https://www.loom.com/share/6a08c5221efd444db95ee0275247f288", demoLabel: "Watch demo", github: null },
+  { num: "05", title: "Research engine", hook: "3 hours to 2 minutes. One click, fully automated.", body: "A client’s team was burning 15+ hours a week on manual research and analysis. I found the bottleneck and replaced it with a pipeline of four specialized AI roles — built and deployed in 5 days.", stack: "n8n · Claude API · Supabase pgvector · Webhooks", demo: "https://www.loom.com/share/d99029c2ac5b4969823c818cb81ef0d5", demoLabel: "Watch demo", github: null },
+  { num: "06", title: "Project photo AI", hook: "121 job-site photos sorted in 15 minutes for $0.35. Open source.", body: "Every project generates hundreds of photos — progress, finished work, before-and-afters. This tool reads every photo, scores it 1-1000 for quality and picks the keepers automatically — for the portfolio, the client and the marketing folder.", stack: "Python · OpenAI Vision · Pillow · rawpy", demo: "https://www.loom.com/share/adb04c24f46540d8b544de8e488eb88c", demoLabel: "Watch demo", github: "https://github.com/vkarasovpm-dotcom/photo-ai-toolkit" },
+  { num: "07", title: "Sentinel — adversarial AI court", hook: "Winner at the AI Agent Olympics — top 3 of 731 teams (top 0.4%). The engineering depth behind your system.", body: "Not construction — a three-layer multi-agent court that audits police bodycam footage, built solo at Milan AI Week 2026, Europe’s largest AI event. Realtime transcription flags violations in under 2 seconds; a Prosecution agent argues against a Defense agent while a Vision agent reads the video; a Judge issues per-rule verdicts drillable to the exact video frame. A court-defensible audit at ~$0.10-0.20 per recording.", stack: "Next.js 16 · FastAPI · Speechmatics · Gemini 3.1 Pro · FAISS", demo: "https://sentinel-audit.co", demoLabel: "Live demo", github: "https://github.com/vkarasovpm-dotcom/bodycam-intelligence" },
+];
+
+type Faq = { q: string; a: string };
+const FAQ_CATS: { label: string; qs: Faq[] }[] = [
+  { label: "Money & ROI", qs: [
+    { q: "How do I know it’s worth the investment?", a: "Every system I build must save more than it costs — that’s the only rule. For most clients the math is: system cost ÷ average client value = number of clients needed to pay it back. If that number is under ~20 clients or under 6 months for your business, we’re in green territory. If it isn’t, I’ll tell you on the first call and I won’t take the project." },
+    { q: "What if my average job is small — €500 or $2,000, not $12,000?", a: "Then the system pays back over more clients and a bit longer — usually 3-6 months instead of 2-4 weeks. The math scales down cleanly. What matters isn’t the size of one job, it’s how many are slipping through your pipeline every month. A 30% lift on a €1,000 average job is the same profit shape as a 30% lift on a $10,000 average job." },
+    { q: "Why $3,000-8,000 for the build? Some agencies charge less.", a: "Because I don’t build throwaway automations. Everything I ship is documented, monitored, has error handling and fallbacks, and belongs to you fully. A $500 Zapier setup breaks in three months and nobody knows why. I build systems that survive API changes, staff turnover, and a bad Monday." },
+    { q: "Why a monthly care plan if the system runs itself?", a: "Systems don’t maintain themselves. OpenAI changes a model, Gmail changes an API, your workflow evolves, edge cases surface. Care Plan means 24/7 monitoring (I know it broke before you do), same-day fixes on business days, monthly improvements as your business changes, and a plain-language monthly report in dollars and jobs saved — not tech jargon." },
+    { q: "Do you offer payment plans?", a: "Standard terms: 50% at signature, 50% at launch. For larger builds we can split into 3 payments across milestones. Care Plan is monthly, cancel anytime. For clients outside the US, I invoice in EUR or USD — your choice." },
+    { q: "What if the system saves less than expected?", a: "After the first 30 days I send a plain-language report showing actual saved leads, hours, or errors. If the numbers don’t cover the Care Plan, we adjust the scope or you cancel — no argument. I’ve never had a client where the math didn’t clear within 60 days, but I don’t promise magic and I don’t lock people in." },
+  ]},
+  { label: "Scope & what’s included", qs: [
+    { q: "What exactly does the build include?", a: "Full system design, code, integrations, error handling, monitoring dashboards, deployment to your cloud, complete documentation (a real README, not a PDF), 30 days of post-launch support, and a handoff call where I explain every piece. You own the source code, credentials, and infrastructure from day one." },
+    { q: "What if my problem isn’t in the modules list?", a: "That’s what custom scoping is for. The modules are the common patterns — 80% of clients need 2-3 of them. If yours is different (permits, subcontractor payments, warranty tracking, insurance claims, whatever), we scope it in Discovery and I quote it upfront. Same delivery model, same guarantees." },
+    { q: "Do I need to switch my CRM, phone system, or tools?", a: "No. The system runs behind whatever you already have — Gmail, QuickBooks, Buildertrend, JobTread, Housecall Pro, ServiceTitan, Jobber, Google Workspace, Microsoft 365. If a tool I can’t integrate with is central to your workflow, I’ll tell you in Discovery before we sign anything." },
+    { q: "Can I start small and add later?", a: "Yes — most clients do. Start with 1-2 modules (usually Lead Ops + Estimate Ops), watch the ROI for 30-60 days, layer in the rest as it makes sense. Each additional module is a separate scope and price. No pressure to buy the whole stack upfront." },
+    { q: "Will you help train my team?", a: "The core promise is that your team learns nothing new — the system runs underneath what they already use. But if there’s a piece someone needs to touch (approving flagged items, reviewing weekly reports), I record a 5-minute Loom for each and we do one live walkthrough. That’s it." },
+  ]},
+  { label: "Risk & trust", qs: [
+    { q: "What if the system makes a wrong decision — sends a bad quote, texts a client wrong info?", a: "Every critical action has a human-approval layer by default. Estimates over your threshold, first-time client responses, anything money-related — the AI drafts, you approve, it sends. For low-risk actions (categorizing photos, filing docs, internal summaries) it acts on its own. You choose the line in Discovery." },
+    { q: "What about AI hallucinations — what if it makes stuff up?", a: "This is the #1 real risk with LLM systems. I mitigate it three ways: (1) RAG grounding — the AI can only quote from your actual data, not from training memory, (2) DeepEval and grounding checks running in production catch hallucinated outputs before they reach a client, (3) fallback rules that trigger human review when confidence is low. It’s not zero-risk, but it’s engineered risk, not gamble." },
+    { q: "Is my data secure? Where does it live?", a: "Your data stays in your accounts — Gmail, your CRM, your Drive. Where I need a vector database (for company-wide search), it’s deployed to your cloud account (Supabase, GCP, Vultr) — you hold the keys, you can revoke access with one click. No data goes to my servers. No training of external models on your business. Written into every contract." },
+    { q: "What if it breaks at 2 AM on a Saturday?", a: "Care Plan includes 24/7 monitoring. Alerts hit me before they hit your inbox. Same-day fix on business days, next-morning on weekends. Every system has fallbacks built in — usually a “graceful degrade” back to your manual process, so a break rarely means downtime, just temporary manual work while I fix it." },
+    { q: "What if you get sick, take a break, or something happens to you?", a: "Two layers of coverage. First, my delivery network — the specialists I already work with — can maintain any running system without me for weeks. They know the stack because they helped build it. Second, all systems use standard, well-known tools (LangGraph, Python, Postgres, n8n), fully documented, so any senior engineer can pick things up cleanly. You’re never dependent on my calendar for a system that’s already live." },
+    { q: "What if I want to fire you?", a: "Cancel Care Plan any month, keep the whole system running. You have the source code, credentials, docs, and cloud access from day one. No lock-in, no ransom fees, no “premium API keys” you have to keep paying me for. If you find someone cheaper to maintain it, hire them — I’ll do the handoff call for free." },
+  ]},
+  { label: "Team & employees", qs: [
+    { q: "Will this replace my office manager / staff?", a: "Almost never in the first year. It removes the boring 40% of their day (data entry, follow-up chasing, filing) so they can focus on the 60% that actually needs a human (relationships, judgment, exceptions). Most clients keep the same team but stop needing to hire the next one as they grow." },
+    { q: "My team is not tech-savvy. Will they be able to use it?", a: "The whole design goal is that they don’t have to. The system runs behind Gmail and their phone. If something needs their attention, it shows up as a normal email or text with two buttons: “approve” or “review”. No dashboards to learn, no logins to remember, no new app on the phone." },
+    { q: "Will my team push back on this?", a: "Sometimes, if they think it’s about replacing them. That’s why the first thing we do in Discovery is map out what stops being their job (the parts they hated anyway) versus what stays theirs. Clients who introduce it as “this is the tool that makes your job easier” get zero pushback. Clients who introduce it as “AI is replacing headcount” get exactly the pushback they earned." },
+  ]},
+  { label: "Timeline & process", qs: [
+    { q: "How long from first call to live system?", a: "2-4 weeks for most builds. 30-min discovery → 1-2 days architecture (you approve the blueprint before I write a line of code) → 3-7 days build with daily updates → deployment + handoff. Industry average is 8-16 weeks; I move faster because I don’t do committee reviews and I don’t context-switch across 10 clients." },
+    { q: "What does “discovery” actually mean?", a: "A 30-45 min call where you describe how jobs come in and where they leak. I ask specific questions, take notes, and by the end I tell you: what’s worth automating, what isn’t, what it would cost, and how long. If we’re not a fit, I say so. If we are, I send a written scope within 24 hours. No pitch deck, no follow-up sales pressure." },
+    { q: "What do you need from me during the build?", a: "Roughly 3-5 hours total across 2-4 weeks. Kickoff call (1 hr), read-throughs of the architecture doc (30 min), 2-3 short check-ins on decisions only you can make (15 min each), UAT before launch (1 hr), handoff (30 min). Everything else runs in the background." },
+    { q: "What happens on Day 31?", a: "By then the system is stable and you have your first month of numbers. We do a 30-day review call: what’s working, what to improve, what to add next. If you want to continue with Care Plan, we do. If not, you have everything documented and can maintain it yourself or hand it to any developer." },
+  ]},
+  { label: "About me & my business", qs: [
+    { q: "Are you solo or an agency?", a: "Neither. I’m the senior engineer and product lead on every project — you work with me directly, no account managers, no handoffs. Behind me is a small trusted network of specialists I bring in when a build needs them: a design assistant, a second developer for parallel work, a QA reviewer for critical launches. Upside: senior thinking on every decision, plus enough hands to move fast. Limit: I take 2-3 new engagements per quarter." },
+    { q: "What kind of businesses do you actually work best with?", a: "Construction firms, design-build studios, home-service companies (HVAC, plumbing, electrical, roofing, landscaping, cleaning, moving), interior designers, remodelers, small commercial contractors. Sweet spot: 5-50 people, owner still involved in day-to-day, average project between €500 and $500K, at least one thing is clearly broken in operations." },
+    { q: "Where are you based / what timezone?", a: "I work across US, UAE, and EU timezones with same-business-day response. In 2026-2027 I’ll be spending significant time in Dubai (AI events, Design Week) and Milan (AI Week). If you’re in the Middle East, we can meet in person." },
+    { q: "Do you have references I can talk to?", a: "Yes — I’ll share 2-3 depending on which module we’re scoping. Some client work runs under strict NDA and I can only give you screen recordings, not names. If direct references matter to you more than case data, tell me in Discovery and I’ll match you with someone who allows a call." },
+    { q: "Why should I trust an AI Olympics winner over a big agency?", a: "Big agencies bill $50-500K, take 6-12 months, produce PowerPoints, and rely on junior engineers to actually build. I built the winning system at Milan AI Week solo, in 8 days, against teams that included agency squads. The real proof is that I ship in weeks and it works. Talk to the LA studio running my system for 10,000+ operations." },
+  ]},
+  { label: "Communication & working together", qs: [
+    { q: "What’s the best way to reach you?", a: "WhatsApp, LinkedIn, or Telegram — pick your favorite. All three are on my phone, same-day reply. Email works too. My response time in business hours is under 2 hours, worst case next morning in your timezone." },
+    { q: "Can we meet in person?", a: "If you’re in Dubai, Milan, Singapore, or anywhere I’m attending an event — yes, glad to. Otherwise everything runs remotely: Loom videos for walkthroughs, WhatsApp for daily updates, Google Meet only when we really need it. Not because remote is trendy, but because it’s faster and clients get more done that way." },
+  ]},
+  { label: "International & practical", qs: [
+    { q: "I’m not in the US — will your systems still work for me?", a: "Yes. The modules aren’t country-specific. Same lead-to-invoice logic works anywhere — adapted to your CRM, currency, language, and local tools (WhatsApp Business, Bitrix24, Zoho, whatever). Systems have been built for clients across multiple regions and languages." },
+    { q: "Do you handle GDPR / UAE PDPL / other privacy regulations?", a: "Yes. Every build includes a data-handling document listing where data lives, who has access, retention rules, and compliance mapping to your applicable regulation (GDPR for EU/UK, PDPL for UAE, CCPA for California, etc.). For heavily regulated industries (healthcare, finance) I bring in a compliance reviewer at cost." },
+    { q: "What if I just want to try a small thing first before committing?", a: "Two options. (1) Book a Discovery call — it’s free, and by the end you’ll have a real scope even if we don’t work together. (2) Ask for a “pilot module” — I build the smallest useful piece for $1,500-3,000 in 5-10 days. If it works, we scale into a full build and credit the pilot against it. If it doesn’t, you have something small that still works and we part on good terms." },
+  ]},
+];
+
+const HOOD_LINES = [
+  "Multi-agent orchestration: LangGraph · CrewAI · MCP servers",
+  "RAG: Supabase pgvector · Pinecone · FAISS · hybrid search + re-ranking",
+  "Voice: Speechmatics · Whisper · ElevenLabs",
+  "Evals: DeepEval · LLM-as-Judge · grounding checks",
+  "Backend: Python FastAPI · PostgreSQL · n8n self-hosted · Vultr · GCP",
+  "Delivery: PRINCE2 · Agile · Make.com Advanced Certified",
+];
+
+const container = { maxWidth: 1240, margin: "0 auto", padding: "60px 32px", boxSizing: "border-box" as const };
+const eyebrow = { margin: "0 0 10px", fontFamily: JB, fontSize: 12, color: "#A98A47", letterSpacing: "0.2em" };
+const goldBorder = { borderTop: "1px solid rgba(212,168,83,0.4)" };
+
+export default function Page() {
+  const [feed, setFeed] = useState<(FeedItem & { key: string })[]>([]);
+  const [tick, setTick] = useState(0);
+  const [revenue, setRevenue] = useState(0);
+  const [scrolled, setScrolled] = useState(false);
+  const [openCase, setOpenCase] = useState<number | null>(null);
+  const [openCat, setOpenCat] = useState<number | null>(0);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [hoodOpen, setHoodOpen] = useState(false);
+
+  const keyRef = useRef(0);
+
+  useEffect(() => {
+    const on = () => setScrolled(window.scrollY > 20);
+    on();
+    window.addEventListener("scroll", on, { passive: true });
+    return () => window.removeEventListener("scroll", on);
+  }, []);
+
+  useEffect(() => {
+    const shuffle = (arr: FeedItem[]) => {
+      for (let k = arr.length - 1; k > 0; k--) {
+        const j = Math.floor(Math.random() * (k + 1));
+        [arr[k], arr[j]] = [arr[j], arr[k]];
+      }
+      return arr;
+    };
+    let pool = shuffle(FEED.slice());
+    let i = 0;
+    const push = () => {
+      if (i >= pool.length) { pool = shuffle(FEED.slice()); i = 0; }
+      const src = pool[i];
+      i++;
+      const k = keyRef.current++;
+      setFeed((prev) => prev.concat([{ ...src, key: "f" + k }]).slice(-6));
+      setTick(k + 1);
+      setRevenue((r) => r + src.rev);
+    };
+    push(); push(); push();
+    const timer = setInterval(push, 2600);
+    return () => clearInterval(timer);
+  }, []);
+
+  const navlinks = [
+    ["#scope", "Scope"], ["#build", "What I build"], ["#cases", "Cases"],
+    ["#offer", "Pricing"], ["#faq", "FAQ"],
+  ];
+
+  return (
+    <div style={{ background: "#0A0A0A", minHeight: "100vh" }}>
+      {/* Sticky WhatsApp (mobile only) */}
+      <a
+        className="fd-sticky-wa" href={WA} target="_blank" rel="noopener noreferrer" aria-label="Message on WhatsApp"
+        style={{ display: "none", position: "fixed", bottom: 20, right: 20, zIndex: 60, width: 60, height: 60, borderRadius: "50%", background: GOLD, alignItems: "center", justifyContent: "center", boxShadow: "0 6px 24px rgba(0,0,0,0.5)" }}
+      >
+        <svg style={{ width: 30, height: 30 }} fill="#0A0A0A" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.999-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0 0 20.464 3.488" /></svg>
+      </a>
+
+      {/* Nav */}
+      <header style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 50, transition: "background 0.3s, border-color 0.3s", background: scrolled ? "rgba(10,10,10,0.92)" : "transparent", backdropFilter: scrolled ? "blur(12px)" : "none", WebkitBackdropFilter: scrolled ? "blur(12px)" : "none", borderBottom: scrolled ? "1px solid #1E1E1E" : "1px solid transparent" }}>
+        <nav className="fd-pad" style={{ maxWidth: 1240, margin: "0 auto", padding: "0 32px", height: 60, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <a href="#top" style={{ display: "flex", alignItems: "baseline", gap: 10, color: "#EDEDED" }}>
+            <span style={{ fontWeight: 700, letterSpacing: "0.12em", fontSize: 13, fontFamily: SG }}>KARASOV <span style={{ color: GOLD }}>SYSTEMS</span></span>
+            <span className="fd-hide" style={{ color: "#666666", fontSize: 11, fontFamily: JB }}>by Vitalii Karasov</span>
+          </a>
+          <div style={{ display: "flex", alignItems: "center", gap: 22 }}>
+            {navlinks.map(([href, label]) => (
+              <a key={href} href={href} className="fd-hide ks-navlink" style={{ color: "#8A8A8A", fontSize: 13 }}>{label}</a>
+            ))}
+            <a href={CAL} target="_blank" rel="noopener noreferrer" className="ks-navcta" style={{ border: "1px solid rgba(212,168,83,0.5)", color: GOLD, fontWeight: 600, fontSize: 13, padding: "9px 18px", borderRadius: 6, fontFamily: SG }}>Book a call</a>
+          </div>
+        </nav>
+      </header>
+
+      <main id="top">
+
+        {/* Hero */}
+        <section style={{ backgroundImage: "linear-gradient(rgba(212,168,83,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(212,168,83,0.04) 1px, transparent 1px)", backgroundSize: "64px 64px" }}>
+          <div className="fd-pad fd-2col" style={{ maxWidth: 1240, margin: "0 auto", padding: "96px 32px 48px", display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: 64, alignItems: "start", boxSizing: "border-box" }}>
+            <div>
+              <div style={{ marginBottom: 32 }}>
+                <p style={{ margin: "0 0 8px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.3rem, 2.4vw, 1.8rem)", letterSpacing: "0.1em", color: "#EDEDED", lineHeight: 1 }}>KARASOV <span style={{ color: GOLD }}>SYSTEMS</span></p>
+                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  <span style={{ display: "block", width: 44, height: 1, background: GOLD }} />
+                  <span style={{ fontFamily: JB, fontSize: 12, color: "#8A8A8A" }}>by Vitalii Karasov</span>
+                </div>
+              </div>
+
+              <h1 style={{ margin: "0 0 20px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(2.5rem, 5.6vw, 4.8rem)", lineHeight: 0.98, letterSpacing: "-0.035em", color: "#EDEDED", textWrap: "balance" }}>The operational brain your company <span style={{ color: GOLD }}>was supposed to have.</span></h1>
+
+              <div aria-hidden="true" style={{ width: 320, maxWidth: "100%", height: 13, margin: "0 0 24px", borderTop: "1px solid rgba(212,168,83,0.4)", backgroundImage: "repeating-linear-gradient(90deg, rgba(212,168,83,0.3) 0px, rgba(212,168,83,0.3) 1px, transparent 1px, transparent 10px), repeating-linear-gradient(90deg, rgba(212,168,83,0.45) 0px, rgba(212,168,83,0.45) 1px, transparent 1px, transparent 80px)", backgroundSize: "100% 6px, 100% 13px", backgroundRepeat: "repeat-x", backgroundPosition: "top left" }} />
+
+              <p style={{ margin: "0 0 16px", fontSize: "clamp(1rem, 1.7vw, 1.15rem)", color: "#9A9A9A", maxWidth: 540, lineHeight: 1.65, textWrap: "pretty" }}>Personal AI systems for construction, design-build and home-service companies. Leads, estimates, suppliers, project knowledge, communications, documents, reports — everything your office does, running as one intelligent layer behind the tools you already use.</p>
+              <p style={{ margin: "0 0 32px", fontFamily: SG, fontWeight: 600, fontSize: "clamp(1rem, 1.7vw, 1.15rem)", color: GOLD, lineHeight: 1.5 }}>Start with one workflow. Grow into a full company system.</p>
+
+              <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 32 }}>
+                <img src="/images/portrait-hero.jpg" alt="Vitalii Karasov" style={{ width: 68, height: 68, borderRadius: "50%", objectFit: "cover", objectPosition: "top", border: "1px solid rgba(212,168,83,0.4)", flexShrink: 0 }} />
+                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                  <p style={{ margin: 0, fontFamily: JB, fontSize: 12, color: "#8A8A8A", lineHeight: 1.6 }}><span style={{ color: GOLD }}>▸</span> <span style={{ color: GOLD }}>Winner, AI Agent Olympics — Milan AI Week 2026</span>, Europe’s largest AI event</p>
+                  <p style={{ margin: 0, fontFamily: JB, fontSize: 12, color: "#8A8A8A", lineHeight: 1.6 }}><span style={{ color: GOLD }}>▸</span> US · UAE · EU · same-business-day response</p>
+                </div>
+              </div>
+
+              <div className="fd-wrap" style={{ display: "flex", alignItems: "center", gap: 14 }}>
+                <a href={WA} target="_blank" rel="noopener noreferrer" className="ks-btn-gold" style={{ background: GOLD, color: "#0A0A0A", fontWeight: 600, padding: "16px 30px", borderRadius: 8, fontSize: 14, fontFamily: SG, minHeight: 24 }}>💬 WhatsApp — same-day reply</a>
+                <a href={CAL} target="_blank" rel="noopener noreferrer" className="ks-btn-outline" style={{ background: "#1E1B12", border: "1px solid rgba(212,168,83,0.5)", color: "#E8C46A", fontWeight: 600, padding: "16px 30px", borderRadius: 8, fontSize: 14, fontFamily: SG }}>📅 Book a call</a>
+              </div>
+            </div>
+
+            {/* Live ops feed */}
+            <div style={{ border: "1px solid #1E1E1E", borderRadius: 12, background: "#0E0E0E", overflow: "hidden", position: "sticky", top: 90 }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 20px", borderBottom: "1px solid #1E1E1E" }}>
+                <span style={{ fontFamily: JB, fontSize: 11, letterSpacing: "0.14em", color: "#777777" }}>ONE DAY · ONE SYSTEM</span>
+                <span style={{ display: "flex", alignItems: "center", gap: 7, fontFamily: JB, fontSize: 11, color: "#4ade80" }}><span style={{ width: 7, height: 7, borderRadius: "50%", background: "#4ade80", animation: "pulseDot 1.6s ease-in-out infinite" }} />LIVE</span>
+              </div>
+              <div style={{ padding: "8px 0", minHeight: 400, display: "flex", flexDirection: "column", justifyContent: "flex-end" }}>
+                {feed.map((item) => (
+                  <div key={item.key} style={{ display: "flex", gap: 12, padding: "13px 20px", borderTop: "1px solid #151515", animation: "feedIn 0.5s cubic-bezier(0.16,1,0.3,1) both", alignItems: "baseline" }}>
+                    <span style={{ fontFamily: JB, fontSize: 10, color: "#555555", width: 52, flexShrink: 0 }}>{item.time}</span>
+                    <span style={{ fontFamily: JB, fontSize: 9, letterSpacing: "0.14em", color: "#8A6F3A", width: 60, flexShrink: 0 }}>{item.mod}</span>
+                    <p style={{ margin: 0, fontSize: 13, color: "#EDEDED", lineHeight: 1.5, fontFamily: JB, minWidth: 0 }}>{item.text}</p>
+                  </div>
+                ))}
+              </div>
+              <div style={{ padding: "13px 20px", borderTop: "1px solid #1E1E1E", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12 }}>
+                <span style={{ fontFamily: JB, fontSize: 11, color: "#666666" }}>while you were reading this</span>
+                <span style={{ fontFamily: JB, fontSize: 11, color: GOLD, textAlign: "right" }}>{tick} actions · 0 extra hires needed · {"$" + revenue.toLocaleString("en-US")} tracked</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 01 You know these mornings */}
+        <section id="pain" style={goldBorder}>
+          <div className="fd-pad" style={container}>
+            <p style={{ ...eyebrow, margin: "0 0 48px" }}>01 — YOU KNOW THESE MORNINGS</p>
+            <div style={{ display: "flex", flexDirection: "column", gap: 52, maxWidth: 940 }}>
+              <p style={painQuote()}>{"“The estimate went out Tuesday. Then nothing. Everyone’s on site — "}<span style={{ color: GOLD }}>{"nobody’s job is to follow up.”"}</span></p>
+              <p style={painQuote(true)}>{"“The whole company lives in my head. I take a week off — "}<span style={{ color: GOLD }}>{"everything stops.”"}</span></p>
+              <p style={painQuote()}>{"A client asks “what fixtures are approved for the master bath?” — and three people spend forty minutes searching emails, drawings and the whiteboard "}<span style={{ color: GOLD }}>{"for an answer that was decided six weeks ago."}</span></p>
+              <p style={painQuote(true)}>{"Materials get ordered over the phone and in a WhatsApp thread. Then "}<span style={{ color: GOLD }}>{"nobody knows where the invoice went."}</span></p>
+              <p style={painQuote()}>{"Your projects run late and over budget more often than they should — not because your crew can’t build, but because "}<span style={{ color: GOLD }}>{"information falls apart between the field, the office, and the client."}</span></p>
+              <p style={{ margin: 0, fontFamily: JB, fontSize: 14, color: GOLD, letterSpacing: "0.08em" }}>This is what I fix.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* 02 What I build */}
+        <section id="build" style={{ ...goldBorder, background: "#0C0C0C" }}>
+          <div className="fd-pad" style={container}>
+            <p style={eyebrow}>02 — WHAT I BUILD</p>
+            <h2 style={{ margin: "0 0 56px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.7rem, 3.4vw, 2.6rem)", letterSpacing: "-0.02em", lineHeight: 1.12, color: "#EDEDED", maxWidth: 860, textWrap: "balance" }}>An operational layer that captures, organizes, and retrieves everything your business already knows — <span style={{ color: GOLD }}>without asking anyone to type it in.</span></h2>
+
+            <div style={{ borderTop: "1px solid #1E1E1E" }}>
+              {MODULES.map(([label, desc]) => (
+                <div key={label} className="fd-stack" style={{ display: "flex", gap: 24, padding: "20px 4px", borderBottom: "1px solid #1E1E1E", alignItems: "baseline" }}>
+                  <span style={{ fontFamily: JB, fontSize: 13, color: GOLD, width: 210, flexShrink: 0, letterSpacing: "0.08em" }}>{label}</span>
+                  <span style={{ fontSize: 14, color: "#9A9A9A", lineHeight: 1.6 }}>{desc}</span>
+                </div>
+              ))}
+            </div>
+
+            <div style={{ marginTop: 48, border: "1px solid rgba(212,168,83,0.3)", borderRadius: 12, padding: "32px 34px", background: "linear-gradient(180deg, rgba(212,168,83,0.04), transparent 60%)" }}>
+              <p style={{ margin: "0 0 12px", fontFamily: JB, fontSize: 11, letterSpacing: "0.2em", color: "#A98A47" }}>VOICE-FIRST WHERE IT MATTERS</p>
+              <p style={{ margin: 0, fontSize: 15, color: "#C9C9C9", lineHeight: 1.75, maxWidth: 820 }}>Most operational data never gets typed. It lives in phone calls, voice notes, WhatsApp threads, photos on someone’s phone. My systems listen, transcribe, extract, file — so your crew keeps talking the way they already talk, and the office gets structured data on the other side.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* 03 Scope */}
+        <section id="scope" style={goldBorder}>
+          <div className="fd-pad" style={container}>
+            <p style={eyebrow}>03 — SCOPE</p>
+            <h2 style={{ margin: "0 0 40px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.9rem, 4vw, 3rem)", letterSpacing: "-0.025em", lineHeight: 1.03, color: "#EDEDED", maxWidth: 720 }}>Same principles, three depths of engagement.</h2>
+            <div style={{ maxWidth: 760, display: "flex", flexDirection: "column", gap: 24 }}>
+              <p style={{ margin: 0, fontSize: 16, color: "#9A9A9A", lineHeight: 1.8 }}>Some clients start with one broken workflow and stay there. Some start with one and grow into a full company operating layer over 6-18 months. The system is designed to support both.</p>
+              <p style={{ margin: 0, fontSize: 16, color: "#9A9A9A", lineHeight: 1.8 }}>The foundation is always the same: capture what’s already happening, organize it automatically, make it retrievable, then let the automation grow on top of the data — never the other way around.</p>
+              <p style={{ margin: 0, fontFamily: SG, fontWeight: 600, fontSize: "clamp(1.1rem, 2vw, 1.4rem)", color: GOLD, lineHeight: 1.5 }}>Data collection comes first. Automation comes second. That’s the order that survives.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* 04 Cases */}
+        <section id="cases" style={{ ...goldBorder, background: "#0C0C0C" }}>
+          <div className="fd-pad" style={container}>
+            <p style={eyebrow}>04 — CASES</p>
+            <h2 style={{ margin: "0 0 64px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.9rem, 4vw, 3rem)", letterSpacing: "-0.025em", lineHeight: 1.03, color: "#EDEDED", maxWidth: 760 }}>10,000+ automated runs at Ataman Studio, an LA design-build firm. In production. Right now.</h2>
+
+            <div className="fd-3col" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 1, background: "#1E1E1E", border: "1px solid #1E1E1E", borderRadius: 12, overflow: "hidden", marginBottom: 64 }}>
+              {([["<5s", "Every lead answered and scored — hot ones flagged for an immediate call. The first company to respond wins most jobs."], ["2·5·10", "Day follow-up cadence on every estimate — stops itself the second the client replies. No deal goes quiet unnoticed."], ["0", "Manual CRM upkeep. Every call transcribed, summarized and filed; every email routed. It just stays correct."]] as [string, string][]).map(([n, d]) => (
+                <div key={n} style={{ background: "#0E0E0E", padding: "32px 28px" }}>
+                  <div style={{ fontFamily: SG, fontWeight: 700, fontSize: "clamp(2.4rem, 4vw, 3.4rem)", color: GOLD, lineHeight: 1, letterSpacing: "-0.03em" }}>{n}</div>
+                  <p style={{ margin: "14px 0 0", fontSize: 14, color: "#9A9A9A", lineHeight: 1.6 }}>{d}</p>
+                </div>
+              ))}
+            </div>
+
+            <div style={{ borderTop: "1px solid #1E1E1E" }}>
+              {CASES.map((c, i) => {
+                const open = openCase === i;
+                return (
+                  <div key={c.num} style={{ borderBottom: "1px solid #1E1E1E" }}>
+                    <button onClick={() => setOpenCase(open ? null : i)} className="fd-stack ks-caserow" style={{ width: "100%", display: "flex", alignItems: "baseline", gap: 24, padding: "24px 4px", background: "none", border: "none", cursor: "pointer", textAlign: "left" }}>
+                      <span style={{ fontFamily: JB, fontSize: 12, color: "#555555", width: 30, flexShrink: 0 }}>{c.num}</span>
+                      <span className="fd-casetitle" style={{ fontFamily: SG, fontWeight: 600, fontSize: "clamp(1.05rem, 1.8vw, 1.35rem)", color: "#EDEDED", letterSpacing: "-0.015em", width: 380, flexShrink: 0, lineHeight: 1.3 }}>{c.title}</span>
+                      <span style={{ fontSize: 14, color: "#9A9A9A", flex: 1, lineHeight: 1.5 }}>{c.hook}</span>
+                      <span style={{ color: GOLD, fontSize: 20, flexShrink: 0, transform: `rotate(${open ? 45 : 0}deg)`, transition: "transform 0.2s", display: "inline-block", lineHeight: 1 }}>+</span>
+                    </button>
+                    <div style={{ display: open ? "block" : "none", padding: "0 4px 28px 54px" }}>
+                      <p style={{ margin: "0 0 14px", fontSize: 14, color: "#9A9A9A", lineHeight: 1.75, maxWidth: 700 }}>{c.body}</p>
+                      <div className="fd-wrap" style={{ display: "flex", alignItems: "center", gap: 18, flexWrap: "wrap" }}>
+                        <span style={{ fontFamily: JB, fontSize: 11, color: "#666666" }}>{c.stack}</span>
+                        {c.demo && <a href={c.demo} target="_blank" rel="noopener noreferrer" className="ks-gold" style={{ fontSize: 13, color: GOLD, fontWeight: 500 }}>▶ {c.demoLabel}</a>}
+                        {c.github && <a href={c.github} target="_blank" rel="noopener noreferrer" className="ks-dim" style={{ fontSize: 13, color: "#777777" }}>GitHub ↗</a>}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            <p style={{ margin: "28px 0 0", fontSize: 13, color: "#666666", lineHeight: 1.6 }}>Some client work runs under strict NDA and isn’t shown here. References available on request.</p>
+          </div>
+        </section>
+
+        {/* 05 Pricing */}
+        <section id="offer" style={goldBorder}>
+          <div className="fd-pad" style={container}>
+            <p style={eyebrow}>05 — PRICING</p>
+            <h2 style={{ margin: "0 0 64px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.9rem, 4vw, 3rem)", letterSpacing: "-0.025em", lineHeight: 1.03, color: "#EDEDED", maxWidth: 700 }}>Start with one bottleneck. Grow as far as the math takes you.</h2>
+
+            <div className="fd-3col" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }}>
+              {/* PILOT */}
+              <div style={{ border: "1px solid rgba(212,168,83,0.35)", borderRadius: 12, padding: "40px 34px", background: "linear-gradient(180deg, rgba(212,168,83,0.04), transparent 40%)", display: "flex", flexDirection: "column" }}>
+                <p style={{ margin: "0 0 6px", fontFamily: JB, fontSize: 11, letterSpacing: "0.2em", color: "#A98A47" }}>PILOT</p>
+                <div style={{ fontFamily: JB, fontWeight: 500, fontSize: "clamp(1.4rem, 2.2vw, 1.9rem)", color: "#EDEDED", letterSpacing: "-0.02em", marginBottom: 4 }}>$3,000 – $8,000</div>
+                <p style={{ margin: "0 0 20px", fontFamily: JB, fontSize: 12, color: "#A98A47", letterSpacing: "0.08em" }}>FIXED PRICE</p>
+                <PriceList items={["One system, one bottleneck, live in 2-4 weeks.", "Scoped and quoted before you commit.", "50% at signature, 50% at launch.", "Yours to keep — source code, credentials, documentation."]} />
+              </div>
+              {/* OPERATE */}
+              <div style={{ border: "1px solid #1E1E1E", borderRadius: 12, padding: "40px 34px", display: "flex", flexDirection: "column" }}>
+                <p style={{ margin: "0 0 6px", fontFamily: JB, fontSize: 11, letterSpacing: "0.2em", color: "#777777" }}>OPERATE</p>
+                <div style={{ fontFamily: JB, fontWeight: 500, fontSize: "clamp(1.4rem, 2.2vw, 1.9rem)", color: "#EDEDED", letterSpacing: "-0.02em", marginBottom: 4 }}>from $2,000<span style={{ fontSize: "0.55em", color: "#777777" }}>/mo</span></div>
+                <p style={{ margin: "0 0 20px", fontFamily: JB, fontSize: 12, color: "#777777", letterSpacing: "0.08em" }}>MONTH-TO-MONTH</p>
+                <PriceList items={["Ongoing partnership after a system is live.", "Monitoring, same-day fixes, monthly improvements.", "New modules added as your business grows.", "Cancel anytime, keep everything."]} />
+              </div>
+              {/* PLATFORM */}
+              <div style={{ border: "1px solid #1E1E1E", borderRadius: 12, padding: "40px 34px", display: "flex", flexDirection: "column" }}>
+                <p style={{ margin: "0 0 6px", fontFamily: JB, fontSize: 11, letterSpacing: "0.2em", color: "#777777" }}>PLATFORM</p>
+                <div style={{ fontFamily: JB, fontWeight: 500, fontSize: "clamp(1.4rem, 2.2vw, 1.9rem)", color: "#EDEDED", letterSpacing: "-0.02em", marginBottom: 4 }}>engagement</div>
+                <p style={{ margin: "0 0 20px", fontFamily: JB, fontSize: 12, color: "#777777", letterSpacing: "0.08em" }}>SCOPED PER BUSINESS · NDA-FRIENDLY</p>
+                <PriceList items={["Full operational layer, built in phases over 6-18 months.", "Voice-first interface, project knowledge base, multi-stakeholder coordination, document generation, decision support.", "Delivered as a working system in 2-4 week increments — not a deck, not a pilot that stalls."]} />
+              </div>
+            </div>
+
+            <div className="fd-stack" style={{ display: "flex", gap: 48, marginTop: 48, alignItems: "baseline" }}>
+              <p style={{ flex: 1, margin: 0, fontSize: 14, color: "#808080", lineHeight: 1.8 }}>Equity or revenue-share arrangements available for early-stage companies with strong traction.</p>
+              <p style={{ flex: 1, margin: 0, fontSize: 14, color: "#9A9A9A", lineHeight: 1.8, textAlign: "right" }}><a href={WA} target="_blank" rel="noopener noreferrer" className="ks-gold" style={{ color: GOLD, fontWeight: 500 }}>Message on WhatsApp</a> to start a conversation, or <a href={CAL} target="_blank" rel="noopener noreferrer" className="ks-gold" style={{ color: GOLD, fontWeight: 500 }}>book a 30-min call</a> if you prefer.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* 06 How it lands + 07 Your world */}
+        <section id="process" style={{ ...goldBorder, background: "#0C0C0C" }}>
+          <div className="fd-pad fd-2col" style={{ maxWidth: 1240, margin: "0 auto", padding: "60px 32px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start" }}>
+            <div>
+              <p style={eyebrow}>06 — HOW IT LANDS</p>
+              <h2 style={{ margin: "0 0 40px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.7rem, 3vw, 2.4rem)", letterSpacing: "-0.02em", lineHeight: 1.05, color: "#EDEDED" }}>Four steps.<br />No black box.</h2>
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                {STEPS.map(([time, title, body, first], idx) => (
+                  <div key={title} style={{ display: "flex", gap: 20, padding: "20px 0", borderTop: "1px solid #1E1E1E", borderBottom: idx === STEPS.length - 1 ? "1px solid #1E1E1E" : undefined }}>
+                    <span style={{ fontFamily: JB, fontSize: 12, color: first ? "#A98A47" : "#777777", width: 100, flexShrink: 0 }}>{time}</span>
+                    <div>
+                      <h3 style={{ margin: "0 0 6px", fontFamily: SG, fontWeight: 700, fontSize: 16, color: "#EDEDED" }}>{title}</h3>
+                      <p style={{ margin: 0, fontSize: 14, color: "#9A9A9A", lineHeight: 1.65 }}>{body}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <p style={{ margin: "24px 0 0", fontSize: 13, color: "#808080", lineHeight: 1.7 }}>For phased platform builds, this same rhythm repeats in 2-4 week increments. Each increment ships something that works before we scope the next one.</p>
+            </div>
+            <div>
+              <p style={eyebrow}>07 — YOUR WORLD</p>
+              <h2 style={{ margin: "0 0 40px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.7rem, 3vw, 2.4rem)", letterSpacing: "-0.02em", lineHeight: 1.05, color: "#EDEDED" }}>I know how your business actually runs.</h2>
+              <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+                {WORLD.map(([lead, rest]) => (
+                  <p key={lead} style={{ margin: 0, fontSize: 15, color: "#9A9A9A", lineHeight: 1.75 }}><span style={{ color: "#EDEDED", fontWeight: 500 }}>{lead}</span>{rest}</p>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 08 Who builds it */}
+        <section id="about" style={{ ...goldBorder, background: "#0C0C0C" }}>
+          <div className="fd-pad fd-2col" style={{ maxWidth: 1240, margin: "0 auto", padding: "60px 32px", display: "grid", gridTemplateColumns: "0.9fr 1.1fr", gap: "64px 80px", alignItems: "start" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
+              <p style={{ margin: 0, fontFamily: JB, fontSize: 12, color: "#A98A47", letterSpacing: "0.2em" }}>08 — WHO BUILDS IT</p>
+              <img src="/images/portrait-about.jpg" alt="Vitalii Karasov" style={{ width: "100%", maxWidth: 340, aspectRatio: "3/4", objectFit: "cover", borderRadius: 12, border: "1px solid #1E1E1E", filter: "grayscale(25%)" }} />
+              <div style={{ border: "1px solid #1E1E1E", borderRadius: 12, padding: "24px 24px 28px", background: "#0E0E0E" }}>
+                <p style={{ margin: "0 0 12px", fontFamily: JB, fontSize: 11, letterSpacing: "0.2em", color: "#A98A47" }}>DATA HANDLING &amp; RESPONSIBILITY</p>
+                <p style={{ margin: "0 0 12px", fontSize: 13.5, color: "#9A9A9A", lineHeight: 1.75 }}>Before AI systems, I ran operations at a humanitarian organization handling personal data of vulnerable populations — under legal and criminal liability for data integrity and privacy compliance. 1.5M+ PLN operational budget, zero audit findings.</p>
+                <p style={{ margin: 0, fontSize: 13.5, color: "#9A9A9A", lineHeight: 1.75 }}>For construction and design-build firms, this translates to: client financial data, contracts, employee records and project IP handled with regulated-industry discipline by default. GDPR, PDPL and CCPA compliance mapping included in every build.</p>
+              </div>
+            </div>
+            <div>
+              <h2 style={{ margin: "28px 0 20px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.6rem, 3vw, 2.2rem)", letterSpacing: "-0.02em", lineHeight: 1.1, color: "#EDEDED" }}>Vitalii Karasov — a product manager who builds.</h2>
+              <p style={{ margin: "0 0 14px", fontSize: 15, color: "#9A9A9A", lineHeight: 1.8 }}>Five years in operations, product and delivery before going full-time on AI systems: EdTech launch, media production, humanitarian crisis logistics with a 1.5M+ PLN budget and zero audit findings. MSc in Strategic Project Management. PRINCE2.</p>
+              <p style={{ margin: "0 0 14px", fontSize: 15, color: "#9A9A9A", lineHeight: 1.8 }}>In 2026 my solo build won at the AI Agent Olympics at Milan AI Week — Europe’s largest AI event.</p>
+              <p style={{ margin: "0 0 14px", fontSize: 15, color: "#EDEDED", lineHeight: 1.8, fontWeight: 500 }}>Now I build one thing: the operational layer for construction and home-service companies. Deep, not wide.</p>
+              <p style={{ margin: "0 0 28px", fontSize: 15, color: "#9A9A9A", lineHeight: 1.8 }}><span style={{ color: "#EDEDED", fontWeight: 500 }}>The delivery network.</span> On larger builds I bring in trusted specialists — design, development support, QA — but every project stays under my direct scope and my code review. You always know exactly who touched what, and you always talk to me.</p>
+
+              <div style={{ border: "1px solid #1E1E1E", borderRadius: 12, overflow: "hidden" }}>
+                <div style={{ padding: "20px 22px" }}>
+                  <p style={{ margin: "0 0 8px", fontFamily: JB, fontSize: 11, letterSpacing: "0.2em", color: "#666666" }}>WORKS WITH WHAT YOU ALREADY HAVE</p>
+                  <p style={{ margin: 0, fontSize: 13, color: "#9A9A9A", lineHeight: 1.8 }}>Gmail · QuickBooks · Buildertrend · JobTread · Housecall Pro · ServiceTitan · Jobber · Procore · CoConstruct · Calendly · WhatsApp Business · Bitrix24 · Zoho · SMS — plus your phone, your email, your whiteboard. Any currency, any language.</p>
+                </div>
+                <button onClick={() => setHoodOpen((v) => !v)} style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, padding: "14px 22px", background: "#0E0E0E", border: "none", borderTop: "1px solid #1E1E1E", cursor: "pointer", textAlign: "left" }}>
+                  <span style={{ fontFamily: JB, fontSize: 11, letterSpacing: "0.2em", color: "#A98A47" }}>UNDER THE HOOD — FOR THE ONE WHO’LL CHECK</span>
+                  <span style={{ color: GOLD, fontSize: 18, lineHeight: 1, transform: `rotate(${hoodOpen ? 45 : 0}deg)`, transition: "transform 0.2s", display: "inline-block" }}>+</span>
+                </button>
+                <div style={{ display: hoodOpen ? "block" : "none", padding: "18px 22px", borderTop: "1px solid #1E1E1E", background: "#0E0E0E" }}>
+                  <p style={{ margin: 0, fontFamily: JB, fontSize: 12, color: "#8A8A8A", lineHeight: 2 }}>{HOOD_LINES.map((l, k) => (<span key={l}>{l}{k < HOOD_LINES.length - 1 && <br />}</span>))}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 09 FAQ */}
+        <section id="faq" style={goldBorder}>
+          <div className="fd-pad" style={container}>
+            <div className="fd-2col" style={{ display: "grid", gridTemplateColumns: "280px 1fr", gap: 48, alignItems: "start" }}>
+              <div style={{ position: "sticky", top: 96 }}>
+                <p style={eyebrow}>09 — STRAIGHT ANSWERS</p>
+                <h2 style={{ margin: "0 0 16px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)", letterSpacing: "-0.02em", lineHeight: 1.05, color: "#EDEDED" }}>Every question owners actually ask.</h2>
+                <p style={{ margin: 0, fontSize: 14, color: "#777777", lineHeight: 1.7 }}>Eight chapters. Open the one that’s on your mind.</p>
+              </div>
+              <div style={{ borderTop: "1px solid #1E1E1E" }}>
+                {FAQ_CATS.map((cat, ci) => {
+                  const catOpen = openCat === ci;
+                  return (
+                    <div key={cat.label} style={{ borderBottom: "1px solid #1E1E1E" }}>
+                      <button onClick={() => { setOpenCat(catOpen ? null : ci); setOpenFaq(null); }} style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, padding: "22px 0", textAlign: "left", cursor: "pointer", background: "none", border: "none" }}>
+                        <span style={{ display: "flex", alignItems: "baseline", gap: 14 }}>
+                          <span style={{ fontFamily: JB, fontSize: 12, color: catOpen ? GOLD : "#555555", letterSpacing: "0.08em" }}>{String(cat.qs.length).padStart(2, "0")}</span>
+                          <span style={{ color: "#EDEDED", fontSize: 17, fontWeight: 600, lineHeight: 1.3, fontFamily: SG, letterSpacing: "0.02em" }}>{cat.label}</span>
+                        </span>
+                        <span style={{ color: GOLD, fontSize: 20, flexShrink: 0, lineHeight: 1, transform: `rotate(${catOpen ? 45 : 0}deg)`, transition: "transform 0.2s", display: "inline-block" }}>+</span>
+                      </button>
+                      <div style={{ display: catOpen ? "block" : "none", padding: "0 0 12px" }}>
+                        {cat.qs.map((f, qi) => {
+                          const id = ci * 100 + qi;
+                          const qOpen = openFaq === id;
+                          return (
+                            <div key={f.q} style={{ borderTop: "1px solid #161616", marginLeft: 40 }}>
+                              <button onClick={() => setOpenFaq(qOpen ? null : id)} style={{ width: "100%", display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16, padding: "16px 0", textAlign: "left", cursor: "pointer", background: "none", border: "none" }}>
+                                <span style={{ color: qOpen ? "#EDEDED" : "#B5B5B5", fontSize: 15, fontWeight: 500, lineHeight: 1.45, fontFamily: IN }}>{f.q}</span>
+                                <span style={{ color: "#8A6F3A", fontSize: 17, flexShrink: 0, lineHeight: 1, transform: `rotate(${qOpen ? 45 : 0}deg)`, transition: "transform 0.2s", display: "inline-block" }}>+</span>
+                              </button>
+                              <div style={{ display: qOpen ? "block" : "none" }}><p style={{ margin: 0, color: "#9A9A9A", fontSize: 14, lineHeight: 1.75, padding: "0 32px 18px 0", maxWidth: 640 }}>{f.a}</p></div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 10 Final CTA */}
+        <section id="contact" style={{ ...goldBorder, background: "#0C0C0C" }}>
+          <div className="fd-pad" style={{ maxWidth: 1240, margin: "0 auto", padding: "70px 32px 60px" }}>
+            <h2 style={{ margin: "0 0 28px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.8rem, 4.4vw, 3.6rem)", letterSpacing: "-0.03em", lineHeight: 1.08, color: "#EDEDED", maxWidth: 900, textWrap: "balance" }}>Losing leads you already paid for?<br />Chasing information that’s already in your inbox?<br /><span style={{ color: GOLD }}>Running a business inside your own head?</span></h2>
+            <p style={{ margin: "0 0 44px", color: "#9A9A9A", fontSize: 17, lineHeight: 1.65, maxWidth: 560 }}>One message. I’ll tell you what’s leaking and what it would take to fix it — even if we don’t end up working together.</p>
+            <div className="fd-wrap" style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 20 }}>
+              <a href={WA} target="_blank" rel="noopener noreferrer" className="ks-btn-gold" style={{ background: GOLD, color: "#0A0A0A", fontWeight: 600, padding: "18px 36px", borderRadius: 8, fontSize: 15, fontFamily: SG, minHeight: 20 }}>💬 Message on WhatsApp</a>
+              <a href={CAL} target="_blank" rel="noopener noreferrer" className="ks-btn-outline" style={{ background: "#1E1B12", border: "1px solid rgba(212,168,83,0.5)", color: "#E8C46A", fontWeight: 600, padding: "18px 36px", borderRadius: 8, fontSize: 15, fontFamily: SG }}>📅 Book a 30-min call</a>
+            </div>
+            <p style={{ margin: "0 0 56px", fontSize: 14, color: "#777777" }}>or email <a href="mailto:vitalii@karasov.co?subject=Karasov%20Systems%20inquiry" className="ks-gold" style={{ color: GOLD, textDecoration: "underline", textUnderlineOffset: 4 }}>vitalii@karasov.co</a></p>
+            <div className="fd-stack" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 20, borderTop: "1px solid #1E1E1E", paddingTop: 28 }}>
+              <div>
+                <p style={{ margin: "0 0 6px", fontSize: 12, color: "#555555", fontFamily: JB }}>KARASOV SYSTEMS by Vitalii Karasov · 2026</p>
+                <p style={{ margin: 0, fontSize: 12, color: "#555555", lineHeight: 1.6 }}>Working with contractors and studios across the US, UAE and Europe. Same-business-day response in your timezone.</p>
+              </div>
+              <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
+                <a href="https://www.linkedin.com/in/vitaliikarasov/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="ks-dim" style={{ color: "#666666" }}>
+                  <svg style={{ width: 18, height: 18, display: "block" }} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
+                </a>
+                <a href="https://t.me/karvitalii" target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="ks-dim" style={{ color: "#666666" }}>
+                  <svg style={{ width: 18, height: 18, display: "block" }} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" /></svg>
+                </a>
+                <a href="https://github.com/vkarasovpm-dotcom" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="ks-dim" style={{ color: "#666666" }}>
+                  <svg style={{ width: 18, height: 18, display: "block" }} fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.579.688.481C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z" /></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  );
 }
 
-export default function Home() {
+function painQuote(right = false): CSSProperties {
+  return {
+    margin: 0, fontFamily: SG, fontWeight: 600, fontSize: "clamp(1.4rem, 3vw, 2.3rem)",
+    lineHeight: 1.18, letterSpacing: "-0.02em", color: "#EDEDED", textWrap: "balance",
+    ...(right ? { alignSelf: "flex-end", textAlign: "right", maxWidth: 780 } : {}),
+  };
+}
+
+function PriceList({ items }: { items: string[] }) {
   return (
-    <>
-      <ScrollProgressBar />
-      <PageLoadOverlay />
-      <CursorGlow />
-      <Navbar />
-      <main>
-        <HeroSection />
-        <Divider />
-        <PainPointsSection />
-        <Divider />
-        <WorkSection />
-        <Divider />
-        <OfferSection />
-        <Divider />
-        <YourWorldSection />
-        <Divider />
-        <ProcessSection />
-        <Divider />
-        <ToolsSection />
-        <Divider />
-        <AboutSection />
-        <Divider />
-        <ExperienceSection />
-        <Divider />
-        <FaqSection />
-        <Divider />
-        <ContactSection />
-      </main>
-    </>
+    <ul style={{ display: "flex", flexDirection: "column", gap: 12, listStyle: "none", margin: 0, padding: 0 }}>
+      {items.map((it) => (
+        <li key={it} style={{ display: "flex", gap: 12, fontSize: 14, color: "#C9C9C9", lineHeight: 1.6 }}>
+          <span style={{ color: GOLD, flexShrink: 0 }}>—</span>{it}
+        </li>
+      ))}
+    </ul>
   );
 }
