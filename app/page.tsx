@@ -91,13 +91,13 @@ type CaseItem = {
   demo: string | null; demoLabel: string; github: string | null;
 };
 const CASES: CaseItem[] = [
-  { num: "01", title: "Lead-to-contract system · Ataman Studio", hook: "The flagship: 7 scenarios running the whole lead lifecycle for an LA design-build studio.", body: "Follow-ups depended on memory, call notes lived in people’s heads, the CRM was always out of date. Now every booked call creates a lead card automatically; every inbound email is read and routed; every sales call is transcribed and summarized with a reply drafted; follow-ups go out at day 2, 5 and 10 — and stop themselves the second the client replies. 10,000+ production runs, zero manual CRM upkeep.", stack: "Make.com · ClickUp · OpenAI · Otter · Calendly · Gmail", demo: null, demoLabel: "", github: null },
+  { num: "01", title: "Lead-to-contract system", hook: "LA design-build studio · The 7 scenarios running the entire lead lifecycle end to end.", body: "Intake, scoring, follow-up, contract detection. Every inbound lead handled without a single manual touch — every booked call becomes a lead card, every inbound email is read and routed, every sales call is transcribed with a reply drafted, and follow-ups fire on their own until the client replies.", stack: "Make.com · ClickUp · OpenAI · Otter · Calendly · Gmail", demo: null, demoLabel: "", github: null },
   { num: "02", title: "Instant lead response & scoring", hook: "Every lead answered and scored in under 5 seconds.", body: "Inbound leads were falling through the cracks — slow responses, no prioritization, manual copy-paste into spreadsheets. Now hot leads get flagged for an immediate call, warm ones enter a nurture sequence, junk gets filtered out. Speed-to-lead wins jobs: the first company to respond wins most of them.", stack: "n8n · Claude API · Google Sheets · REST API", demo: "https://www.loom.com/share/9c2ef40dee6543f897060ef4b8596d74", demoLabel: "Watch demo", github: null },
   { num: "03", title: "Marketing content on autopilot", hook: "30 branded posts for $1 in AI costs. Zero manual writing.", body: "A closed-loop content system: your brand voice, your audience’s pain points and your best-performing posts stored as knowledge; AI drafts platform-ready posts on schedule; engagement data feeds back in, so the system writes better every cycle. Your company stays visible while you run jobs.", stack: "Make.com · Claude API · Pinecone · Buffer · RAG", demo: "https://www.loom.com/share/3e08552f874f407bad4b558bd0bdf9d8", demoLabel: "Watch demo", github: null },
   { num: "04", title: "Market & competitor intelligence", hook: "3+ days of research in under 5 minutes, every claim sourced.", body: "A form-triggered pipeline: five research workflows run in parallel and return a full competitive picture — pricing, positioning, trends — with every claim backed by a real source. Delivered to a spreadsheet and Slack automatically.", stack: "n8n · Gemini Deep Research · Airtable · Slack", demo: "https://www.loom.com/share/6a08c5221efd444db95ee0275247f288", demoLabel: "Watch demo", github: null },
   { num: "05", title: "Research engine", hook: "3 hours to 2 minutes. One click, fully automated.", body: "A client’s team was burning 15+ hours a week on manual research and analysis. I found the bottleneck and replaced it with a pipeline of four specialized AI roles — built and deployed in 5 days.", stack: "n8n · Claude API · Supabase pgvector · Webhooks", demo: "https://www.loom.com/share/d99029c2ac5b4969823c818cb81ef0d5", demoLabel: "Watch demo", github: null },
   { num: "06", title: "Project photo AI", hook: "121 job-site photos sorted in 15 minutes for $0.35. Open source.", body: "Every project generates hundreds of photos — progress, finished work, before-and-afters. This tool reads every photo, scores it 1-1000 for quality and picks the keepers automatically — for the portfolio, the client and the marketing folder.", stack: "Python · OpenAI Vision · Pillow · rawpy", demo: "https://www.loom.com/share/adb04c24f46540d8b544de8e488eb88c", demoLabel: "Watch demo", github: "https://github.com/vkarasovpm-dotcom/photo-ai-toolkit" },
-  { num: "07", title: "Sentinel — adversarial AI court", hook: "Winner at the AI Agent Olympics — top 3 of 731 teams (top 0.4%). The engineering depth behind your system.", body: "Not construction — a three-layer multi-agent court that audits police bodycam footage, built solo at Milan AI Week 2026, Europe’s largest AI event. Realtime transcription flags violations in under 2 seconds; a Prosecution agent argues against a Defense agent while a Vision agent reads the video; a Judge issues per-rule verdicts drillable to the exact video frame. A court-defensible audit at ~$0.10-0.20 per recording.", stack: "Next.js 16 · FastAPI · Speechmatics · Gemini 3.1 Pro · FAISS", demo: "https://sentinel-audit.co", demoLabel: "Live demo", github: "https://github.com/vkarasovpm-dotcom/bodycam-intelligence" },
+  { num: "+", title: "Sentinel — adversarial AI court", hook: "Winner at the AI Agent Olympics — Milan AI Week 2026.", body: "Not a client build — the engineering depth behind the client systems. A three-layer multi-agent court that audits police bodycam footage, built solo at Europe’s largest AI event. Realtime transcription flags violations in under 2 seconds; a Prosecution agent argues against a Defense agent while a Vision agent reads the video; a Judge issues per-rule verdicts drillable to the exact video frame. A court-defensible audit at ~$0.10–0.20 per recording.", stack: "Next.js 16 · FastAPI · Speechmatics · Gemini 3.1 Pro · FAISS", demo: "https://sentinel-audit.co", demoLabel: "Live demo", github: "https://github.com/vkarasovpm-dotcom/bodycam-intelligence" },
 ];
 
 type Faq = { q: string; a: string };
@@ -206,7 +206,7 @@ export default function Page() {
       setRevenue((r) => r + src.rev);
     };
     push(); push(); push();
-    const timer = setInterval(push, 2600);
+    const timer = setInterval(push, 1800);
     return () => clearInterval(timer);
   }, []);
 
@@ -353,7 +353,7 @@ export default function Page() {
         <section id="cases" style={{ ...goldBorder, background: "#0C0C0C" }}>
           <div className="fd-pad" style={container}>
             <p style={eyebrow}>04 — CASES</p>
-            <h2 style={{ margin: "0 0 64px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.9rem, 4vw, 3rem)", letterSpacing: "-0.025em", lineHeight: 1.03, color: "#EDEDED", maxWidth: 760 }}>10,000+ automated runs at Ataman Studio, an LA design-build firm. In production. Right now.</h2>
+            <h2 style={{ margin: "0 0 64px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.9rem, 4vw, 3rem)", letterSpacing: "-0.025em", lineHeight: 1.03, color: "#EDEDED", maxWidth: 760 }}>32 systems built. 6 shown here. All running in production right now.</h2>
 
             <div className="fd-3col" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 1, background: "#1E1E1E", border: "1px solid #1E1E1E", borderRadius: 12, overflow: "hidden", marginBottom: 64 }}>
               {([["<5s", "Every lead answered and scored — hot ones flagged for an immediate call. The first company to respond wins most jobs."], ["2·5·10", "Day follow-up cadence on every estimate — stops itself the second the client replies. No deal goes quiet unnoticed."], ["0", "Manual CRM upkeep. Every call transcribed, summarized and filed; every email routed. It just stays correct."]] as [string, string][]).map(([n, d]) => (
@@ -387,7 +387,7 @@ export default function Page() {
                 );
               })}
             </div>
-            <p style={{ margin: "28px 0 0", fontSize: 13, color: "#666666", lineHeight: 1.6 }}>Some client work runs under strict NDA and isn’t shown here. References available on request.</p>
+            <p style={{ margin: "28px 0 0", fontSize: 13, color: "#666666", lineHeight: 1.6 }}>Most client work runs under strict NDA and isn’t shown here — clients don’t want their internal operations public. References available on request.</p>
           </div>
         </section>
 
