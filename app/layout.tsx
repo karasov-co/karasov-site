@@ -23,9 +23,9 @@ const jetbrainsMono = JetBrains_Mono({
 const siteUrl = "https://karasov.co";
 
 export const metadata: Metadata = {
-  title: "Karasov Systems · The operational brain your company was supposed to have",
+  title: "Karasov Systems — Private AI Operations for Contractors",
   description:
-    "Personal AI systems for construction, design-build and home-service companies. Leads, estimates, project knowledge, documents and reports running as one intelligent operational layer behind the tools you already use.",
+    "Private AI operations systems for design-build, remodeling and specialty contractor companies. Connect leads, estimates, field reporting, project knowledge and documents without replacing the tools your team already uses.",
   keywords: [
     "construction automation",
     "contractor CRM automation",
@@ -40,9 +40,9 @@ export const metadata: Metadata = {
   authors: [{ name: "Vitalii Karasov" }],
   metadataBase: new URL(siteUrl),
   openGraph: {
-    title: "Karasov Systems · The operational brain your company was supposed to have",
+    title: "Karasov Systems — Private AI Operations for Contractors",
     description:
-      "Personal AI systems for construction, design-build and home-service companies. Leads, estimates, project knowledge, documents and reports running as one intelligent operational layer behind the tools you already use.",
+      "Private AI operations systems for design-build, remodeling and specialty contractor companies. Connect leads, estimates, field reporting, project knowledge and documents without replacing the tools your team already uses.",
     type: "website",
     url: siteUrl,
     images: [
@@ -58,9 +58,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Karasov Systems · The operational brain your company was supposed to have",
+    title: "Karasov Systems — Private AI Operations for Contractors",
     description:
-      "Personal AI systems for construction, design-build and home-service companies. Leads, estimates, project knowledge, documents and reports running as one intelligent operational layer behind the tools you already use.",
+      "Private AI operations systems for design-build, remodeling and specialty contractor companies. Connect leads, estimates, field reporting, project knowledge and documents without replacing the tools your team already uses.",
   },
 };
 
@@ -68,7 +68,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Vitalii Karasov",
-  jobTitle: "AI operational systems for construction & home-service companies",
+  jobTitle: "Private AI operations for design-build, remodeling & specialty contractors",
   url: siteUrl,
   email: "v.karasov.pm@gmail.com",
   sameAs: [

@@ -1,7 +1,7 @@
 "use client";
 
 /* eslint-disable @next/next/no-img-element */
-import { useState, useEffect, useRef, type CSSProperties } from "react";
+import { useState, useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 
 const SG = "var(--font-space-grotesk), sans-serif";
 const IN = "var(--font-inter), sans-serif";
@@ -88,15 +88,16 @@ const WORLD: [string, string][] = [
 
 type CaseItem = {
   num: string; title: string; hook: string; body: string; stack: string;
-  demo: string | null; demoLabel: string; github: string | null; badge?: string;
+  demo: string | null; demoLabel: string; github: string | null; badge?: string; ndaNote?: string;
 };
 const CASES: CaseItem[] = [
-  { num: "01", title: "ATAMAN Studio — lead-to-contract system", hook: "Seven automations running the lead lifecycle end to end.", badge: "CLIENT · PRODUCTION · LA DESIGN-BUILD", body: "Seven connected automations covering intake, qualification, call transcription, follow-up and contract detection. Every inbound lead handled without a single manual touch — every booked call becomes a lead card, every inbound email is read and routed, every sales call is transcribed with a reply drafted, and follow-ups fire on their own until the client replies.", stack: "Make.com · ClickUp · OpenAI · Otter · Calendly · Gmail", demo: null, demoLabel: "", github: null },
-  { num: "02", title: "Instant lead response & scoring", hook: "Every lead answered and scored in under 5 seconds.", body: "Inbound leads were falling through the cracks — slow responses, no prioritization, manual copy-paste into spreadsheets. Now hot leads get flagged for an immediate call, warm ones enter a nurture sequence, junk gets filtered out. Speed-to-lead wins jobs: the first company to respond wins most of them.", stack: "n8n · Claude API · Google Sheets · REST API", demo: "https://www.loom.com/share/9c2ef40dee6543f897060ef4b8596d74", demoLabel: "Watch demo", github: null },
-  { num: "03", title: "Marketing content on autopilot", hook: "30 branded posts for $1 in AI costs. Zero manual writing.", body: "A closed-loop content system: your brand voice, your audience’s pain points and your best-performing posts stored as knowledge; AI drafts platform-ready posts on schedule; engagement data feeds back in, so the system writes better every cycle. Your company stays visible while you run jobs.", stack: "Make.com · Claude API · Pinecone · Buffer · RAG", demo: "https://www.loom.com/share/3e08552f874f407bad4b558bd0bdf9d8", demoLabel: "Watch demo", github: null },
-  { num: "04", title: "Market & competitor intelligence", hook: "3+ days of research in under 5 minutes, every claim sourced.", body: "A form-triggered pipeline: five research workflows run in parallel and return a full competitive picture — pricing, positioning, trends — with every claim backed by a real source. Delivered to a spreadsheet and Slack automatically.", stack: "n8n · Gemini Deep Research · Airtable · Slack", demo: "https://www.loom.com/share/6a08c5221efd444db95ee0275247f288", demoLabel: "Watch demo", github: null },
-  { num: "05", title: "Research engine", hook: "3 hours to 2 minutes. One click, fully automated.", body: "A client’s team was burning 15+ hours a week on manual research and analysis. I found the bottleneck and replaced it with a pipeline of four specialized AI roles — built and deployed in 5 days.", stack: "n8n · Claude API · Supabase pgvector · Webhooks", demo: "https://www.loom.com/share/d99029c2ac5b4969823c818cb81ef0d5", demoLabel: "Watch demo", github: null },
-  { num: "06", title: "Project photo AI", hook: "121 job-site photos sorted in 15 minutes for $0.35. Open source.", body: "Every project generates hundreds of photos — progress, finished work, before-and-afters. This tool reads every photo, scores it 1-1000 for quality and picks the keepers automatically — for the portfolio, the client and the marketing folder.", stack: "Python · OpenAI Vision · Pillow · rawpy", demo: "https://www.loom.com/share/adb04c24f46540d8b544de8e488eb88c", demoLabel: "Watch demo", github: "https://github.com/vkarasovpm-dotcom/photo-ai-toolkit" },
+  { num: "01", title: "Private field operations & company knowledge system", hook: "Multilingual field reporting, attendance controls and company records—deployed in infrastructure controlled by the client.", badge: "CLIENT PRODUCTION · US PROJECT-BASED BUSINESS · NDA PROTECTED", body: "Built for a US project-based business coordinating multilingual employees across active work locations. The system gives field staff a simple way to check in and out, verify location, explain attendance exceptions and submit daily voice reports in their preferred language. Reports are transcribed, structured and normalized into English for management.\n\nManagers receive attendance history, exception alerts, project-level visibility, employee and location controls, role-based access and exportable records. A separate read-only ingestion service archives company email and attachments into client-controlled storage, with resumable processing and duplicate protection—creating the foundation for internal knowledge retrieval.\n\nThe system was deployed in an environment controlled by the client, with operational controls, accounts, source code and documentation handed over.", stack: "One-tap field reporting · multilingual voice-to-record processing · client-controlled deployment", demo: null, demoLabel: "", github: null, ndaNote: "Client identity, architecture, business data and project-specific metrics withheld under NDA." },
+  { num: "02", title: "ATAMAN Studio — lead-to-contract system", hook: "Seven automations running the lead lifecycle end to end.", badge: "CLIENT · PRODUCTION · LA DESIGN-BUILD", body: "Seven connected automations covering intake, qualification, call transcription, follow-up and contract detection. Every inbound lead handled without a single manual touch — every booked call becomes a lead card, every inbound email is read and routed, every sales call is transcribed with a reply drafted, and follow-ups fire on their own until the client replies.", stack: "Make.com · ClickUp · OpenAI · Otter · Calendly · Gmail", demo: null, demoLabel: "", github: null },
+  { num: "03", title: "Instant lead response & scoring", hook: "Every lead answered and scored in under 5 seconds.", body: "Inbound leads were falling through the cracks — slow responses, no prioritization, manual copy-paste into spreadsheets. Now hot leads get flagged for an immediate call, warm ones enter a nurture sequence, junk gets filtered out. Speed-to-lead wins jobs: the first company to respond wins most of them.", stack: "n8n · Claude API · Google Sheets · REST API", demo: "https://www.loom.com/share/9c2ef40dee6543f897060ef4b8596d74", demoLabel: "Watch demo", github: null },
+  { num: "04", title: "Marketing content on autopilot", hook: "30 branded posts for $1 in AI costs. Zero manual writing.", body: "A closed-loop content system: your brand voice, your audience’s pain points and your best-performing posts stored as knowledge; AI drafts platform-ready posts on schedule; engagement data feeds back in, so the system writes better every cycle. Your company stays visible while you run jobs.", stack: "Make.com · Claude API · Pinecone · Buffer · RAG", demo: "https://www.loom.com/share/3e08552f874f407bad4b558bd0bdf9d8", demoLabel: "Watch demo", github: null },
+  { num: "05", title: "Market & competitor intelligence", hook: "3+ days of research in under 5 minutes, every claim sourced.", body: "A form-triggered pipeline: five research workflows run in parallel and return a full competitive picture — pricing, positioning, trends — with every claim backed by a real source. Delivered to a spreadsheet and Slack automatically.", stack: "n8n · Gemini Deep Research · Airtable · Slack", demo: "https://www.loom.com/share/6a08c5221efd444db95ee0275247f288", demoLabel: "Watch demo", github: null },
+  { num: "06", title: "Research engine", hook: "3 hours to 2 minutes. One click, fully automated.", body: "A client’s team was burning 15+ hours a week on manual research and analysis. I found the bottleneck and replaced it with a pipeline of four specialized AI roles — built and deployed in 5 days.", stack: "n8n · Claude API · Supabase pgvector · Webhooks", demo: "https://www.loom.com/share/d99029c2ac5b4969823c818cb81ef0d5", demoLabel: "Watch demo", github: null },
+  { num: "07", title: "Project photo AI", hook: "121 job-site photos sorted in 15 minutes for $0.35. Open source.", body: "Every project generates hundreds of photos — progress, finished work, before-and-afters. This tool reads every photo, scores it 1-1000 for quality and picks the keepers automatically — for the portfolio, the client and the marketing folder.", stack: "Python · OpenAI Vision · Pillow · rawpy", demo: "https://www.loom.com/share/adb04c24f46540d8b544de8e488eb88c", demoLabel: "Watch demo", github: "https://github.com/vkarasovpm-dotcom/photo-ai-toolkit" },
   { num: "+", title: "Sentinel — adversarial AI court", hook: "Winner at the AI Agent Olympics — Milan AI Week 2026.", body: "Not a client build — the engineering depth behind the client systems. A three-layer multi-agent court that audits police bodycam footage, built solo at Europe’s largest AI event. Realtime transcription flags violations in under 2 seconds; a Prosecution agent argues against a Defense agent while a Vision agent reads the video; a Judge issues per-rule verdicts drillable to the exact video frame. A court-defensible audit at ~$0.10–0.20 per recording.", stack: "Next.js 16 · FastAPI · Speechmatics · Gemini 3.1 Pro · FAISS", demo: "https://sentinel-audit.co", demoLabel: "Live demo", github: "https://github.com/vkarasovpm-dotcom/bodycam-intelligence" },
 ];
 
@@ -163,6 +164,87 @@ const HOOD_LINES = [
   "Delivery: PRINCE2 · Agile · Make.com Advanced Certified",
 ];
 
+const PRICE_DETAILS: { trigger: string; heading: string; items: string[]; note: string }[] = [
+  {
+    trigger: "See everything included — 19 items",
+    heading: "What the pilot includes",
+    items: [
+      "Operational discovery session",
+      "One clearly defined business bottleneck",
+      "Baseline and measurable success criteria",
+      "Current workflow map",
+      "Existing tools and integration map",
+      "Data-flow map",
+      "Decision and human-approval rules",
+      "Exception and failure-case catalogue",
+      "Security and access design",
+      "Fixed implementation scope",
+      "Client-controlled deployment",
+      "Production implementation",
+      "Test scenarios and acceptance checks",
+      "Monitoring and failure alerts",
+      "Audit trail where the workflow requires it",
+      "Source code and credentials handover",
+      "Technical and operational documentation",
+      "Team handoff and recorded walkthrough",
+      "14-day post-launch stabilization period",
+    ],
+    note: "Exact components depend on the workflow. Everything included in your pilot is defined and priced before implementation starts.",
+  },
+  {
+    trigger: "See everything included — 18 items",
+    heading: "What ongoing operation includes",
+    items: [
+      "Continuous workflow health monitoring",
+      "Integration and API failure monitoring",
+      "Same-business-day incident acknowledgement",
+      "Failed-run investigation",
+      "Retry and fallback maintenance",
+      "Model-output quality review",
+      "Prompt and business-rule adjustments",
+      "Data-quality checks",
+      "Credential and dependency checks",
+      "Access and permission review",
+      "Backup and recovery checks",
+      "Monthly performance summary",
+      "Monthly operational review",
+      "Minor improvements within agreed monthly capacity",
+      "Documentation updates",
+      "Team support for system-related questions",
+      "Quarterly system roadmap",
+      "Complete ownership retained by the client",
+    ],
+    note: "Operate begins after a system is live. Monthly capacity and response expectations are agreed in advance. New systems or major modules are scoped separately.",
+  },
+  {
+    trigger: "See everything included — 20 items",
+    heading: "What a platform engagement can include",
+    items: [
+      "Company-wide operational discovery",
+      "Department and stakeholder interviews",
+      "Current-system and process inventory",
+      "Bottleneck and opportunity prioritization",
+      "Phased implementation roadmap",
+      "Cross-system data architecture",
+      "Identity, access and permission design",
+      "Data-governance and retention rules",
+      "Central project knowledge layer",
+      "Lead and estimate workflows",
+      "Field-to-office communication workflows",
+      "Supplier, document and reporting workflows",
+      "Human-approval and escalation rules",
+      "Monitoring, logging and audit trails",
+      "Testing and acceptance framework",
+      "Production deployment in 2–4 week increments",
+      "Team training and adoption support",
+      "Technical and operational documentation",
+      "Performance and value reviews",
+      "Client ownership of code, credentials and infrastructure",
+    ],
+    note: "Every platform engagement is designed and delivered in phases. Individual modules must produce operational value before the next phase begins.",
+  },
+];
+
 const container = { maxWidth: 1240, margin: "0 auto", padding: "60px 32px", boxSizing: "border-box" as const };
 const eyebrow = { margin: "0 0 10px", fontFamily: JB, fontSize: 12, color: "#A98A47", letterSpacing: "0.2em" };
 const goldBorder = { borderTop: "1px solid rgba(212,168,83,0.4)" };
@@ -172,9 +254,10 @@ export default function Page() {
   const [tick, setTick] = useState(0);
   const [revenue, setRevenue] = useState(0);
   const [scrolled, setScrolled] = useState(false);
-  const [openCase, setOpenCase] = useState<number | null>(null);
+  const [openCase, setOpenCase] = useState<number | null>(0);
   const [openCat, setOpenCat] = useState<number | null>(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [openPrice, setOpenPrice] = useState<number | null>(null);
   const [hoodOpen, setHoodOpen] = useState(false);
 
   const keyRef = useRef(0);
@@ -259,7 +342,7 @@ export default function Page() {
 
               <div aria-hidden="true" style={{ width: 320, maxWidth: "100%", height: 13, margin: "0 0 24px", borderTop: "1px solid rgba(212,168,83,0.4)", backgroundImage: "repeating-linear-gradient(90deg, rgba(212,168,83,0.3) 0px, rgba(212,168,83,0.3) 1px, transparent 1px, transparent 10px), repeating-linear-gradient(90deg, rgba(212,168,83,0.45) 0px, rgba(212,168,83,0.45) 1px, transparent 1px, transparent 80px)", backgroundSize: "100% 6px, 100% 13px", backgroundRepeat: "repeat-x", backgroundPosition: "top left" }} />
 
-              <p style={{ margin: "0 0 16px", fontSize: "clamp(1rem, 1.7vw, 1.15rem)", color: "#9A9A9A", maxWidth: 540, lineHeight: 1.65, textWrap: "pretty" }}>Personal AI systems for construction, design-build and home-service companies. Leads, estimates, suppliers, project knowledge, communications, documents, reports — everything your office does, running as one intelligent layer behind the tools you already use.</p>
+              <p style={{ margin: "0 0 16px", fontSize: "clamp(1rem, 1.7vw, 1.15rem)", color: "#9A9A9A", maxWidth: 540, lineHeight: 1.65, textWrap: "pretty" }}>Private AI operations systems for design-build, remodeling and specialty contractor companies. Leads, estimates, project knowledge, field reporting, documents and communications—connected behind the tools your team already uses.</p>
               <p style={{ margin: "0 0 32px", fontFamily: SG, fontWeight: 600, fontSize: "clamp(1rem, 1.7vw, 1.15rem)", color: GOLD, lineHeight: 1.5 }}>Start with one workflow. Grow into a full company system.</p>
 
               <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 32 }}>
@@ -271,9 +354,10 @@ export default function Page() {
               </div>
 
               <div className="fd-wrap" style={{ display: "flex", alignItems: "center", gap: 14 }}>
-                <a href={WA} target="_blank" rel="noopener noreferrer" className="ks-btn-gold" style={{ background: GOLD, color: "#0A0A0A", fontWeight: 600, padding: "16px 30px", borderRadius: 8, fontSize: 14, fontFamily: SG, minHeight: 24 }}>💬 WhatsApp — same-day reply</a>
-                <a href={CAL} target="_blank" rel="noopener noreferrer" className="ks-btn-outline" style={{ background: "#1E1B12", border: "1px solid rgba(212,168,83,0.5)", color: "#E8C46A", fontWeight: 600, padding: "16px 30px", borderRadius: 8, fontSize: 14, fontFamily: SG }}>📅 Book a call</a>
+                <a href={WA} target="_blank" rel="noopener noreferrer" className="ks-btn-gold" style={{ background: GOLD, color: "#0A0A0A", fontWeight: 600, padding: "16px 30px", borderRadius: 8, fontSize: 14, fontFamily: SG, minHeight: 24 }}>💬 Describe your bottleneck</a>
+                <a href={CAL} target="_blank" rel="noopener noreferrer" className="ks-btn-outline" style={{ background: "#1E1B12", border: "1px solid rgba(212,168,83,0.5)", color: "#E8C46A", fontWeight: 600, padding: "16px 30px", borderRadius: 8, fontSize: 14, fontFamily: SG }}>📅 Book a 30-min call</a>
               </div>
+              <p style={{ margin: "16px 0 0", fontSize: 13, color: "#777777", lineHeight: 1.6, maxWidth: 460 }}>Prefer async? Send the workflow, the tools you use and what keeps breaking. Same-business-day reply.</p>
             </div>
 
             {/* Live ops feed */}
@@ -353,7 +437,7 @@ export default function Page() {
         <section id="cases" style={{ ...goldBorder, background: "#0C0C0C" }}>
           <div className="fd-pad" style={container}>
             <p style={eyebrow}>04 — CASES</p>
-            <h2 style={{ margin: "0 0 20px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.9rem, 4vw, 3rem)", letterSpacing: "-0.025em", lineHeight: 1.03, color: "#EDEDED", maxWidth: 760 }}>32 systems built. 7 selected examples below.</h2>
+            <h2 style={{ margin: "0 0 20px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.9rem, 4vw, 3rem)", letterSpacing: "-0.025em", lineHeight: 1.03, color: "#EDEDED", maxWidth: 760 }}>32 systems built. 8 selected examples below.</h2>
             <p style={{ margin: "0 0 56px", fontSize: 16, color: "#9A9A9A", lineHeight: 1.7, maxWidth: 720 }}>Client production systems, internal tools, open-source builds and an award-winning hackathon project.</p>
 
             <div className="fd-3col" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 1, background: "#1E1E1E", border: "1px solid #1E1E1E", borderRadius: 12, overflow: "hidden", marginBottom: 64 }}>
@@ -374,12 +458,18 @@ export default function Page() {
                       <span style={{ fontFamily: JB, fontSize: 12, color: "#555555", width: 30, flexShrink: 0 }}>{c.num}</span>
                       <span className="fd-casetitle" style={{ fontFamily: SG, fontWeight: 600, fontSize: "clamp(1.05rem, 1.8vw, 1.35rem)", color: "#EDEDED", letterSpacing: "-0.015em", width: 380, flexShrink: 0, lineHeight: 1.3 }}>{c.title}</span>
                       <span style={{ fontSize: 14, color: "#9A9A9A", flex: 1, lineHeight: 1.5 }}>{c.hook}</span>
-                      <span style={{ color: GOLD, fontSize: 20, flexShrink: 0, transform: `rotate(${open ? 45 : 0}deg)`, transition: "transform 0.2s", display: "inline-block", lineHeight: 1 }}>+</span>
+                      <span className="ks-price-icon" style={{ color: GOLD, fontSize: 20, flexShrink: 0, transform: `rotate(${open ? 45 : 0}deg)`, transition: "transform 0.2s", display: "inline-block", lineHeight: 1 }}>+</span>
                     </button>
                     <div style={{ display: open ? "block" : "none", padding: "0 4px 28px 54px" }}>
                       {c.badge && <p style={{ margin: "0 0 12px", fontFamily: JB, fontSize: 11, letterSpacing: "0.18em", color: "#A98A47" }}>{c.badge}</p>}
-                      <p style={{ margin: "0 0 18px", fontSize: 14, color: "#9A9A9A", lineHeight: 1.75, maxWidth: 700 }}>{c.body}</p>
+                      <p style={{ margin: "0 0 18px", fontSize: 14, color: "#9A9A9A", lineHeight: 1.75, maxWidth: 700, whiteSpace: "pre-line" }}>{c.body}</p>
                       <p style={{ margin: "0 0 16px", fontFamily: JB, fontSize: 11, color: "#666666" }}>{c.stack}</p>
+                      {c.ndaNote && (
+                        <p style={{ margin: "0 0 16px", display: "flex", alignItems: "baseline", gap: 8, fontFamily: JB, fontSize: 12.5, letterSpacing: "0.02em", color: "#A98A47", lineHeight: 1.6, maxWidth: 640 }}>
+                          <span aria-hidden="true" style={{ flexShrink: 0 }}>🔒</span>
+                          <span>{c.ndaNote}</span>
+                        </p>
+                      )}
                       {(c.demo || c.github) && (
                         <div className="fd-wrap" style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
                           {c.demo && <a href={c.demo} target="_blank" rel="noopener noreferrer" className="ks-btn-outline" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#1E1B12", border: "1px solid rgba(212,168,83,0.5)", color: "#E8C46A", fontWeight: 600, fontSize: 13, padding: "10px 18px", borderRadius: 6, fontFamily: SG }}>▶ {c.demoLabel} →</a>}
@@ -399,30 +489,13 @@ export default function Page() {
         <section id="offer" style={goldBorder}>
           <div className="fd-pad" style={container}>
             <p style={eyebrow}>05 — PRICING</p>
-            <h2 style={{ margin: "0 0 64px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.9rem, 4vw, 3rem)", letterSpacing: "-0.025em", lineHeight: 1.03, color: "#EDEDED", maxWidth: 700 }}>Start with one bottleneck. Grow as far as the math takes you.</h2>
+            <h2 style={{ margin: "0 0 20px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.9rem, 4vw, 3rem)", letterSpacing: "-0.025em", lineHeight: 1.03, color: "#EDEDED", maxWidth: 700 }}>Start with one bottleneck. Grow as far as the math takes you.</h2>
+            <p style={{ margin: "0 0 56px", fontSize: 16, color: "#9A9A9A", lineHeight: 1.7, maxWidth: 720 }}>Not a template installation. Each engagement covers the process, decisions, exceptions, infrastructure and handoff required to make the system part of daily operations.</p>
 
-            <div className="fd-3col" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }}>
-              {/* PILOT */}
-              <div style={{ border: "1px solid rgba(212,168,83,0.35)", borderRadius: 12, padding: "40px 34px", background: "linear-gradient(180deg, rgba(212,168,83,0.04), transparent 40%)", display: "flex", flexDirection: "column" }}>
-                <p style={{ margin: "0 0 6px", fontFamily: JB, fontSize: 11, letterSpacing: "0.2em", color: "#A98A47" }}>PILOT</p>
-                <div style={{ fontFamily: JB, fontWeight: 500, fontSize: "clamp(1.4rem, 2.2vw, 1.9rem)", color: "#EDEDED", letterSpacing: "-0.02em", marginBottom: 4 }}>$3,000 – $8,000</div>
-                <p style={{ margin: "0 0 20px", fontFamily: JB, fontSize: 12, color: "#A98A47", letterSpacing: "0.08em" }}>FIXED PRICE</p>
-                <PriceList items={["One system, one bottleneck, live in 2-4 weeks.", "Scoped and quoted before you commit.", "50% at signature, 50% at launch.", "Yours to keep — source code, credentials, documentation."]} />
-              </div>
-              {/* OPERATE */}
-              <div style={{ border: "1px solid #1E1E1E", borderRadius: 12, padding: "40px 34px", display: "flex", flexDirection: "column" }}>
-                <p style={{ margin: "0 0 6px", fontFamily: JB, fontSize: 11, letterSpacing: "0.2em", color: "#777777" }}>OPERATE</p>
-                <div style={{ fontFamily: JB, fontWeight: 500, fontSize: "clamp(1.4rem, 2.2vw, 1.9rem)", color: "#EDEDED", letterSpacing: "-0.02em", marginBottom: 4 }}>from $2,000<span style={{ fontSize: "0.55em", color: "#777777" }}>/mo</span></div>
-                <p style={{ margin: "0 0 20px", fontFamily: JB, fontSize: 12, color: "#777777", letterSpacing: "0.08em" }}>MONTH-TO-MONTH</p>
-                <PriceList items={["Ongoing partnership after a system is live.", "Monitoring, same-day fixes, monthly improvements.", "New modules added as your business grows.", "Cancel anytime, keep everything."]} />
-              </div>
-              {/* PLATFORM */}
-              <div style={{ border: "1px solid #1E1E1E", borderRadius: 12, padding: "40px 34px", display: "flex", flexDirection: "column" }}>
-                <p style={{ margin: "0 0 6px", fontFamily: JB, fontSize: 11, letterSpacing: "0.2em", color: "#777777" }}>PLATFORM</p>
-                <div style={{ fontFamily: JB, fontWeight: 500, fontSize: "clamp(1.4rem, 2.2vw, 1.9rem)", color: "#EDEDED", letterSpacing: "-0.02em", marginBottom: 4 }}>engagement</div>
-                <p style={{ margin: "0 0 20px", fontFamily: JB, fontSize: 12, color: "#777777", letterSpacing: "0.08em" }}>SCOPED PER BUSINESS · NDA-FRIENDLY</p>
-                <PriceList items={["Full operational layer, built in phases over 6-18 months.", "Voice-first interface, project knowledge base, multi-stakeholder coordination, document generation, decision support.", "Delivered as a working system in 2-4 week increments — not a deck, not a pilot that stalls."]} />
-              </div>
+            <div className="fd-3col" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12, alignItems: "start" }}>
+              <PriceCard index={0} highlight label="PILOT" labelColor="#A98A47" noteColor="#A98A47" note="FIXED PRICE" price="$3,000 – $8,000" bullets={["One system, one bottleneck, live in 2-4 weeks.", "Scoped and quoted before you commit.", "50% at signature, 50% at launch.", "Yours to keep — source code, credentials, documentation."]} details={PRICE_DETAILS[0]} open={openPrice === 0} onToggle={() => setOpenPrice(openPrice === 0 ? null : 0)} />
+              <PriceCard index={1} label="OPERATE" labelColor="#777777" noteColor="#777777" note="MONTH-TO-MONTH" price={<>from $2,000<span style={{ fontSize: "0.55em", color: "#777777" }}>/mo</span></>} bullets={["Ongoing partnership after a system is live.", "Monitoring, same-business-day response, monthly improvements.", "New modules added as your business grows.", "Cancel anytime, keep everything."]} details={PRICE_DETAILS[1]} open={openPrice === 1} onToggle={() => setOpenPrice(openPrice === 1 ? null : 1)} />
+              <PriceCard index={2} label="PLATFORM" labelColor="#777777" noteColor="#777777" note="SCOPED PER BUSINESS · NDA-FRIENDLY" price="engagement" bullets={["Full operational layer, built in phases over 6-18 months.", "Voice-first interface, project knowledge base, multi-stakeholder coordination, document generation, decision support.", "Delivered as a working system in 2-4 week increments — not a deck, not a pilot that stalls."]} details={PRICE_DETAILS[2]} open={openPrice === 2} onToggle={() => setOpenPrice(openPrice === 2 ? null : 2)} />
             </div>
 
             <div className="fd-stack" style={{ display: "flex", gap: 48, marginTop: 48, alignItems: "baseline" }}>
@@ -549,9 +622,10 @@ export default function Page() {
             <h2 style={{ margin: "0 0 28px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.8rem, 4.4vw, 3.6rem)", letterSpacing: "-0.03em", lineHeight: 1.08, color: "#EDEDED", maxWidth: 900, textWrap: "balance" }}>Losing leads you already paid for?<br />Chasing information that’s already in your inbox?<br /><span style={{ color: GOLD }}>Running a business inside your own head?</span></h2>
             <p style={{ margin: "0 0 44px", color: "#9A9A9A", fontSize: 17, lineHeight: 1.65, maxWidth: 560 }}>One message. I’ll tell you what’s leaking and what it would take to fix it — even if we don’t end up working together.</p>
             <div className="fd-wrap" style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 20 }}>
-              <a href={WA} target="_blank" rel="noopener noreferrer" className="ks-btn-gold" style={{ background: GOLD, color: "#0A0A0A", fontWeight: 600, padding: "18px 36px", borderRadius: 8, fontSize: 15, fontFamily: SG, minHeight: 20 }}>💬 Message on WhatsApp</a>
+              <a href={WA} target="_blank" rel="noopener noreferrer" className="ks-btn-gold" style={{ background: GOLD, color: "#0A0A0A", fontWeight: 600, padding: "18px 36px", borderRadius: 8, fontSize: 15, fontFamily: SG, minHeight: 20 }}>💬 Describe your bottleneck</a>
               <a href={CAL} target="_blank" rel="noopener noreferrer" className="ks-btn-outline" style={{ background: "#1E1B12", border: "1px solid rgba(212,168,83,0.5)", color: "#E8C46A", fontWeight: 600, padding: "18px 36px", borderRadius: 8, fontSize: 15, fontFamily: SG }}>📅 Book a 30-min call</a>
             </div>
+            <p style={{ margin: "0 0 12px", fontSize: 14, color: "#9A9A9A", lineHeight: 1.6, maxWidth: 560 }}>Send a voice note, written message or process screenshot — whichever is easiest.</p>
             <p style={{ margin: "0 0 56px", fontSize: 14, color: "#777777" }}>or email <a href="mailto:vitalii@karasov.co?subject=Karasov%20Systems%20inquiry" className="ks-gold" style={{ color: GOLD, textDecoration: "underline", textUnderlineOffset: 4 }}>vitalii@karasov.co</a></p>
             <div className="fd-stack" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 20, borderTop: "1px solid #1E1E1E", paddingTop: 28 }}>
               <div>
@@ -584,6 +658,62 @@ function painQuote(right = false): CSSProperties {
     lineHeight: 1.18, letterSpacing: "-0.02em", color: "#EDEDED", textWrap: "balance",
     ...(right ? { alignSelf: "flex-end", textAlign: "right", maxWidth: 780 } : {}),
   };
+}
+
+function PriceCard({
+  index, label, labelColor, note, noteColor, price, bullets, details, highlight, open, onToggle,
+}: {
+  index: number; label: string; labelColor: string; note: string; noteColor: string;
+  price: ReactNode; bullets: string[]; details: (typeof PRICE_DETAILS)[number];
+  highlight?: boolean; open: boolean; onToggle: () => void;
+}) {
+  const panelId = `price-details-${index}`;
+  const btnId = `price-trigger-${index}`;
+  return (
+    <div
+      style={{
+        border: highlight ? "1px solid rgba(212,168,83,0.35)" : "1px solid #1E1E1E",
+        borderRadius: 12,
+        padding: "40px 34px",
+        background: highlight ? "linear-gradient(180deg, rgba(212,168,83,0.04), transparent 40%)" : undefined,
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <p style={{ margin: "0 0 6px", fontFamily: JB, fontSize: 11, letterSpacing: "0.2em", color: labelColor }}>{label}</p>
+      <div style={{ fontFamily: JB, fontWeight: 500, fontSize: "clamp(1.4rem, 2.2vw, 1.9rem)", color: "#EDEDED", letterSpacing: "-0.02em", marginBottom: 4 }}>{price}</div>
+      <p style={{ margin: "0 0 20px", fontFamily: JB, fontSize: 12, color: noteColor, letterSpacing: "0.08em" }}>{note}</p>
+      <PriceList items={bullets} />
+
+      <div style={{ marginTop: 22, borderTop: "1px solid #1E1E1E", paddingTop: 16 }}>
+        <button
+          id={btnId}
+          type="button"
+          onClick={onToggle}
+          aria-expanded={open}
+          aria-controls={panelId}
+          className="ks-price-tog"
+          style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, background: "none", border: "none", padding: "2px 0", cursor: "pointer", textAlign: "left", color: "#E8C46A", fontFamily: JB, fontSize: 13, letterSpacing: "0.02em", lineHeight: 1.4 }}
+        >
+          <span>{details.trigger}</span>
+          <span aria-hidden="true" className="ks-price-icon" style={{ color: GOLD, fontSize: 18, lineHeight: 1, flexShrink: 0, transform: `rotate(${open ? 45 : 0}deg)`, transition: "transform 0.2s ease", display: "inline-block" }}>+</span>
+        </button>
+
+        <div id={panelId} role="region" aria-labelledby={btnId} style={{ display: open ? "block" : "none", marginTop: 18 }}>
+          <p style={{ margin: "0 0 14px", fontFamily: JB, fontSize: 12, letterSpacing: "0.08em", color: "#A98A47" }}>{details.heading}</p>
+          <ol style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 9 }}>
+            {details.items.map((it, k) => (
+              <li key={it} style={{ display: "flex", gap: 12, fontSize: 13, color: "#B5B5B5", lineHeight: 1.55 }}>
+                <span style={{ fontFamily: JB, fontSize: 11, color: "#6E6E6E", flexShrink: 0, minWidth: 18, textAlign: "right", paddingTop: 1 }}>{k + 1}</span>
+                <span style={{ minWidth: 0 }}>{it}</span>
+              </li>
+            ))}
+          </ol>
+          <p style={{ margin: "18px 0 0", fontSize: 13, color: "#7A7A7A", lineHeight: 1.6 }}>{details.note}</p>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function PriceList({ items }: { items: string[] }) {

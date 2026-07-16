@@ -164,3 +164,10 @@ h1, h2, h3, h4, h5, h6 {
 .ks-btn-outline:hover { background: rgba(212,168,83,0.15) !important; }
 .ks-caserow { transition: background 0.2s; }
 .ks-caserow:hover { background: #0E0E0E; }
+.ks-price-tog { transition: color 0.2s; }
+.ks-price-tog:hover { color: #F2DDA0 !important; }
+
+/* Pricing accordion respects reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .ks-price-tog, .ks-price-icon { transition: none !important; }
+}
