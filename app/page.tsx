@@ -79,8 +79,8 @@ const STEPS: [string, string, string, boolean][] = [
 
 const WORLD: [string, string][] = [
   ["Your leads", " come from Google LSA, Angi, Thumbtack, Houzz, Instagram DMs and referrals — and half of them call, not email."],
-  ["Your crews", " are in the field with phones, not laptops. Everything works over text or a tap. No logins to forget."],
-  ["Your data", " lives in twelve places — Gmail, WhatsApp, spreadsheets, the CRM, QuickBooks, Google Drive, the whiteboard, three notebooks and one office manager’s head. I don’t replace any of them. I connect them."],
+  ["Your crews", " are in the field with phones, not laptops. Everything works over text, voice or a simple mobile action. Minimal new logins and no complex software for the field team to learn."],
+  ["Your data", " lives in twelve places — Gmail, WhatsApp, spreadsheets, the CRM, QuickBooks, Google Drive, the whiteboard, three notebooks and one office manager’s head. I connect the systems worth keeping and create low-friction capture for everything that still happens in calls, messages, notebooks and people’s heads."],
   ["Your materials", " get ordered by phone or in a WhatsApp thread. Then nobody knows where the invoice went, or whether the price was right."],
   ["Your projects", " run late and over budget more often than they should — not because your crew can’t build, but because communication falls apart between the field and the office."],
   ["Your reality:", " nobody has time to “learn a new tool.” So there’s nothing to learn. The system runs underneath what you already use."],
@@ -155,13 +155,23 @@ const FAQ_CATS: { label: string; qs: Faq[] }[] = [
   ]},
 ];
 
-const HOOD_LINES = [
-  "Multi-agent orchestration: LangGraph · CrewAI · MCP servers",
-  "RAG: Supabase pgvector · Pinecone · FAISS · hybrid search + re-ranking",
-  "Voice: Speechmatics · Whisper · ElevenLabs",
-  "Evals: DeepEval · LLM-as-Judge · grounding checks",
-  "Backend: Python FastAPI · PostgreSQL · n8n self-hosted · Vultr · GCP",
-  "Delivery: PRINCE2 · Agile · Make.com Advanced Certified",
+// Tools the client's team already uses — grouped for scannability, not a logo wall.
+const TOOL_GROUPS: [string, string][] = [
+  ["PROJECTS & FIELD", "Buildertrend · JobTread · Houzz Pro · CompanyCam · ClickUp"],
+  ["FINANCE & FILES", "QuickBooks · Google Workspace · Microsoft 365 · Airtable"],
+  ["CALLS & MEETINGS", "Quo / OpenPhone · CallRail · Zoom · Google Meet · Microsoft Teams · Otter · Fireflies · Fathom"],
+  ["CRM & COMMUNICATIONS", "HubSpot · Pipedrive · Zoho · WhatsApp Business · SMS · Slack"],
+  ["AUTOMATION LAYER", "n8n · Make · APIs · webhooks · client-controlled infrastructure"],
+];
+
+// Capability groups behind the "under the hood" accordion.
+const HOOD_GROUPS: [string, string][] = [
+  ["ARCHITECTURE", "APIs · webhooks · event-driven workflows · multi-tenant routing"],
+  ["AI & KNOWLEDGE", "RAG · hybrid retrieval · multi-agent orchestration · grounded answers · evaluation"],
+  ["VOICE & CALLS", "Realtime and batch transcription · diarization · multilingual normalization · summaries · action extraction"],
+  ["SECURITY & OWNERSHIP", "Role-based access · client-controlled deployment · credential separation · audit logs"],
+  ["RELIABILITY", "Retries · fallbacks · resumable processing · duplicate protection · structured logging · monitoring"],
+  ["DELIVERY", "Python · FastAPI · PostgreSQL · n8n · Make · Docker · GitHub Actions · Vercel · GCP · Vultr"],
 ];
 
 const PRICE_DETAILS: { trigger: string; heading: string; items: string[]; note: string }[] = [
@@ -545,27 +555,42 @@ export default function Page() {
               <div style={{ border: "1px solid #1E1E1E", borderRadius: 12, padding: "24px 24px 28px", background: "#0E0E0E" }}>
                 <p style={{ margin: "0 0 12px", fontFamily: JB, fontSize: 11, letterSpacing: "0.2em", color: "#A98A47" }}>DATA HANDLING &amp; RESPONSIBILITY</p>
                 <p style={{ margin: "0 0 12px", fontSize: 13.5, color: "#9A9A9A", lineHeight: 1.75 }}>Before AI systems, I ran operations at a humanitarian organization handling personal data of vulnerable populations — under legal and criminal liability for data integrity and privacy compliance. 1.5M+ PLN operational budget, zero audit findings.</p>
-                <p style={{ margin: 0, fontSize: 13.5, color: "#9A9A9A", lineHeight: 1.75 }}>For construction and design-build firms, this translates to: client financial data, contracts, employee records and project IP handled with regulated-industry discipline by default. GDPR, PDPL and CCPA compliance mapping included in every build.</p>
+                <p style={{ margin: 0, fontSize: 13.5, color: "#9A9A9A", lineHeight: 1.75 }}>For construction and design-build firms, this translates to: client financial data, contracts, employee records and project IP handled with regulated-industry discipline by default. Privacy, access-control and data-retention requirements are mapped during architecture. Where formal legal compliance is required, implementation is aligned with the client’s legal counsel.</p>
               </div>
             </div>
             <div>
               <h2 style={{ margin: "28px 0 20px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.6rem, 3vw, 2.2rem)", letterSpacing: "-0.02em", lineHeight: 1.1, color: "#EDEDED" }}>Vitalii Karasov — a product manager who builds.</h2>
               <p style={{ margin: "0 0 14px", fontSize: 15, color: "#9A9A9A", lineHeight: 1.8 }}>Five years in operations, product and delivery before going full-time on AI systems: EdTech launch, media production, humanitarian crisis logistics with a 1.5M+ PLN budget and zero audit findings. MSc in Strategic Project Management. PRINCE2.</p>
               <p style={{ margin: "0 0 14px", fontSize: 15, color: "#9A9A9A", lineHeight: 1.8 }}>In 2026 my solo build won at the AI Agent Olympics at Milan AI Week — Europe’s largest AI event.</p>
-              <p style={{ margin: "0 0 14px", fontSize: 15, color: "#EDEDED", lineHeight: 1.8, fontWeight: 500 }}>Now I build one thing: the operational layer for construction and home-service companies. Deep, not wide.</p>
+              <p style={{ margin: "0 0 14px", fontSize: 15, color: "#EDEDED", lineHeight: 1.8, fontWeight: 500 }}>Now I build one thing: private operational systems for owner-led design-build, remodeling and specialty contractor companies. Deep, not wide.</p>
               <p style={{ margin: "0 0 28px", fontSize: 15, color: "#9A9A9A", lineHeight: 1.8 }}><span style={{ color: "#EDEDED", fontWeight: 500 }}>The delivery network.</span> On larger builds I bring in trusted specialists — design, development support, QA — but every project stays under my direct scope and my code review. You always know exactly who touched what, and you always talk to me.</p>
 
               <div style={{ border: "1px solid #1E1E1E", borderRadius: 12, overflow: "hidden" }}>
                 <div style={{ padding: "20px 22px" }}>
-                  <p style={{ margin: "0 0 8px", fontFamily: JB, fontSize: 11, letterSpacing: "0.2em", color: "#666666" }}>WORKS WITH WHAT YOU ALREADY HAVE</p>
-                  <p style={{ margin: 0, fontSize: 13, color: "#9A9A9A", lineHeight: 1.8 }}>Gmail · QuickBooks · Buildertrend · JobTread · Housecall Pro · ServiceTitan · Jobber · Procore · CoConstruct · Calendly · WhatsApp Business · Bitrix24 · Zoho · SMS — plus your phone, your email, your whiteboard. Any currency, any language.</p>
+                  <p style={{ margin: "0 0 16px", fontFamily: JB, fontSize: 11, letterSpacing: "0.2em", color: "#666666" }}>WORKS AROUND THE TOOLS YOUR TEAM ALREADY USES</p>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                    {TOOL_GROUPS.map(([label, tools]) => (
+                      <div key={label} className="fd-toolrow" style={{ display: "grid", gridTemplateColumns: "160px 1fr", gap: "3px 16px", alignItems: "baseline" }}>
+                        <p style={{ margin: 0, fontFamily: JB, fontSize: 10, letterSpacing: "0.13em", color: "#A98A47", lineHeight: 1.5 }}>{label}</p>
+                        <p style={{ margin: 0, fontSize: 13, color: "#9A9A9A", lineHeight: 1.6 }}>{tools}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <p style={{ margin: "18px 0 0", fontSize: 12, color: "#777777", lineHeight: 1.65 }}>If a tool exposes an API, webhook or reliable export, I can usually connect it. Vendor access and recording consent are verified before the build.</p>
                 </div>
-                <button onClick={() => setHoodOpen((v) => !v)} style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, padding: "14px 22px", background: "#0E0E0E", border: "none", borderTop: "1px solid #1E1E1E", cursor: "pointer", textAlign: "left" }}>
+                <button onClick={() => setHoodOpen((v) => !v)} aria-expanded={hoodOpen} style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, padding: "14px 22px", background: "#0E0E0E", border: "none", borderTop: "1px solid #1E1E1E", cursor: "pointer", textAlign: "left" }}>
                   <span style={{ fontFamily: JB, fontSize: 11, letterSpacing: "0.2em", color: "#A98A47" }}>UNDER THE HOOD — FOR THE ONE WHO’LL CHECK</span>
                   <span style={{ color: GOLD, fontSize: 18, lineHeight: 1, transform: `rotate(${hoodOpen ? 45 : 0}deg)`, transition: "transform 0.2s", display: "inline-block" }}>+</span>
                 </button>
                 <div style={{ display: hoodOpen ? "block" : "none", padding: "18px 22px", borderTop: "1px solid #1E1E1E", background: "#0E0E0E" }}>
-                  <p style={{ margin: 0, fontFamily: JB, fontSize: 12, color: "#8A8A8A", lineHeight: 2 }}>{HOOD_LINES.map((l, k) => (<span key={l}>{l}{k < HOOD_LINES.length - 1 && <br />}</span>))}</p>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 13 }}>
+                    {HOOD_GROUPS.map(([label, items]) => (
+                      <div key={label} className="fd-toolrow" style={{ display: "grid", gridTemplateColumns: "160px 1fr", gap: "3px 16px", alignItems: "baseline" }}>
+                        <p style={{ margin: 0, fontFamily: JB, fontSize: 10, letterSpacing: "0.13em", color: "#A98A47", lineHeight: 1.5 }}>{label}</p>
+                        <p style={{ margin: 0, fontFamily: JB, fontSize: 12, color: "#8A8A8A", lineHeight: 1.6 }}>{items}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
@@ -576,7 +601,7 @@ export default function Page() {
         <section id="faq" style={goldBorder}>
           <div className="fd-pad" style={container}>
             <div className="fd-2col" style={{ display: "grid", gridTemplateColumns: "280px 1fr", gap: 48, alignItems: "start" }}>
-              <div style={{ position: "sticky", top: 96 }}>
+              <div className="fd-faq-intro" style={{ position: "sticky", top: 96 }}>
                 <p style={eyebrow}>09 — STRAIGHT ANSWERS</p>
                 <h2 style={{ margin: "0 0 16px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)", letterSpacing: "-0.02em", lineHeight: 1.05, color: "#EDEDED" }}>Every question owners actually ask.</h2>
                 <p style={{ margin: 0, fontSize: 14, color: "#777777", lineHeight: 1.7 }}>Eight chapters. Open the one that’s on your mind.</p>
@@ -586,7 +611,7 @@ export default function Page() {
                   const catOpen = openCat === ci;
                   return (
                     <div key={cat.label} style={{ borderBottom: "1px solid #1E1E1E" }}>
-                      <button onClick={() => { setOpenCat(catOpen ? null : ci); setOpenFaq(null); }} style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, padding: "22px 0", textAlign: "left", cursor: "pointer", background: "none", border: "none" }}>
+                      <button onClick={() => { setOpenCat(catOpen ? null : ci); setOpenFaq(null); }} aria-expanded={catOpen} style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, padding: "22px 0", textAlign: "left", cursor: "pointer", background: "none", border: "none" }}>
                         <span style={{ display: "flex", alignItems: "baseline", gap: 14 }}>
                           <span style={{ fontFamily: JB, fontSize: 12, color: catOpen ? GOLD : "#555555", letterSpacing: "0.08em" }}>{String(cat.qs.length).padStart(2, "0")}</span>
                           <span style={{ color: "#EDEDED", fontSize: 17, fontWeight: 600, lineHeight: 1.3, fontFamily: SG, letterSpacing: "0.02em" }}>{cat.label}</span>
@@ -599,7 +624,7 @@ export default function Page() {
                           const qOpen = openFaq === id;
                           return (
                             <div key={f.q} style={{ borderTop: "1px solid #161616", marginLeft: 40 }}>
-                              <button onClick={() => setOpenFaq(qOpen ? null : id)} style={{ width: "100%", display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16, padding: "16px 0", textAlign: "left", cursor: "pointer", background: "none", border: "none" }}>
+                              <button onClick={() => setOpenFaq(qOpen ? null : id)} aria-expanded={qOpen} style={{ width: "100%", display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16, padding: "16px 0", textAlign: "left", cursor: "pointer", background: "none", border: "none" }}>
                                 <span style={{ color: qOpen ? "#EDEDED" : "#B5B5B5", fontSize: 15, fontWeight: 500, lineHeight: 1.45, fontFamily: IN }}>{f.q}</span>
                                 <span style={{ color: "#8A6F3A", fontSize: 17, flexShrink: 0, lineHeight: 1, transform: `rotate(${qOpen ? 45 : 0}deg)`, transition: "transform 0.2s", display: "inline-block" }}>+</span>
                               </button>

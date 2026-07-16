@@ -147,6 +147,18 @@ h1, h2, h3, h4, h5, h6 {
   .fd-stack { flex-direction: column !important; align-items: stretch !important; }
   .fd-sticky-wa { display: flex !important; }
   .fd-casetitle { width: auto !important; }
+  /* Tool/capability rows stack label above value on mobile */
+  .fd-toolrow { grid-template-columns: 1fr !important; gap: 2px 0 !important; }
+  /* FAQ intro must not stick/overlay questions below the mobile breakpoint */
+  .fd-faq-intro {
+    position: static !important;
+    top: auto !important;
+    inset: auto !important;
+    height: auto !important;
+    max-height: none !important;
+    transform: none !important;
+    z-index: auto !important;
+  }
 }
 
 /* Hover helpers (replace the design tool's style-hover attribute) */
