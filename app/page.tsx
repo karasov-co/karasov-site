@@ -59,22 +59,22 @@ const FEED: FeedItem[] = [
 
 const MODULES: [string, string][] = [
   ["▸ LEAD OPS", "Call answering, scoring, follow-up cadences, missed-call recovery. Every inbound handled in seconds."],
-  ["▸ ESTIMATE OPS", "Quote generation from site photos and voice notes, day 2/5/10 follow-up, silent-deal alerts, contract detection in inbox."],
+  ["▸ ESTIMATE OPS", "Estimate drafting from site photos, voice notes, price books and approved business rules — with human review before sending."],
   ["▸ PROJECT KNOWLEDGE", "A searchable brain for every project — blueprints, specs, contracts, emails, RFIs, submittals, meeting notes, photos. Ask in plain English: “what light fixtures are in the master bath?” — answer in three seconds."],
   ["▸ FIELD OPS", "Worker check-in, GPS verification, time tracking, daily reports, material requests, proof-of-work photos, voice notes turned into structured records."],
-  ["▸ SUPPLIER OPS", "Order placement, delivery tracking, invoice reconciliation, price-change monitoring, recurring order automation."],
+  ["▸ SUPPLIER OPS", "Purchase-order drafting and approval, delivery tracking, invoice matching, price-change alerts and recurring-order workflows."],
   ["▸ COMMS OPS", "Field-to-office translation. WhatsApp threads, voice notes and SMS parsed into structured records, routed to the right person, logged automatically."],
   ["▸ DOCUMENT OPS", "Automatic generation of RFIs, submittals, meeting minutes, daily reports, change orders, purchase orders, client updates. You review and approve. The system drafts."],
   ["▸ REPORT OPS", "Owner morning digest, weekly financial rollups, client progress updates, subcontractor performance, labor-hour tracking. Ask any question about your business — get an answer, not a report you have to read."],
   ["▸ COMPANY SOP", "Your standard operating procedures, videos, checklists and drawings — instantly retrievable. “How do we frame a pocket door?” gets an answer with photos and checklist attached."],
-  ["▸ DECISION SUPPORT", "Schedule risks, budget risks, recurring project issues, material shortages, productivity trends — surfaced from your own data, not a benchmark report."],
+  ["▸ DECISION SUPPORT", "Schedule risks, budget risks, recurring project issues, material shortages, productivity trends — surfaced from your own data, not a benchmark report. Risks and patterns surfaced for management review — not autonomous project decisions."],
 ];
 
 const STEPS: [string, string, string, boolean][] = [
   ["▸ 30 MIN", "Discovery", "You describe how jobs come in and where they leak. I ask specific questions. By the end I tell you what’s worth automating, what isn’t, what it costs, and how long. Written scope in 24 hours.", true],
   ["▸ 1-2 D", "Architecture", "System design before any code. You see the blueprint and approve it. If the architecture is wrong, we fix it on paper — not in production.", false],
-  ["▸ 3-7 D", "Build", "Daily updates. Error handling, monitoring and fallbacks built in from the start. Nothing ships without tests.", false],
-  ["▸ FINAL", "Deploy + own it", "Full documentation, source code, credentials — all yours from day one. The system runs without me. Handoff call walks your team through everything.", false],
+  ["▸ 1-3 WK", "Build", "Daily or scheduled updates. Error handling, monitoring and fallbacks built in from the start. Nothing ships without testing.", false],
+  ["▸ FINAL", "Deploy + own it", "Full documentation, source code, credentials — all yours from day one. The system is designed not to depend on me for normal daily operation — ongoing monitoring and improvements stay optional. Handoff call walks your team through everything.", false],
 ];
 
 const WORLD: [string, string][] = [
@@ -132,7 +132,7 @@ const FAQ_CATS: { label: string; qs: Faq[] }[] = [
     { q: "Will my team push back on this?", a: "Sometimes, if they think it’s about replacing them. That’s why the first thing we do in Discovery is map out what stops being their job (the parts they hated anyway) versus what stays theirs. Clients who introduce it as “this is the tool that makes your job easier” get zero pushback. Clients who introduce it as “AI is replacing headcount” get exactly the pushback they earned." },
   ]},
   { label: "Timeline & process", qs: [
-    { q: "How long from first call to live system?", a: "2-4 weeks for most builds. 30-min discovery → 1-2 days architecture (you approve the blueprint before I write a line of code) → 3-7 days build with daily updates → deployment + handoff. Industry average is 8-16 weeks; I move faster because I don’t do committee reviews and I don’t context-switch across 10 clients." },
+    { q: "How long from first call to live system?", a: "2-4 weeks for most builds. 30-min discovery → 1-2 days architecture (you approve the blueprint before I write a line of code) → 1-3 weeks build with daily updates → deployment + handoff. Industry average is 8-16 weeks; I move faster because I don’t do committee reviews and I don’t context-switch across 10 clients." },
     { q: "What does “discovery” actually mean?", a: "A 30-45 min call where you describe how jobs come in and where they leak. I ask specific questions, take notes, and by the end I tell you: what’s worth automating, what isn’t, what it would cost, and how long. If we’re not a fit, I say so. If we are, I send a written scope within 24 hours. No pitch deck, no follow-up sales pressure." },
     { q: "What do you need from me during the build?", a: "Roughly 3-5 hours total across 2-4 weeks. Kickoff call (1 hr), read-throughs of the architecture doc (30 min), 2-3 short check-ins on decisions only you can make (15 min each), UAT before launch (1 hr), handoff (30 min). Everything else runs in the background." },
     { q: "What happens on Day 31?", a: "By then the system is stable and you have your first month of numbers. We do a 30-day review call: what’s working, what to improve, what to add next. If you want to continue with Care Plan, we do. If not, you have everything documented and can maintain it yourself or hand it to any developer." },
@@ -142,7 +142,7 @@ const FAQ_CATS: { label: string; qs: Faq[] }[] = [
     { q: "What kind of businesses do you actually work best with?", a: "Construction firms, design-build studios, home-service companies (HVAC, plumbing, electrical, roofing, landscaping, cleaning, moving), interior designers, remodelers, small commercial contractors. Sweet spot: 5-50 people, owner still involved in day-to-day, average project between €500 and $500K, at least one thing is clearly broken in operations." },
     { q: "Where are you based / what timezone?", a: "I work across US, UAE, and EU timezones with same-business-day response. In 2026-2027 I’ll be spending significant time in Dubai (AI events, Design Week) and Milan (AI Week). If you’re in the Middle East, we can meet in person." },
     { q: "Do you have references I can talk to?", a: "Yes — I’ll share 2-3 depending on which module we’re scoping. Some client work runs under strict NDA and I can only give you screen recordings, not names. If direct references matter to you more than case data, tell me in Discovery and I’ll match you with someone who allows a call." },
-    { q: "Why should I trust an AI Olympics winner over a big agency?", a: "Big agencies bill $50-500K, take 6-12 months, produce PowerPoints, and rely on junior engineers to actually build. I built the winning system at Milan AI Week solo, in 8 days, against teams that included agency squads. The real proof is that I ship in weeks and it works. Talk to the LA studio running my system for 10,000+ operations." },
+    { q: "Why work with you instead of a larger agency?", a: "You work directly with the person who designs and writes the system — no account-manager layer, no junior engineers learning on your project. That means direct code review, one fixed point of responsibility, and an architecture built to be handed over: you own the source code, credentials and documentation from day one, so you’re never locked in. A large agency bills $50-500K over 6-12 months and splits the work across a team you never meet; here one senior builder owns the outcome and ships in weeks." },
   ]},
   { label: "Communication & working together", qs: [
     { q: "What’s the best way to reach you?", a: "WhatsApp, LinkedIn, or Telegram — pick your favorite. All three are on my phone, same-day reply. Email works too. My response time in business hours is under 2 hours, worst case next morning in your timezone." },
@@ -159,7 +159,7 @@ const FAQ_CATS: { label: string; qs: Faq[] }[] = [
 const TOOL_GROUPS: [string, string][] = [
   ["PROJECTS & FIELD", "Buildertrend · JobTread · Houzz Pro · CompanyCam · ClickUp"],
   ["FINANCE & FILES", "QuickBooks · Google Workspace · Microsoft 365 · Airtable"],
-  ["CALLS & MEETINGS", "Quo / OpenPhone · CallRail · Zoom · Google Meet · Microsoft Teams · Otter · Fireflies · Fathom"],
+  ["CALLS & MEETINGS", "Quo (formerly OpenPhone) · CallRail · Zoom · Google Meet · Microsoft Teams · Otter · Fireflies · Fathom"],
   ["CRM & COMMUNICATIONS", "HubSpot · Pipedrive · Zoho · WhatsApp Business · SMS · Slack"],
   ["AUTOMATION LAYER", "n8n · Make · APIs · webhooks · client-controlled infrastructure"],
 ];
@@ -412,7 +412,8 @@ export default function Page() {
         <section id="build" style={{ ...goldBorder, background: "#0C0C0C" }}>
           <div className="fd-pad" style={container}>
             <p style={eyebrow}>02 — WHAT I BUILD</p>
-            <h2 style={{ margin: "0 0 56px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.7rem, 3.4vw, 2.6rem)", letterSpacing: "-0.02em", lineHeight: 1.12, color: "#EDEDED", maxWidth: 860, textWrap: "balance" }}>An operational layer that captures, organizes, and retrieves everything your business already knows — <span style={{ color: GOLD }}>without asking anyone to type it in.</span></h2>
+            <h2 style={{ margin: "0 0 20px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.7rem, 3.4vw, 2.6rem)", letterSpacing: "-0.02em", lineHeight: 1.12, color: "#EDEDED", maxWidth: 860, textWrap: "balance" }}>An operational layer that captures, organizes and retrieves the information your business already generates — <span style={{ color: GOLD }}>without forcing the field team to re-enter it.</span></h2>
+            <p style={{ margin: "0 0 44px", fontSize: 15, color: "#9A9A9A", lineHeight: 1.7, maxWidth: 820 }}>These are modular capabilities, not a required package. Most engagements begin with one workflow and expand only after it proves its value.</p>
 
             <div style={{ borderTop: "1px solid #1E1E1E" }}>
               {MODULES.map(([label, desc]) => (
@@ -438,7 +439,7 @@ export default function Page() {
             <div style={{ maxWidth: 760, display: "flex", flexDirection: "column", gap: 24 }}>
               <p style={{ margin: 0, fontSize: 16, color: "#9A9A9A", lineHeight: 1.8 }}>Some clients start with one broken workflow and stay there. Some start with one and grow into a full company operating layer over 6-18 months. The system is designed to support both.</p>
               <p style={{ margin: 0, fontSize: 16, color: "#9A9A9A", lineHeight: 1.8 }}>The foundation is always the same: capture what’s already happening, organize it automatically, make it retrievable, then let the automation grow on top of the data — never the other way around.</p>
-              <p style={{ margin: 0, fontFamily: SG, fontWeight: 600, fontSize: "clamp(1.1rem, 2vw, 1.4rem)", color: GOLD, lineHeight: 1.5 }}>Data collection comes first. Automation comes second. That’s the order that survives.</p>
+              <p style={{ margin: 0, fontFamily: SG, fontWeight: 600, fontSize: "clamp(1.1rem, 2vw, 1.4rem)", color: GOLD, lineHeight: 1.5 }}>Reliable capture comes first. Automation comes second. That’s the order that survives.</p>
             </div>
           </div>
         </section>
@@ -559,8 +560,8 @@ export default function Page() {
               </div>
             </div>
             <div>
-              <h2 style={{ margin: "28px 0 20px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.6rem, 3vw, 2.2rem)", letterSpacing: "-0.02em", lineHeight: 1.1, color: "#EDEDED" }}>Vitalii Karasov — a product manager who builds.</h2>
-              <p style={{ margin: "0 0 14px", fontSize: 15, color: "#9A9A9A", lineHeight: 1.8 }}>Five years in operations, product and delivery before going full-time on AI systems: EdTech launch, media production, humanitarian crisis logistics with a 1.5M+ PLN budget and zero audit findings. MSc in Strategic Project Management. PRINCE2.</p>
+              <h2 style={{ margin: "28px 0 20px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.6rem, 3vw, 2.2rem)", letterSpacing: "-0.02em", lineHeight: 1.1, color: "#EDEDED" }}>Vitalii Karasov — an AI systems architect and product manager who builds.</h2>
+              <p style={{ margin: "0 0 14px", fontSize: 15, color: "#9A9A9A", lineHeight: 1.8 }}>Five years in operations, product and delivery before going full-time on AI systems: EdTech launch, media production, humanitarian crisis logistics with a 1.5M+ PLN budget and zero audit findings. MSc Project Management. PRINCE2.</p>
               <p style={{ margin: "0 0 14px", fontSize: 15, color: "#9A9A9A", lineHeight: 1.8 }}>In 2026 my solo build won at the AI Agent Olympics at Milan AI Week — Europe’s largest AI event.</p>
               <p style={{ margin: "0 0 14px", fontSize: 15, color: "#EDEDED", lineHeight: 1.8, fontWeight: 500 }}>Now I build one thing: private operational systems for owner-led design-build, remodeling and specialty contractor companies. Deep, not wide.</p>
               <p style={{ margin: "0 0 28px", fontSize: 15, color: "#9A9A9A", lineHeight: 1.8 }}><span style={{ color: "#EDEDED", fontWeight: 500 }}>The delivery network.</span> On larger builds I bring in trusted specialists — design, development support, QA — but every project stays under my direct scope and my code review. You always know exactly who touched what, and you always talk to me.</p>
@@ -613,7 +614,7 @@ export default function Page() {
                     <div key={cat.label} style={{ borderBottom: "1px solid #1E1E1E" }}>
                       <button onClick={() => { setOpenCat(catOpen ? null : ci); setOpenFaq(null); }} aria-expanded={catOpen} style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, padding: "22px 0", textAlign: "left", cursor: "pointer", background: "none", border: "none" }}>
                         <span style={{ display: "flex", alignItems: "baseline", gap: 14 }}>
-                          <span style={{ fontFamily: JB, fontSize: 12, color: catOpen ? GOLD : "#555555", letterSpacing: "0.08em" }}>{String(cat.qs.length).padStart(2, "0")}</span>
+                          <span style={{ fontFamily: JB, fontSize: 12, color: catOpen ? GOLD : "#555555", letterSpacing: "0.08em" }}>{String(ci + 1).padStart(2, "0")}</span>
                           <span style={{ color: "#EDEDED", fontSize: 17, fontWeight: 600, lineHeight: 1.3, fontFamily: SG, letterSpacing: "0.02em" }}>{cat.label}</span>
                         </span>
                         <span style={{ color: GOLD, fontSize: 20, flexShrink: 0, lineHeight: 1, transform: `rotate(${catOpen ? 45 : 0}deg)`, transition: "transform 0.2s", display: "inline-block" }}>+</span>
