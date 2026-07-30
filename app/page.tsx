@@ -2,6 +2,8 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { useState, useEffect, useRef, type CSSProperties, type ReactNode } from "react";
+import Link from "next/link";
+import { HOME_FAQ, FAQ_TOTAL, FAQ_CATS } from "./faq-data";
 
 const SG = "var(--font-space-grotesk), sans-serif";
 const IN = "var(--font-inter), sans-serif";
@@ -90,70 +92,23 @@ type CaseItem = {
   num: string; title: string; hook: string; body: string; stack: string;
   demo: string | null; demoLabel: string; github: string | null; badge?: string; ndaNote?: string;
 };
-const CASES: CaseItem[] = [
+// Group A — client-facing contractor systems. Leads the Cases section.
+const CASES_CONTRACTOR: CaseItem[] = [
   { num: "01", title: "Private field operations & company knowledge system", hook: "Multilingual field reporting, attendance controls and company records—deployed in infrastructure controlled by the client.", badge: "CLIENT PRODUCTION · US PROJECT-BASED BUSINESS · NDA PROTECTED", body: "Built for a US project-based business coordinating multilingual employees across active work locations. The system gives field staff a simple way to check in and out, verify location, explain attendance exceptions and submit daily voice reports in their preferred language. Reports are transcribed, structured and normalized into English for management.\n\nManagers receive attendance history, exception alerts, project-level visibility, employee and location controls, role-based access and exportable records. A separate read-only ingestion service archives company email and attachments into client-controlled storage, with resumable processing and duplicate protection—creating the foundation for internal knowledge retrieval.\n\nThe system was deployed in an environment controlled by the client, with operational controls, accounts, source code and documentation handed over.", stack: "One-tap field reporting · multilingual voice-to-record processing · client-controlled deployment", demo: null, demoLabel: "", github: null, ndaNote: "Client identity, architecture, business data and project-specific metrics withheld under NDA." },
   { num: "02", title: "ATAMAN Studio — lead-to-contract system", hook: "Seven automations running the lead lifecycle end to end.", badge: "CLIENT · PRODUCTION · LA DESIGN-BUILD", body: "Seven connected automations covering intake, qualification, call transcription, follow-up and contract detection. Every inbound lead handled without a single manual touch — every booked call becomes a lead card, every inbound email is read and routed, every sales call is transcribed with a reply drafted, and follow-ups fire on their own until the client replies.", stack: "Make.com · ClickUp · OpenAI · Otter · Calendly · Gmail", demo: null, demoLabel: "", github: null },
   { num: "03", title: "Instant lead response & scoring", hook: "Every lead answered and scored in under 5 seconds.", body: "Inbound leads were falling through the cracks — slow responses, no prioritization, manual copy-paste into spreadsheets. Now hot leads get flagged for an immediate call, warm ones enter a nurture sequence, junk gets filtered out. Speed-to-lead wins jobs: the first company to respond wins most of them.", stack: "n8n · Claude API · Google Sheets · REST API", demo: "https://www.loom.com/share/9c2ef40dee6543f897060ef4b8596d74", demoLabel: "Watch demo", github: null },
   { num: "04", title: "Marketing content on autopilot", hook: "30 branded posts for $1 in AI costs. Zero manual writing.", body: "A closed-loop content system: your brand voice, your audience’s pain points and your best-performing posts stored as knowledge; AI drafts platform-ready posts on schedule; engagement data feeds back in, so the system writes better every cycle. Your company stays visible while you run jobs.", stack: "Make.com · Claude API · Pinecone · Buffer · RAG", demo: "https://www.loom.com/share/3e08552f874f407bad4b558bd0bdf9d8", demoLabel: "Watch demo", github: null },
-  { num: "05", title: "Market & competitor intelligence", hook: "3+ days of research in under 5 minutes, every claim sourced.", body: "A form-triggered pipeline: five research workflows run in parallel and return a full competitive picture — pricing, positioning, trends — with every claim backed by a real source. Delivered to a spreadsheet and Slack automatically.", stack: "n8n · Gemini Deep Research · Airtable · Slack", demo: "https://www.loom.com/share/6a08c5221efd444db95ee0275247f288", demoLabel: "Watch demo", github: null },
-  { num: "06", title: "Research engine", hook: "3 hours to 2 minutes. One click, fully automated.", body: "A client’s team was burning 15+ hours a week on manual research and analysis. I found the bottleneck and replaced it with a pipeline of four specialized AI roles — built and deployed in 5 days.", stack: "n8n · Claude API · Supabase pgvector · Webhooks", demo: "https://www.loom.com/share/d99029c2ac5b4969823c818cb81ef0d5", demoLabel: "Watch demo", github: null },
-  { num: "07", title: "Project photo AI", hook: "121 job-site photos sorted in 15 minutes for $0.35. Open source.", body: "Every project generates hundreds of photos — progress, finished work, before-and-afters. This tool reads every photo, scores it 1-1000 for quality and picks the keepers automatically — for the portfolio, the client and the marketing folder.", stack: "Python · OpenAI Vision · Pillow · rawpy", demo: "https://www.loom.com/share/adb04c24f46540d8b544de8e488eb88c", demoLabel: "Watch demo", github: "https://github.com/vkarasovpm-dotcom/photo-ai-toolkit" },
-  { num: "+", title: "Sentinel — adversarial AI court", hook: "Winner at the AI Agent Olympics — Milan AI Week 2026.", body: "Not a client build — the engineering depth behind the client systems. A three-layer multi-agent court that audits police bodycam footage, built solo at Europe’s largest AI event. Realtime transcription flags violations in under 2 seconds; a Prosecution agent argues against a Defense agent while a Vision agent reads the video; a Judge issues per-rule verdicts drillable to the exact video frame. A court-defensible audit at ~$0.10–0.20 per recording.", stack: "Next.js 16 · FastAPI · Speechmatics · Gemini 3.1 Pro · FAISS", demo: "https://sentinel-audit.co", demoLabel: "Live demo", github: "https://github.com/vkarasovpm-dotcom/bodycam-intelligence" },
+  { num: "05", title: "Project photo AI", hook: "121 job-site photos sorted in 15 minutes for $0.35. Open source.", body: "Every project generates hundreds of photos — progress, finished work, before-and-afters. This tool reads every photo, scores it 1-1000 for quality and picks the keepers automatically — for the portfolio, the client and the marketing folder.", stack: "Python · OpenAI Vision · Pillow · rawpy", demo: "https://www.loom.com/share/adb04c24f46540d8b544de8e488eb88c", demoLabel: "Watch demo", github: "https://github.com/vkarasovpm-dotcom/photo-ai-toolkit" },
 ];
 
-type Faq = { q: string; a: string };
-const FAQ_CATS: { label: string; qs: Faq[] }[] = [
-  { label: "Money & ROI", qs: [
-    { q: "How do I know it’s worth the investment?", a: "Every system I build must save more than it costs — that’s the only rule. For most clients the math is: system cost ÷ average client value = number of clients needed to pay it back. If that number is under ~20 clients or under 6 months for your business, we’re in green territory. If it isn’t, I’ll tell you on the first call and I won’t take the project." },
-    { q: "What if my average job is small — €500 or $2,000, not $12,000?", a: "Then the system pays back over more clients and a bit longer — usually 3-6 months instead of 2-4 weeks. The math scales down cleanly. What matters isn’t the size of one job, it’s how many are slipping through your pipeline every month. A 30% lift on a €1,000 average job is the same profit shape as a 30% lift on a $10,000 average job." },
-    { q: "Why $3,000-8,000 for the build? Some agencies charge less.", a: "Because I don’t build throwaway automations. Everything I ship is documented, monitored, has error handling and fallbacks, and belongs to you fully. A $500 Zapier setup breaks in three months and nobody knows why. I build systems that survive API changes, staff turnover, and a bad Monday." },
-    { q: "Why a monthly care plan if the system runs itself?", a: "Systems don’t maintain themselves. OpenAI changes a model, Gmail changes an API, your workflow evolves, edge cases surface. Care Plan means 24/7 monitoring (I know it broke before you do), same-day fixes on business days, monthly improvements as your business changes, and a plain-language monthly report in dollars and jobs saved — not tech jargon." },
-    { q: "Do you offer payment plans?", a: "Standard terms: 50% at signature, 50% at launch. For larger builds we can split into 3 payments across milestones. Care Plan is monthly, cancel anytime. For clients outside the US, I invoice in EUR or USD — your choice." },
-    { q: "What if the system saves less than expected?", a: "After the first 30 days I send a plain-language report showing actual saved leads, hours, or errors. If the numbers don’t cover the Care Plan, we adjust the scope or you cancel — no argument. I’ve never had a client where the math didn’t clear within 60 days, but I don’t promise magic and I don’t lock people in." },
-  ]},
-  { label: "Scope & what’s included", qs: [
-    { q: "What exactly does the build include?", a: "Full system design, code, integrations, error handling, monitoring dashboards, deployment to your cloud, complete documentation (a real README, not a PDF), 30 days of post-launch support, and a handoff call where I explain every piece. You own the source code, credentials, and infrastructure from day one." },
-    { q: "What if my problem isn’t in the modules list?", a: "That’s what custom scoping is for. The modules are the common patterns — 80% of clients need 2-3 of them. If yours is different (permits, subcontractor payments, warranty tracking, insurance claims, whatever), we scope it in Discovery and I quote it upfront. Same delivery model, same guarantees." },
-    { q: "Do I need to switch my CRM, phone system, or tools?", a: "No. The system runs behind whatever you already have — Gmail, QuickBooks, Buildertrend, JobTread, Housecall Pro, ServiceTitan, Jobber, Google Workspace, Microsoft 365. If a tool I can’t integrate with is central to your workflow, I’ll tell you in Discovery before we sign anything." },
-    { q: "Can I start small and add later?", a: "Yes — most clients do. Start with 1-2 modules (usually Lead Ops + Estimate Ops), watch the ROI for 30-60 days, layer in the rest as it makes sense. Each additional module is a separate scope and price. No pressure to buy the whole stack upfront." },
-    { q: "Will you help train my team?", a: "The core promise is that your team learns nothing new — the system runs underneath what they already use. But if there’s a piece someone needs to touch (approving flagged items, reviewing weekly reports), I record a 5-minute Loom for each and we do one live walkthrough. That’s it." },
-  ]},
-  { label: "Risk & trust", qs: [
-    { q: "What if the system makes a wrong decision — sends a bad quote, texts a client wrong info?", a: "Every critical action has a human-approval layer by default. Estimates over your threshold, first-time client responses, anything money-related — the AI drafts, you approve, it sends. For low-risk actions (categorizing photos, filing docs, internal summaries) it acts on its own. You choose the line in Discovery." },
-    { q: "What about AI hallucinations — what if it makes stuff up?", a: "This is the #1 real risk with LLM systems. I mitigate it three ways: (1) RAG grounding — the AI can only quote from your actual data, not from training memory, (2) DeepEval and grounding checks running in production catch hallucinated outputs before they reach a client, (3) fallback rules that trigger human review when confidence is low. It’s not zero-risk, but it’s engineered risk, not gamble." },
-    { q: "Is my data secure? Where does it live?", a: "Your data stays in your accounts — Gmail, your CRM, your Drive. Where I need a vector database (for company-wide search), it’s deployed to your cloud account (Supabase, GCP, Vultr) — you hold the keys, you can revoke access with one click. No data goes to my servers. No training of external models on your business. Written into every contract." },
-    { q: "What if it breaks at 2 AM on a Saturday?", a: "Care Plan includes 24/7 monitoring. Alerts hit me before they hit your inbox. Same-day fix on business days, next-morning on weekends. Every system has fallbacks built in — usually a “graceful degrade” back to your manual process, so a break rarely means downtime, just temporary manual work while I fix it." },
-    { q: "What if you get sick, take a break, or something happens to you?", a: "Two layers of coverage. First, my delivery network — the specialists I already work with — can maintain any running system without me for weeks. They know the stack because they helped build it. Second, all systems use standard, well-known tools (LangGraph, Python, Postgres, n8n), fully documented, so any senior engineer can pick things up cleanly. You’re never dependent on my calendar for a system that’s already live." },
-    { q: "What if I want to fire you?", a: "Cancel Care Plan any month, keep the whole system running. You have the source code, credentials, docs, and cloud access from day one. No lock-in, no ransom fees, no “premium API keys” you have to keep paying me for. If you find someone cheaper to maintain it, hire them — I’ll do the handoff call for free." },
-  ]},
-  { label: "Team & employees", qs: [
-    { q: "Will this replace my office manager / staff?", a: "Almost never in the first year. It removes the boring 40% of their day (data entry, follow-up chasing, filing) so they can focus on the 60% that actually needs a human (relationships, judgment, exceptions). Most clients keep the same team but stop needing to hire the next one as they grow." },
-    { q: "My team is not tech-savvy. Will they be able to use it?", a: "The whole design goal is that they don’t have to. The system runs behind Gmail and their phone. If something needs their attention, it shows up as a normal email or text with two buttons: “approve” or “review”. No dashboards to learn, no logins to remember, no new app on the phone." },
-    { q: "Will my team push back on this?", a: "Sometimes, if they think it’s about replacing them. That’s why the first thing we do in Discovery is map out what stops being their job (the parts they hated anyway) versus what stays theirs. Clients who introduce it as “this is the tool that makes your job easier” get zero pushback. Clients who introduce it as “AI is replacing headcount” get exactly the pushback they earned." },
-  ]},
-  { label: "Timeline & process", qs: [
-    { q: "How long from first call to live system?", a: "2-4 weeks for most builds. 30-min discovery → 1-2 days architecture (you approve the blueprint before I write a line of code) → 1-3 weeks build with daily updates → deployment + handoff. Industry average is 8-16 weeks; I move faster because I don’t do committee reviews and I don’t context-switch across 10 clients." },
-    { q: "What does “discovery” actually mean?", a: "A 30-45 min call where you describe how jobs come in and where they leak. I ask specific questions, take notes, and by the end I tell you: what’s worth automating, what isn’t, what it would cost, and how long. If we’re not a fit, I say so. If we are, I send a written scope within 24 hours. No pitch deck, no follow-up sales pressure." },
-    { q: "What do you need from me during the build?", a: "Roughly 3-5 hours total across 2-4 weeks. Kickoff call (1 hr), read-throughs of the architecture doc (30 min), 2-3 short check-ins on decisions only you can make (15 min each), UAT before launch (1 hr), handoff (30 min). Everything else runs in the background." },
-    { q: "What happens on Day 31?", a: "By then the system is stable and you have your first month of numbers. We do a 30-day review call: what’s working, what to improve, what to add next. If you want to continue with Care Plan, we do. If not, you have everything documented and can maintain it yourself or hand it to any developer." },
-  ]},
-  { label: "About me & my business", qs: [
-    { q: "Are you solo or an agency?", a: "Neither. I’m the senior engineer and product lead on every project — you work with me directly, no account managers, no handoffs. Behind me is a small trusted network of specialists I bring in when a build needs them: a design assistant, a second developer for parallel work, a QA reviewer for critical launches. Upside: senior thinking on every decision, plus enough hands to move fast. Limit: I take 2-3 new engagements per quarter." },
-    { q: "What kind of businesses do you actually work best with?", a: "Construction firms, design-build studios, home-service companies (HVAC, plumbing, electrical, roofing, landscaping, cleaning, moving), interior designers, remodelers, small commercial contractors. Sweet spot: 5-50 people, owner still involved in day-to-day, average project between €500 and $500K, at least one thing is clearly broken in operations." },
-    { q: "Where are you based / what timezone?", a: "I work across US, UAE, and EU timezones with same-business-day response. In 2026-2027 I’ll be spending significant time in Dubai (AI events, Design Week) and Milan (AI Week). If you’re in the Middle East, we can meet in person." },
-    { q: "Do you have references I can talk to?", a: "Yes — I’ll share 2-3 depending on which module we’re scoping. Some client work runs under strict NDA and I can only give you screen recordings, not names. If direct references matter to you more than case data, tell me in Discovery and I’ll match you with someone who allows a call." },
-    { q: "Why work with you instead of a larger agency?", a: "You work directly with the person who designs and writes the system — no account-manager layer, no junior engineers learning on your project. That means direct code review, one fixed point of responsibility, and an architecture built to be handed over: you own the source code, credentials and documentation from day one, so you’re never locked in. A large agency bills $50-500K over 6-12 months and splits the work across a team you never meet; here one senior builder owns the outcome and ships in weeks." },
-  ]},
-  { label: "Communication & working together", qs: [
-    { q: "What’s the best way to reach you?", a: "WhatsApp, LinkedIn, or Telegram — pick your favorite. All three are on my phone, same-day reply. Email works too. My response time in business hours is under 2 hours, worst case next morning in your timezone." },
-    { q: "Can we meet in person?", a: "If you’re in Dubai, Milan, Singapore, or anywhere I’m attending an event — yes, glad to. Otherwise everything runs remotely: Loom videos for walkthroughs, WhatsApp for daily updates, Google Meet only when we really need it. Not because remote is trendy, but because it’s faster and clients get more done that way." },
-  ]},
-  { label: "International & practical", qs: [
-    { q: "I’m not in the US — will your systems still work for me?", a: "Yes. The modules aren’t country-specific. Same lead-to-invoice logic works anywhere — adapted to your CRM, currency, language, and local tools (WhatsApp Business, Bitrix24, Zoho, whatever). Systems have been built for clients across multiple regions and languages." },
-    { q: "Do you handle GDPR / UAE PDPL / other privacy regulations?", a: "Yes. Every build includes a data-handling document listing where data lives, who has access, retention rules, and compliance mapping to your applicable regulation (GDPR for EU/UK, PDPL for UAE, CCPA for California, etc.). For heavily regulated industries (healthcare, finance) I bring in a compliance reviewer at cost." },
-    { q: "What if I just want to try a small thing first before committing?", a: "Two options. (1) Book a Discovery call — it’s free, and by the end you’ll have a real scope even if we don’t work together. (2) Ask for a “pilot module” — I build the smallest useful piece for $1,500-3,000 in 5-10 days. If it works, we scale into a full build and credit the pilot against it. If it doesn’t, you have something small that still works and we part on good terms." },
-  ]},
+// Group B — not contractor builds; the engineering depth behind them.
+// Presented tighter and lower-emphasis, with Sentinel kept prominent.
+const CASES_DEPTH: CaseItem[] = [
+  { num: "·", title: "Market & competitor intelligence", hook: "3+ days of research in under 5 minutes, every claim sourced.", body: "A form-triggered pipeline: five research workflows run in parallel and return a full competitive picture — pricing, positioning, trends — with every claim backed by a real source. Delivered to a spreadsheet and Slack automatically.", stack: "n8n · Gemini Deep Research · Airtable · Slack", demo: "https://www.loom.com/share/6a08c5221efd444db95ee0275247f288", demoLabel: "Watch demo", github: null },
+  { num: "·", title: "Research engine", hook: "3 hours to 2 minutes. One click, fully automated.", body: "A client’s team was burning 15+ hours a week on manual research and analysis. I found the bottleneck and replaced it with a pipeline of four specialized AI roles — built and deployed in 5 days.", stack: "n8n · Claude API · Supabase pgvector · Webhooks", demo: "https://www.loom.com/share/d99029c2ac5b4969823c818cb81ef0d5", demoLabel: "Watch demo", github: null },
+  { num: "·", title: "Sentinel — adversarial AI court", hook: "Winner at the AI Agent Olympics — Milan AI Week 2026.", body: "Not a client build — the engineering depth behind the client systems. A three-layer multi-agent court that audits police bodycam footage, built solo at Europe’s largest AI event. Realtime transcription flags violations in under 2 seconds; a Prosecution agent argues against a Defense agent while a Vision agent reads the video; a Judge issues per-rule verdicts drillable to the exact video frame. A court-defensible audit at ~$0.10–0.20 per recording.", stack: "Next.js 16 · FastAPI · Speechmatics · Gemini 3.1 Pro · FAISS", demo: "https://sentinel-audit.co", demoLabel: "Live demo", github: "https://github.com/vkarasovpm-dotcom/bodycam-intelligence" },
 ];
+
 
 // Tools the client's team already uses — grouped for scannability, not a logo wall.
 const TOOL_GROUPS: [string, string][] = [
@@ -264,8 +219,8 @@ export default function Page() {
   const [tick, setTick] = useState(0);
   const [revenue, setRevenue] = useState(0);
   const [scrolled, setScrolled] = useState(false);
-  const [openCase, setOpenCase] = useState<number | null>(0);
-  const [openCat, setOpenCat] = useState<number | null>(0);
+  // Keyed "a-<i>" / "b-<i>" so the two case groups share one open-at-a-time state.
+  const [openCase, setOpenCase] = useState<string | null>("a-0");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [openPrice, setOpenPrice] = useState<number | null>(null);
   const [hoodOpen, setHoodOpen] = useState(false);
@@ -304,8 +259,8 @@ export default function Page() {
   }, []);
 
   const navlinks = [
-    ["#scope", "Scope"], ["#build", "What I build"], ["#cases", "Cases"],
-    ["#offer", "Pricing"], ["#faq", "FAQ"],
+    ["#build", "What I build"], ["#data", "Data"], ["#scope", "Scope"],
+    ["#cases", "Cases"], ["#offer", "Pricing"], ["#faq", "FAQ"],
   ];
 
   return (
@@ -431,10 +386,37 @@ export default function Page() {
           </div>
         </section>
 
-        {/* 03 Scope */}
+        {/* 03 Data handling */}
+        <section id="data" style={goldBorder}>
+          <div className="fd-pad" style={container}>
+            <p style={eyebrow}>03 — DATA HANDLING</p>
+            <h2 style={{ margin: "0 0 20px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.7rem, 3.4vw, 2.5rem)", letterSpacing: "-0.02em", lineHeight: 1.08, color: "#EDEDED", maxWidth: 820, textWrap: "balance" }}>Your company&rsquo;s records end up inside this system. <span style={{ color: GOLD }}>Here is exactly how they are handled.</span></h2>
+            <p style={{ margin: "0 0 44px", fontSize: 15, color: "#9A9A9A", lineHeight: 1.75, maxWidth: 780 }}>Most automation vendors selling to contractors never raise this subject at all. It belongs in the architecture conversation, before anything is built — so it is a section on this page rather than a clause you find later.</p>
+
+            <div className="fd-2col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1px", background: "#1E1E1E", border: "1px solid #1E1E1E", borderRadius: 12, overflow: "hidden" }}>
+              {([
+                ["WHAT ENDS UP INSIDE", "Client contracts, employee records, payroll data, financials, project IP, and photos of private property. Operational data about real people and real money — not marketing copy."],
+                ["WHO CAN SEE WHAT", "Role-based access from the first version. The field sees what the field needs; payroll and financials stay with the people who already have that authority. Credentials are separated per service, never shared into one master login."],
+                ["WHERE IT LIVES", "In infrastructure the client controls. Accounts, keys and source code are in your name from day one — so access can be revoked without asking me, and nothing depends on my continued goodwill."],
+                ["HOW LONG IT IS KEPT", "Retention rules are defined during architecture: what is kept, for how long, and what gets deleted on schedule. Recordings and transcripts are treated as the sensitive records they are, not as free storage."],
+                ["WHAT IS AUDITABLE", "An audit trail on the workflows that need one — who approved what, when a record changed, what the system did on its own. If a decision has to be defended later, the evidence exists."],
+              ] as [string, string][]).map(([label, body], i, arr) => (
+                // Odd count in a 2-col grid: the last card spans the full row.
+                <div key={label} style={{ background: "#0E0E0E", padding: "26px 28px", gridColumn: i === arr.length - 1 ? "1 / -1" : undefined }}>
+                  <p style={{ margin: "0 0 10px", fontFamily: JB, fontSize: 11, letterSpacing: "0.18em", color: "#A98A47" }}>{label}</p>
+                  <p style={{ margin: 0, fontSize: 14, color: "#9A9A9A", lineHeight: 1.7, maxWidth: i === arr.length - 1 ? 820 : undefined }}>{body}</p>
+                </div>
+              ))}
+            </div>
+
+            <p style={{ margin: "28px 0 0", fontSize: 14.5, color: "#9A9A9A", lineHeight: 1.8, maxWidth: 780 }}>Where formal legal compliance is required, implementation is aligned with the client&rsquo;s legal counsel. This discipline is not a preference — before AI systems I ran operations at a humanitarian organization handling personal data of vulnerable populations, under legal and criminal liability for data integrity and privacy compliance: 1.5M+ PLN operational budget, zero audit findings.</p>
+          </div>
+        </section>
+
+        {/* 04 Scope */}
         <section id="scope" style={goldBorder}>
           <div className="fd-pad" style={container}>
-            <p style={eyebrow}>03 — SCOPE</p>
+            <p style={eyebrow}>04 — SCOPE</p>
             <h2 style={{ margin: "0 0 40px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.9rem, 4vw, 3rem)", letterSpacing: "-0.025em", lineHeight: 1.03, color: "#EDEDED", maxWidth: 720 }}>Same principles, three depths of engagement.</h2>
             <div style={{ maxWidth: 760, display: "flex", flexDirection: "column", gap: 24 }}>
               <p style={{ margin: 0, fontSize: 16, color: "#9A9A9A", lineHeight: 1.8 }}>Some clients start with one broken workflow and stay there. Some start with one and grow into a full company operating layer over 6-18 months. The system is designed to support both.</p>
@@ -447,9 +429,9 @@ export default function Page() {
         {/* 04 Cases */}
         <section id="cases" style={{ ...goldBorder, background: "#0C0C0C" }}>
           <div className="fd-pad" style={container}>
-            <p style={eyebrow}>04 — CASES</p>
-            <h2 style={{ margin: "0 0 20px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.9rem, 4vw, 3rem)", letterSpacing: "-0.025em", lineHeight: 1.03, color: "#EDEDED", maxWidth: 760 }}>32 systems built. 8 selected examples below.</h2>
-            <p style={{ margin: "0 0 56px", fontSize: 16, color: "#9A9A9A", lineHeight: 1.7, maxWidth: 720 }}>Client production systems, internal tools, open-source builds and an award-winning hackathon project.</p>
+            <p style={eyebrow}>05 — CASES</p>
+            <h2 style={{ margin: "0 0 20px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.9rem, 4vw, 3rem)", letterSpacing: "-0.025em", lineHeight: 1.03, color: "#EDEDED", maxWidth: 760 }}>Five contractor systems. Three that show the engineering depth.</h2>
+            <p style={{ margin: "0 0 56px", fontSize: 16, color: "#9A9A9A", lineHeight: 1.7, maxWidth: 720 }}>Eight selected examples from 32 systems built — client production work, internal tools and open-source builds. Client engagements are deliberately few: two to three new ones a quarter. The rest of the count is tooling I build for my own delivery and release publicly.</p>
 
             <div className="fd-3col" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 1, background: "#1E1E1E", border: "1px solid #1E1E1E", borderRadius: 12, overflow: "hidden", marginBottom: 64 }}>
               {([["<5s", "Every lead answered and scored — hot ones flagged for an immediate call. The first company to respond wins most jobs."], ["2·5·10", "Day follow-up cadence on every estimate — stops itself the second the client replies. No deal goes quiet unnoticed."], ["0", "Manual CRM upkeep. Every call transcribed, summarized and filed; every email routed. It just stays correct."]] as [string, string][]).map(([n, d]) => (
@@ -460,46 +442,31 @@ export default function Page() {
               ))}
             </div>
 
+            {/* Group A — contractor systems */}
+            <p style={{ margin: "0 0 6px", fontFamily: JB, fontSize: 11, letterSpacing: "0.2em", color: "#A98A47" }}>CONTRACTOR SYSTEMS</p>
+            <p style={{ margin: "0 0 18px", fontSize: 14, color: "#9A9A9A", lineHeight: 1.7, maxWidth: 720 }}>Built for contractor and design-build operations — leads, estimates, field reporting, company knowledge and marketing.</p>
             <div style={{ borderTop: "1px solid #1E1E1E" }}>
-              {CASES.map((c, i) => {
-                const open = openCase === i;
-                return (
-                  <div key={c.num} style={{ borderBottom: "1px solid #1E1E1E" }}>
-                    <button onClick={() => setOpenCase(open ? null : i)} className="fd-stack ks-caserow" style={{ width: "100%", display: "flex", alignItems: "baseline", gap: 24, padding: "24px 4px", background: "none", border: "none", cursor: "pointer", textAlign: "left" }}>
-                      <span style={{ fontFamily: JB, fontSize: 12, color: "#555555", width: 30, flexShrink: 0 }}>{c.num}</span>
-                      <span className="fd-casetitle" style={{ fontFamily: SG, fontWeight: 600, fontSize: "clamp(1.05rem, 1.8vw, 1.35rem)", color: "#EDEDED", letterSpacing: "-0.015em", width: 380, flexShrink: 0, lineHeight: 1.3 }}>{c.title}</span>
-                      <span style={{ fontSize: 14, color: "#9A9A9A", flex: 1, lineHeight: 1.5 }}>{c.hook}</span>
-                      <span className="ks-price-icon" style={{ color: GOLD, fontSize: 20, flexShrink: 0, transform: `rotate(${open ? 45 : 0}deg)`, transition: "transform 0.2s", display: "inline-block", lineHeight: 1 }}>+</span>
-                    </button>
-                    <div style={{ display: open ? "block" : "none", padding: "0 4px 28px 54px" }}>
-                      {c.badge && <p style={{ margin: "0 0 12px", fontFamily: JB, fontSize: 11, letterSpacing: "0.18em", color: "#A98A47" }}>{c.badge}</p>}
-                      <p style={{ margin: "0 0 18px", fontSize: 14, color: "#9A9A9A", lineHeight: 1.75, maxWidth: 700, whiteSpace: "pre-line" }}>{c.body}</p>
-                      <p style={{ margin: "0 0 16px", fontFamily: JB, fontSize: 11, color: "#666666" }}>{c.stack}</p>
-                      {c.ndaNote && (
-                        <p style={{ margin: "0 0 16px", display: "flex", alignItems: "baseline", gap: 8, fontFamily: JB, fontSize: 12.5, letterSpacing: "0.02em", color: "#A98A47", lineHeight: 1.6, maxWidth: 640 }}>
-                          <span aria-hidden="true" style={{ flexShrink: 0 }}>🔒</span>
-                          <span>{c.ndaNote}</span>
-                        </p>
-                      )}
-                      {(c.demo || c.github) && (
-                        <div className="fd-wrap" style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
-                          {c.demo && <a href={c.demo} target="_blank" rel="noopener noreferrer" className="ks-btn-outline" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#1E1B12", border: "1px solid rgba(212,168,83,0.5)", color: "#E8C46A", fontWeight: 600, fontSize: 13, padding: "10px 18px", borderRadius: 6, fontFamily: SG }}>▶ {c.demoLabel} →</a>}
-                          {c.github && <a href={c.github} target="_blank" rel="noopener noreferrer" className="ks-navcta" style={{ display: "inline-flex", alignItems: "center", gap: 8, border: "1px solid #2A2A2A", color: "#B5B5B5", fontWeight: 600, fontSize: 13, padding: "10px 18px", borderRadius: 6, fontFamily: SG }}>View GitHub →</a>}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
+              {CASES_CONTRACTOR.map((c, i) => (
+                <CaseRow key={c.title} c={c} open={openCase === `a-${i}`} onToggle={() => setOpenCase(openCase === `a-${i}` ? null : `a-${i}`)} />
+              ))}
             </div>
-            <p style={{ margin: "28px 0 0", fontSize: 13, color: "#666666", lineHeight: 1.6 }}>Most client work runs under strict NDA and isn’t shown here — clients don’t want their internal operations public. References available on request.</p>
+            <p style={{ margin: "20px 0 0", fontSize: 13, color: "#666666", lineHeight: 1.6 }}>Most client work runs under strict NDA and isn’t shown here — clients don’t want their internal operations public. References available on request.</p>
+
+            {/* Group B — engineering depth */}
+            <p style={{ margin: "56px 0 6px", fontFamily: JB, fontSize: 11, letterSpacing: "0.2em", color: "#777777" }}>ENGINEERING DEPTH</p>
+            <p style={{ margin: "0 0 18px", fontSize: 14, color: "#9A9A9A", lineHeight: 1.7, maxWidth: 720 }}>These are not contractor builds. They are the engineering depth behind the contractor builds — retrieval, multi-agent reasoning and realtime processing, proven where the constraints were harder.</p>
+            <div style={{ borderTop: "1px solid #1E1E1E" }}>
+              {CASES_DEPTH.map((c, i) => (
+                <CaseRow key={c.title} c={c} compact open={openCase === `b-${i}`} onToggle={() => setOpenCase(openCase === `b-${i}` ? null : `b-${i}`)} />
+              ))}
+            </div>
           </div>
         </section>
 
         {/* 05 Pricing */}
         <section id="offer" style={goldBorder}>
           <div className="fd-pad" style={container}>
-            <p style={eyebrow}>05 — PRICING</p>
+            <p style={eyebrow}>06 — PRICING</p>
             <h2 style={{ margin: "0 0 20px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.9rem, 4vw, 3rem)", letterSpacing: "-0.025em", lineHeight: 1.03, color: "#EDEDED", maxWidth: 700 }}>Start with one bottleneck. Grow as far as the math takes you.</h2>
             <p style={{ margin: "0 0 56px", fontSize: 16, color: "#9A9A9A", lineHeight: 1.7, maxWidth: 720 }}>Not a template installation. Each engagement covers the process, decisions, exceptions, infrastructure and handoff required to make the system part of daily operations.</p>
 
@@ -520,7 +487,7 @@ export default function Page() {
         <section id="process" style={{ ...goldBorder, background: "#0C0C0C" }}>
           <div className="fd-pad fd-2col" style={{ maxWidth: 1240, margin: "0 auto", padding: "60px 32px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start" }}>
             <div>
-              <p style={eyebrow}>06 — HOW IT LANDS</p>
+              <p style={eyebrow}>07 — HOW IT LANDS</p>
               <h2 style={{ margin: "0 0 40px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.7rem, 3vw, 2.4rem)", letterSpacing: "-0.02em", lineHeight: 1.05, color: "#EDEDED" }}>Four steps.<br />No black box.</h2>
               <div style={{ display: "flex", flexDirection: "column" }}>
                 {STEPS.map(([time, title, body, first], idx) => (
@@ -536,7 +503,7 @@ export default function Page() {
               <p style={{ margin: "24px 0 0", fontSize: 13, color: "#808080", lineHeight: 1.7 }}>For phased platform builds, this same rhythm repeats in 2-4 week increments. Each increment ships something that works before we scope the next one.</p>
             </div>
             <div>
-              <p style={eyebrow}>07 — YOUR WORLD</p>
+              <p style={eyebrow}>08 — YOUR WORLD</p>
               <h2 style={{ margin: "0 0 40px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.7rem, 3vw, 2.4rem)", letterSpacing: "-0.02em", lineHeight: 1.05, color: "#EDEDED" }}>I know how your business actually runs.</h2>
               <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
                 {WORLD.map(([lead, rest]) => (
@@ -551,12 +518,11 @@ export default function Page() {
         <section id="about" style={{ ...goldBorder, background: "#0C0C0C" }}>
           <div className="fd-pad fd-2col" style={{ maxWidth: 1240, margin: "0 auto", padding: "60px 32px", display: "grid", gridTemplateColumns: "0.9fr 1.1fr", gap: "64px 80px", alignItems: "start" }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
-              <p style={{ margin: 0, fontFamily: JB, fontSize: 12, color: "#A98A47", letterSpacing: "0.2em" }}>08 — WHO BUILDS IT</p>
+              <p style={{ margin: 0, fontFamily: JB, fontSize: 12, color: "#A98A47", letterSpacing: "0.2em" }}>09 — WHO BUILDS IT</p>
               <img src="/images/portrait-about.jpg" alt="Vitalii Karasov" style={{ width: "100%", maxWidth: 340, aspectRatio: "3/4", objectFit: "cover", borderRadius: 12, border: "1px solid #1E1E1E", filter: "grayscale(25%)" }} />
-              <div style={{ border: "1px solid #1E1E1E", borderRadius: 12, padding: "24px 24px 28px", background: "#0E0E0E" }}>
-                <p style={{ margin: "0 0 12px", fontFamily: JB, fontSize: 11, letterSpacing: "0.2em", color: "#A98A47" }}>DATA HANDLING &amp; RESPONSIBILITY</p>
-                <p style={{ margin: "0 0 12px", fontSize: 13.5, color: "#9A9A9A", lineHeight: 1.75 }}>Before AI systems, I ran operations at a humanitarian organization handling personal data of vulnerable populations — under legal and criminal liability for data integrity and privacy compliance. 1.5M+ PLN operational budget, zero audit findings.</p>
-                <p style={{ margin: 0, fontSize: 13.5, color: "#9A9A9A", lineHeight: 1.75 }}>For construction and design-build firms, this translates to: client financial data, contracts, employee records and project IP handled with regulated-industry discipline by default. Privacy, access-control and data-retention requirements are mapped during architecture. Where formal legal compliance is required, implementation is aligned with the client’s legal counsel.</p>
+              <div style={{ border: "1px solid #1E1E1E", borderRadius: 12, padding: "22px 24px", background: "#0E0E0E" }}>
+                <p style={{ margin: "0 0 10px", fontFamily: JB, fontSize: 11, letterSpacing: "0.2em", color: "#A98A47" }}>HOW YOUR DATA IS HANDLED</p>
+                <p style={{ margin: 0, fontSize: 13.5, color: "#9A9A9A", lineHeight: 1.75 }}>Access, ownership and retention are decided during architecture, not after launch. <a href="#data" className="ks-gold" style={{ color: GOLD, textDecoration: "underline", textUnderlineOffset: 3 }}>See section 03</a>.</p>
               </div>
             </div>
             <div>
@@ -598,45 +564,34 @@ export default function Page() {
           </div>
         </section>
 
-        {/* 09 FAQ */}
+        {/* 10 FAQ (abbreviated — full set lives at /answers) */}
         <section id="faq" style={goldBorder}>
           <div className="fd-pad" style={container}>
             <div className="fd-2col" style={{ display: "grid", gridTemplateColumns: "280px 1fr", gap: 48, alignItems: "start" }}>
               <div className="fd-faq-intro" style={{ position: "sticky", top: 96 }}>
-                <p style={eyebrow}>09 — STRAIGHT ANSWERS</p>
+                <p style={eyebrow}>10 — STRAIGHT ANSWERS</p>
                 <h2 style={{ margin: "0 0 16px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.8rem, 3.5vw, 2.6rem)", letterSpacing: "-0.02em", lineHeight: 1.05, color: "#EDEDED" }}>Every question owners actually ask.</h2>
-                <p style={{ margin: 0, fontSize: 14, color: "#777777", lineHeight: 1.7 }}>Eight chapters. Open the one that’s on your mind.</p>
+                <p style={{ margin: 0, fontSize: 14, color: "#777777", lineHeight: 1.7 }}>The six that come up first. The other {FAQ_TOTAL - HOME_FAQ.length} are answered in full on one page.</p>
               </div>
-              <div style={{ borderTop: "1px solid #1E1E1E" }}>
-                {FAQ_CATS.map((cat, ci) => {
-                  const catOpen = openCat === ci;
-                  return (
-                    <div key={cat.label} style={{ borderBottom: "1px solid #1E1E1E" }}>
-                      <button onClick={() => { setOpenCat(catOpen ? null : ci); setOpenFaq(null); }} aria-expanded={catOpen} style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, padding: "22px 0", textAlign: "left", cursor: "pointer", background: "none", border: "none" }}>
-                        <span style={{ display: "flex", alignItems: "baseline", gap: 14 }}>
-                          <span style={{ fontFamily: JB, fontSize: 12, color: catOpen ? GOLD : "#555555", letterSpacing: "0.08em" }}>{String(ci + 1).padStart(2, "0")}</span>
-                          <span style={{ color: "#EDEDED", fontSize: 17, fontWeight: 600, lineHeight: 1.3, fontFamily: SG, letterSpacing: "0.02em" }}>{cat.label}</span>
-                        </span>
-                        <span style={{ color: GOLD, fontSize: 20, flexShrink: 0, lineHeight: 1, transform: `rotate(${catOpen ? 45 : 0}deg)`, transition: "transform 0.2s", display: "inline-block" }}>+</span>
-                      </button>
-                      <div style={{ display: catOpen ? "block" : "none", padding: "0 0 12px" }}>
-                        {cat.qs.map((f, qi) => {
-                          const id = ci * 100 + qi;
-                          const qOpen = openFaq === id;
-                          return (
-                            <div key={f.q} style={{ borderTop: "1px solid #161616", marginLeft: 40 }}>
-                              <button onClick={() => setOpenFaq(qOpen ? null : id)} aria-expanded={qOpen} style={{ width: "100%", display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16, padding: "16px 0", textAlign: "left", cursor: "pointer", background: "none", border: "none" }}>
-                                <span style={{ color: qOpen ? "#EDEDED" : "#B5B5B5", fontSize: 15, fontWeight: 500, lineHeight: 1.45, fontFamily: IN }}>{f.q}</span>
-                                <span style={{ color: "#8A6F3A", fontSize: 17, flexShrink: 0, lineHeight: 1, transform: `rotate(${qOpen ? 45 : 0}deg)`, transition: "transform 0.2s", display: "inline-block" }}>+</span>
-                              </button>
-                              <div style={{ display: qOpen ? "block" : "none" }}><p style={{ margin: 0, color: "#9A9A9A", fontSize: 14, lineHeight: 1.75, padding: "0 32px 18px 0", maxWidth: 640 }}>{f.a}</p></div>
-                            </div>
-                          );
-                        })}
+              <div>
+                <div style={{ borderTop: "1px solid #1E1E1E" }}>
+                  {HOME_FAQ.map((f, qi) => {
+                    const qOpen = openFaq === qi;
+                    return (
+                      <div key={f.q} style={{ borderBottom: "1px solid #1E1E1E" }}>
+                        <button onClick={() => setOpenFaq(qOpen ? null : qi)} aria-expanded={qOpen} style={{ width: "100%", display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16, padding: "20px 0", textAlign: "left", cursor: "pointer", background: "none", border: "none" }}>
+                          <span style={{ color: qOpen ? "#EDEDED" : "#B5B5B5", fontSize: 16, fontWeight: 500, lineHeight: 1.4, fontFamily: IN }}>{f.q}</span>
+                          <span className="ks-price-icon" style={{ color: GOLD, fontSize: 19, flexShrink: 0, lineHeight: 1, transform: `rotate(${qOpen ? 45 : 0}deg)`, transition: "transform 0.2s", display: "inline-block" }}>+</span>
+                        </button>
+                        <div style={{ display: qOpen ? "block" : "none" }}><p style={{ margin: 0, color: "#9A9A9A", fontSize: 14, lineHeight: 1.75, padding: "0 32px 20px 0", maxWidth: 640 }}>{f.a}</p></div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
+                <div style={{ marginTop: 28, display: "flex", flexDirection: "column", gap: 10 }}>
+                  <Link href="/answers" className="ks-btn-outline" style={{ alignSelf: "flex-start", background: "#1E1B12", border: "1px solid rgba(212,168,83,0.5)", color: "#E8C46A", fontWeight: 600, fontSize: 14, padding: "14px 26px", borderRadius: 8, fontFamily: SG }}>Read all {FAQ_TOTAL} answers →</Link>
+                  <p style={{ margin: 0, fontSize: 13, color: "#666666", lineHeight: 1.6 }}>{FAQ_CATS.length} chapters — money and ROI, scope, risk and data handling, your team, timeline, how I work, and the practical details.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -674,6 +629,38 @@ export default function Page() {
         </section>
 
       </main>
+    </div>
+  );
+}
+
+// One expandable case row. `compact` is the lower-emphasis variant used by the
+// engineering-depth group: smaller title, dimmer marker, tighter padding.
+function CaseRow({ c, open, onToggle, compact = false }: { c: CaseItem; open: boolean; onToggle: () => void; compact?: boolean }) {
+  return (
+    <div style={{ borderBottom: "1px solid #1E1E1E" }}>
+      <button onClick={onToggle} aria-expanded={open} className="fd-stack ks-caserow" style={{ width: "100%", display: "flex", alignItems: "baseline", gap: compact ? 18 : 24, padding: compact ? "18px 4px" : "24px 4px", background: "none", border: "none", cursor: "pointer", textAlign: "left" }}>
+        <span style={{ fontFamily: JB, fontSize: 12, color: compact ? "#3F3F3F" : "#555555", width: 30, flexShrink: 0 }}>{c.num}</span>
+        <span className="fd-casetitle" style={{ fontFamily: SG, fontWeight: 600, fontSize: compact ? "clamp(0.95rem, 1.3vw, 1.05rem)" : "clamp(1.05rem, 1.8vw, 1.35rem)", color: compact ? "#C9C9C9" : "#EDEDED", letterSpacing: "-0.015em", width: 380, flexShrink: 0, lineHeight: 1.3 }}>{c.title}</span>
+        <span style={{ fontSize: compact ? 13 : 14, color: compact ? "#8A8A8A" : "#9A9A9A", flex: 1, lineHeight: 1.5 }}>{c.hook}</span>
+        <span className="ks-price-icon" style={{ color: compact ? "#8A6F3A" : GOLD, fontSize: compact ? 17 : 20, flexShrink: 0, transform: `rotate(${open ? 45 : 0}deg)`, transition: "transform 0.2s", display: "inline-block", lineHeight: 1 }}>+</span>
+      </button>
+      <div style={{ display: open ? "block" : "none", padding: compact ? "0 4px 24px 48px" : "0 4px 28px 54px" }}>
+        {c.badge && <p style={{ margin: "0 0 12px", fontFamily: JB, fontSize: 11, letterSpacing: "0.18em", color: "#A98A47" }}>{c.badge}</p>}
+        <p style={{ margin: "0 0 18px", fontSize: 14, color: "#9A9A9A", lineHeight: 1.75, maxWidth: 700, whiteSpace: "pre-line" }}>{c.body}</p>
+        <p style={{ margin: "0 0 16px", fontFamily: JB, fontSize: 11, color: "#666666" }}>{c.stack}</p>
+        {c.ndaNote && (
+          <p style={{ margin: "0 0 16px", display: "flex", alignItems: "baseline", gap: 8, fontFamily: JB, fontSize: 12.5, letterSpacing: "0.02em", color: "#A98A47", lineHeight: 1.6, maxWidth: 640 }}>
+            <span aria-hidden="true" style={{ flexShrink: 0 }}>🔒</span>
+            <span>{c.ndaNote}</span>
+          </p>
+        )}
+        {(c.demo || c.github) && (
+          <div className="fd-wrap" style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+            {c.demo && <a href={c.demo} target="_blank" rel="noopener noreferrer" className="ks-btn-outline" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#1E1B12", border: "1px solid rgba(212,168,83,0.5)", color: "#E8C46A", fontWeight: 600, fontSize: 13, padding: "10px 18px", borderRadius: 6, fontFamily: SG }}>▶ {c.demoLabel} →</a>}
+            {c.github && <a href={c.github} target="_blank" rel="noopener noreferrer" className="ks-navcta" style={{ display: "inline-flex", alignItems: "center", gap: 8, border: "1px solid #2A2A2A", color: "#B5B5B5", fontWeight: 600, fontSize: 13, padding: "10px 18px", borderRadius: 6, fontFamily: SG }}>View GitHub →</a>}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

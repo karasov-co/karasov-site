@@ -179,7 +179,15 @@ h1, h2, h3, h4, h5, h6 {
 .ks-price-tog { transition: color 0.2s; }
 .ks-price-tog:hover { color: #F2DDA0 !important; }
 
-/* Pricing accordion respects reduced-motion */
+/* Per-question anchor links on /answers */
+.ks-faq-anchor { transition: color 0.2s; }
+.ks-faq-anchor:hover { color: #F2DDA0 !important; }
+/* Dim rather than hidden, so the anchor is discoverable without hover (touch) */
+.ks-faq-hash { opacity: 0.4; transition: opacity 0.2s; }
+.ks-faq-anchor:hover .ks-faq-hash { opacity: 1; }
+:target > .ks-faq-anchor .ks-faq-hash { opacity: 1; }
+
+/* Accordions and anchors respect reduced-motion */
 @media (prefers-reduced-motion: reduce) {
-  .ks-price-tog, .ks-price-icon { transition: none !important; }
+  .ks-price-tog, .ks-price-icon, .ks-faq-anchor, .ks-faq-hash { transition: none !important; }
 }
