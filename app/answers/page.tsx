@@ -10,12 +10,12 @@ const WA =
   "https://wa.me/karvitalii?text=Hi%20Vitalii%2C%20I%20saw%20your%20site%20and%20want%20to%20talk%20about%20my%20operations.";
 
 export const metadata: Metadata = {
-  title: "Straight answers — Karasov Systems",
+  title: "AI automation for contractors — 34 straight answers on cost, scope, risk and timeline",
   description:
     "Every question owners actually ask before building private AI operations systems: cost and ROI, scope, risk and data handling, team impact, timeline, ownership and working arrangements.",
   alternates: { canonical: "/answers" },
   openGraph: {
-    title: "Straight answers — Karasov Systems",
+    title: "AI automation for contractors — 34 straight answers on cost, scope, risk and timeline",
     description:
       "Cost, ROI, risk, data handling, timeline and ownership — answered in full for owner-led design-build, remodeling and specialty contractor companies.",
     url: "/answers",

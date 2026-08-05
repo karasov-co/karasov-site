@@ -39,6 +39,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Vitalii Karasov" }],
   metadataBase: new URL(siteUrl),
+  verification: {
+    google: "fhC7qIBGPar6zObEx8ERbdzwkhoIh8G4qGKocJy-ZJ8",
+  },
   openGraph: {
     title: "Karasov Systems — Private AI Operations for Contractors",
     description:
