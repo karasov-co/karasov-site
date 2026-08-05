@@ -29,4 +29,4 @@ Claude API, n8n, Python, FastAPI, Supabase pgvector, Next.js, LangGraph, MCP
 - 34 questions owners ask, answered in full: https://karasov.co/answers
 
 ## Contact
-https://karasov.co · v.karasov.pm@gmail.com
+https://karasov.co · vitalii@karasov.co

@@ -8,7 +8,7 @@ const GOLD = "#D4A853";
 const CAL = "https://calendly.com/v-karasov-pm/30min";
 const WA =
   "https://wa.me/karvitalii?text=Hi%20Vitalii%2C%20I%20saw%20your%20site%20and%20want%20to%20talk%20about%20my%20operations.";
-const EMAIL = "v.karasov.pm@gmail.com";
+const EMAIL = "vitalii@karasov.co";
 
 export const metadata: Metadata = {
   title:
@@ -221,7 +221,7 @@ export default function AboutPage() {
           <div className="fd-pad" style={{ maxWidth: 1240, margin: "0 auto", padding: "60px 32px 48px", boxSizing: "border-box" }}>
             <p style={{ margin: "0 0 10px", fontFamily: JB, fontSize: 12, color: "#A98A47", letterSpacing: "0.2em" }}>ABOUT</p>
             <h1 style={{ margin: "0 0 24px", fontFamily: SG, fontWeight: 700, fontSize: "clamp(1.9rem, 4vw, 3rem)", letterSpacing: "-0.025em", lineHeight: 1.05, color: "#EDEDED", maxWidth: 820, textWrap: "balance" }}>About Vitalii Karasov</h1>
-            <p style={{ margin: 0, fontSize: 17, color: "#C9C9C9", lineHeight: 1.7, maxWidth: 760 }}>I build private AI operations systems for owner-led construction, design-build and remodeling companies — and I come to that work from eight years of running operations where a mistake had consequences.</p>
+            <p style={{ margin: 0, fontSize: 17, color: "#C9C9C9", lineHeight: 1.7, maxWidth: 760 }}>I build private AI operations systems for owner-led construction, design-build and remodeling companies — and I come to that work from five years of running operations where a mistake had consequences.</p>
           </div>
         </section>
 
@@ -251,7 +251,7 @@ export default function AboutPage() {
 
         <Section n="04 — BACKGROUND" title="Why I understand the business, not just the code">
           <p style={prose}><span style={strong}>Imperium Academy (2023–2025) — Product Manager.</span> Launched an EdTech platform 0→1: LMS architecture aligned to SCORM/xAPI for enterprise integration, GA4 and behavioural analytics to rebuild student onboarding (+15% retention), multi-market expansion across the US, EU and Asia with GDPR and COPPA compliance in every region, and SOPs for distributed teams that cut new-team-member onboarding time by 40%.</p>
-          <p style={prose}><span style={strong}>Human Gambit Media (2025–2026) — AI Lead &amp; Product Manager.</span> Applied AI product development from requirements and architecture through delivery: LLM-API workflows, retrieval pipelines, internal tools for research and decision support, and reusable development and deployment workflows. The media side reached an audience of 750,000+ — long-form analysis of history, geopolitics and systems.</p>
+          <p style={prose}><span style={strong}>Human Gambit Media (2025–2026) — AI Lead &amp; Product Manager.</span> Applied AI product development from requirements and architecture through delivery: LLM-API workflows, retrieval pipelines, internal tools for research and decision support, and reusable development and deployment workflows. The media side reached an audience of 750,000+ — long-form analytical work on history, institutions and how complex systems fail.</p>
           <p style={{ ...prose, margin: 0 }}>I have sat on the business side of the table. When you describe an operational problem, I am not translating it into technology I already wanted to build.</p>
         </Section>
 
@@ -276,7 +276,6 @@ export default function AboutPage() {
               "Digital Marketing Analytics; Marketing in a Digital World — University of Illinois Urbana-Champaign",
               "Introduction to Communication Science — University of Amsterdam",
               "Brand Management: Aligning Business, Brand and Behaviour — London Business School",
-              "Rhetoric — Immanuel Kant Baltic Federal University",
             ]}
           />
         </Section>
@@ -294,7 +293,7 @@ export default function AboutPage() {
           />
           <p style={{ margin: "22px 0 0", fontFamily: JB, fontSize: 12, color: "#8A8A8A", lineHeight: 1.9, maxWidth: 700 }}>
             <span style={{ color: "#A98A47", letterSpacing: "0.18em" }}>DELIVERY</span><br />
-            Python · FastAPI · PostgreSQL · REST APIs · webhooks · retrieval-augmented generation · hybrid retrieval · speech-to-text · workflow orchestration · Docker · CI/CD
+            Python · FastAPI · PostgreSQL · REST APIs · webhooks · retrieval-augmented generation · hybrid retrieval · speech-to-text · n8n · Make · Docker · CI/CD
           </p>
         </Section>
 
@@ -302,7 +301,7 @@ export default function AboutPage() {
           <Bullets
             items={[
               <><span style={strong}>Ataman Studio</span> — Los Angeles design-build firm. Lead operations pipeline, 10,000+ production executions. <Link href="/#cases" className="ks-gold" style={{ color: GOLD, textDecoration: "underline", textUnderlineOffset: 3 }}>Read the case study</Link></>,
-              <><span style={strong}>US construction company</span> — multilingual field operations and company knowledge system, processing voice reports, attendance, operational exceptions, company email and attachments into management-ready information. Under NDA.</>,
+              <><span style={strong}>US construction company, East Coast</span> — multilingual field operations and company knowledge system, processing voice reports, attendance, operational exceptions, company email and attachments into management-ready information. Under NDA.</>,
               <>Prize winner, AI Agent Olympics — Milan AI Week 2026, Europe’s largest AI event (2,382 participants). <a href="https://sentinel-audit.co" target="_blank" rel="noopener noreferrer" className="ks-gold" style={{ color: GOLD, textDecoration: "underline", textUnderlineOffset: 3 }}>SENTINEL</a></>,
             ]}
           />

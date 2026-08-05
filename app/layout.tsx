@@ -78,7 +78,7 @@ const jsonLd = {
       description:
         "Builds private AI operations systems for design-build, remodeling and specialty contractors — lead response, estimates, field reporting, document and project knowledge pipelines.",
       url: siteUrl,
-      email: "v.karasov.pm@gmail.com",
+      email: "vitalii@karasov.co",
       knowsLanguage: ["en", "uk", "ru", "pl"],
       knowsAbout: [
         "AI automation",
