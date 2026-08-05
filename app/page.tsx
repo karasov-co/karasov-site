@@ -4,6 +4,7 @@
 import { useState, useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 import Link from "next/link";
 import { HOME_FAQ, FAQ_TOTAL, FAQ_CATS } from "./faq-data";
+import { Testimonials } from "./shared-ui";
 
 const SG = "var(--font-space-grotesk), sans-serif";
 const IN = "var(--font-inter), sans-serif";
@@ -90,12 +91,12 @@ const WORLD: [string, string][] = [
 
 type CaseItem = {
   num: string; title: string; hook: string; body: string; stack: string;
-  demo: string | null; demoLabel: string; github: string | null; badge?: string; ndaNote?: string;
+  demo: string | null; demoLabel: string; github: string | null; badge?: string; ndaNote?: string; caseStudy?: string;
 };
 // Group A — client-facing contractor systems. Leads the Cases section.
 const CASES_CONTRACTOR: CaseItem[] = [
   { num: "01", title: "Private field operations & company knowledge system", hook: "Multilingual field reporting, attendance controls and company records—deployed in infrastructure controlled by the client.", badge: "CLIENT PRODUCTION · US PROJECT-BASED BUSINESS · NDA PROTECTED", body: "Built for a US project-based business coordinating multilingual employees across active work locations. The system gives field staff a simple way to check in and out, verify location, explain attendance exceptions and submit daily voice reports in their preferred language. Reports are transcribed, structured and normalized into English for management.\n\nManagers receive attendance history, exception alerts, project-level visibility, employee and location controls, role-based access and exportable records. A separate read-only ingestion service archives company email and attachments into client-controlled storage, with resumable processing and duplicate protection—creating the foundation for internal knowledge retrieval.\n\nThe system was deployed in an environment controlled by the client, with operational controls, accounts, source code and documentation handed over.", stack: "One-tap field reporting · multilingual voice-to-record processing · client-controlled deployment", demo: null, demoLabel: "", github: null, ndaNote: "Client identity, architecture, business data and project-specific metrics withheld under NDA." },
-  { num: "02", title: "ATAMAN Studio — lead-to-contract system", hook: "Seven automations running the lead lifecycle end to end.", badge: "CLIENT · PRODUCTION · LA DESIGN-BUILD", body: "Seven connected automations covering intake, qualification, call transcription, follow-up and contract detection. Every inbound lead handled without a single manual touch — every booked call becomes a lead card, every inbound email is read and routed, every sales call is transcribed with a reply drafted, and follow-ups fire on their own until the client replies.", stack: "Make.com · ClickUp · OpenAI · Otter · Calendly · Gmail", demo: null, demoLabel: "", github: null },
+  { num: "02", title: "ATAMAN Studio — lead-to-contract system", hook: "Seven automations running the lead lifecycle end to end.", badge: "CLIENT · PRODUCTION · LA DESIGN-BUILD", body: "Seven connected automations covering intake, qualification, call transcription, follow-up and contract detection. Every inbound lead handled without a single manual touch — every booked call becomes a lead card, every inbound email is read and routed, every sales call is transcribed with a reply drafted, and follow-ups fire on their own until the client replies.", stack: "Make.com · ClickUp · OpenAI · Otter · Calendly · Gmail", demo: null, demoLabel: "", github: null, caseStudy: "/case-studies/ataman-studio" },
   { num: "03", title: "Instant lead response & scoring", hook: "Every lead answered and scored in under 5 seconds.", body: "Inbound leads were falling through the cracks — slow responses, no prioritization, manual copy-paste into spreadsheets. Now hot leads get flagged for an immediate call, warm ones enter a nurture sequence, junk gets filtered out. Speed-to-lead wins jobs: the first company to respond wins most of them.", stack: "n8n · Claude API · Google Sheets · REST API", demo: "https://www.loom.com/share/9c2ef40dee6543f897060ef4b8596d74", demoLabel: "Watch demo", github: null },
   { num: "04", title: "Marketing content on autopilot", hook: "30 branded posts for $1 in AI costs. Zero manual writing.", body: "A closed-loop content system: your brand voice, your audience’s pain points and your best-performing posts stored as knowledge; AI drafts platform-ready posts on schedule; engagement data feeds back in, so the system writes better every cycle. Your company stays visible while you run jobs.", stack: "Make.com · Claude API · Pinecone · Buffer · RAG", demo: "https://www.loom.com/share/3e08552f874f407bad4b558bd0bdf9d8", demoLabel: "Watch demo", github: null },
   { num: "05", title: "Project photo AI", hook: "121 job-site photos sorted in 15 minutes for $0.35. Open source.", body: "Every project generates hundreds of photos — progress, finished work, before-and-afters. This tool reads every photo, scores it 1-1000 for quality and picks the keepers automatically — for the portfolio, the client and the marketing folder.", stack: "Python · OpenAI Vision · Pillow · rawpy", demo: "https://www.loom.com/share/adb04c24f46540d8b544de8e488eb88c", demoLabel: "Watch demo", github: "https://github.com/karasov-co/photo-ai-toolkit" },
@@ -259,8 +260,9 @@ export default function Page() {
   }, []);
 
   const navlinks = [
-    ["#build", "What I build"], ["#data", "Data"], ["#scope", "Scope"],
-    ["#cases", "Cases"], ["#offer", "Pricing"], ["#faq", "FAQ"],
+    ["/services/ai-automation-for-contractors", "Services"],
+    ["#build", "What I build"], ["#data", "Data"], ["#cases", "Cases"],
+    ["#offer", "Pricing"], ["#faq", "FAQ"],
   ];
 
   return (
@@ -281,9 +283,13 @@ export default function Page() {
             <span className="fd-hide" style={{ color: "#666666", fontSize: 11, fontFamily: JB }}>by Vitalii Karasov</span>
           </a>
           <div style={{ display: "flex", alignItems: "center", gap: 22 }}>
-            {navlinks.map(([href, label]) => (
-              <a key={href} href={href} className="fd-hide ks-navlink" style={{ color: "#8A8A8A", fontSize: 13 }}>{label}</a>
-            ))}
+            {navlinks.map(([href, label]) =>
+              href.startsWith("/") ? (
+                <Link key={href} href={href} className="fd-hide ks-navlink" style={{ color: "#8A8A8A", fontSize: 13 }}>{label}</Link>
+              ) : (
+                <a key={href} href={href} className="fd-hide ks-navlink" style={{ color: "#8A8A8A", fontSize: 13 }}>{label}</a>
+              ),
+            )}
             <a href={CAL} target="_blank" rel="noopener noreferrer" className="ks-navcta" style={{ border: "1px solid rgba(212,168,83,0.5)", color: GOLD, fontWeight: 600, fontSize: 13, padding: "9px 18px", borderRadius: 6, fontFamily: SG }}>Book a call</a>
           </div>
         </nav>
@@ -462,6 +468,8 @@ export default function Page() {
             </div>
           </div>
         </section>
+
+        <Testimonials />
 
         {/* 05 Pricing */}
         <section id="offer" style={goldBorder}>
@@ -655,8 +663,9 @@ function CaseRow({ c, open, onToggle, compact = false }: { c: CaseItem; open: bo
             <span>{c.ndaNote}</span>
           </p>
         )}
-        {(c.demo || c.github) && (
+        {(c.demo || c.github || c.caseStudy) && (
           <div className="fd-wrap" style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+            {c.caseStudy && <Link href={c.caseStudy} className="ks-btn-outline" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#1E1B12", border: "1px solid rgba(212,168,83,0.5)", color: "#E8C46A", fontWeight: 600, fontSize: 13, padding: "10px 18px", borderRadius: 6, fontFamily: SG }}>Read the case study →</Link>}
             {c.demo && <a href={c.demo} target="_blank" rel="noopener noreferrer" className="ks-btn-outline" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#1E1B12", border: "1px solid rgba(212,168,83,0.5)", color: "#E8C46A", fontWeight: 600, fontSize: 13, padding: "10px 18px", borderRadius: 6, fontFamily: SG }}>▶ {c.demoLabel} →</a>}
             {c.github && <a href={c.github} target="_blank" rel="noopener noreferrer" className="ks-navcta" style={{ display: "inline-flex", alignItems: "center", gap: 8, border: "1px solid #2A2A2A", color: "#B5B5B5", fontWeight: 600, fontSize: 13, padding: "10px 18px", borderRadius: 6, fontFamily: SG }}>View GitHub →</a>}
           </div>

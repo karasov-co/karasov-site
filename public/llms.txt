@@ -18,6 +18,20 @@ Claude API, n8n, Python, FastAPI, Supabase pgvector, Next.js, LangGraph, MCP
 - SENTINEL — adversarial multi-agent audit system, Milan AI Week 2026:
   https://sentinel-audit.co · https://github.com/karasov-co/sentinel-audit
 
+## Services
+- AI automation for contractors — cost, timeline, what you get:
+  https://karasov.co/services/ai-automation-for-contractors
+- Lead response automation: https://karasov.co/services/lead-response-automation
+- Field reporting automation: https://karasov.co/services/field-reporting-automation
+- Project knowledge retrieval: https://karasov.co/services/project-knowledge-retrieval
+
+## Case studies
+- Ataman Studio, Los Angeles design-build firm: seven connected systems
+  covering the full lead lifecycle — intake, classification, staged
+  follow-up, reply interception, meeting transcription and drafted
+  proposals. 10,000+ production executions.
+  https://karasov.co/case-studies/ataman-studio
+
 ## Background
 - Full professional background, education and credentials: https://karasov.co/about
   Five years of operations and project management before production AI. Crisis-response

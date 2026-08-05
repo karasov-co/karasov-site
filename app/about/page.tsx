@@ -1,14 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import type { ReactNode } from "react";
-
-const SG = "var(--font-space-grotesk), sans-serif";
-const JB = "var(--font-jetbrains-mono), monospace";
-const GOLD = "#D4A853";
-const CAL = "https://calendly.com/v-karasov-pm/30min";
-const WA =
-  "https://wa.me/karvitalii?text=Hi%20Vitalii%2C%20I%20saw%20your%20site%20and%20want%20to%20talk%20about%20my%20operations.";
-const EMAIL = "vitalii@karasov.co";
+import {
+  SiteHeader, Section, Bullets, GoldLink,
+  prose, strong, SG, JB, GOLD, CAL, WA, EMAIL,
+} from "../shared-ui";
 
 export const metadata: Metadata = {
   title:
@@ -106,93 +101,6 @@ const personJsonLd = {
   ],
 };
 
-const prose = {
-  margin: "0 0 18px",
-  fontSize: 15.5,
-  color: "#9A9A9A",
-  lineHeight: 1.8,
-  maxWidth: 700,
-};
-const strong = { color: "#EDEDED", fontWeight: 600 };
-
-function Section({
-  n,
-  title,
-  children,
-  alt = false,
-}: {
-  n: string;
-  title: string;
-  children: ReactNode;
-  alt?: boolean;
-}) {
-  return (
-    <section
-      style={{
-        borderTop: "1px solid rgba(212,168,83,0.4)",
-        background: alt ? "#0C0C0C" : undefined,
-      }}
-    >
-      <div
-        className="fd-pad"
-        style={{ maxWidth: 1240, margin: "0 auto", padding: "52px 32px", boxSizing: "border-box" }}
-      >
-        <div
-          className="fd-2col"
-          style={{ display: "grid", gridTemplateColumns: "280px 1fr", gap: 48, alignItems: "start" }}
-        >
-          <div className="fd-faq-intro" style={{ position: "sticky", top: 96 }}>
-            <p style={{ margin: "0 0 10px", fontFamily: JB, fontSize: 12, color: "#A98A47", letterSpacing: "0.2em" }}>
-              {n}
-            </p>
-            <h2
-              style={{
-                margin: 0,
-                fontFamily: SG,
-                fontWeight: 700,
-                fontSize: "clamp(1.4rem, 2.4vw, 1.9rem)",
-                letterSpacing: "-0.02em",
-                lineHeight: 1.15,
-                color: "#EDEDED",
-              }}
-            >
-              {title}
-            </h2>
-          </div>
-          <div>{children}</div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Bullets({ items }: { items: ReactNode[] }) {
-  return (
-    <ul style={{ margin: "0 0 6px", padding: 0, listStyle: "none", maxWidth: 700 }}>
-      {items.map((it, i) => (
-        <li
-          key={i}
-          style={{
-            display: "flex",
-            gap: 12,
-            padding: "11px 0",
-            borderTop: i === 0 ? "1px solid #1E1E1E" : undefined,
-            borderBottom: "1px solid #1E1E1E",
-            fontSize: 14.5,
-            color: "#9A9A9A",
-            lineHeight: 1.7,
-          }}
-        >
-          <span aria-hidden="true" style={{ color: "#8A6F3A", fontFamily: JB, fontSize: 12, flexShrink: 0, lineHeight: 1.9 }}>
-            ▸
-          </span>
-          <span>{it}</span>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
 export default function AboutPage() {
   return (
     <div style={{ background: "#0A0A0A", minHeight: "100vh" }}>
@@ -201,19 +109,7 @@ export default function AboutPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
       />
 
-      {/* Header */}
-      <header style={{ position: "sticky", top: 0, zIndex: 50, background: "rgba(10,10,10,0.92)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", borderBottom: "1px solid #1E1E1E" }}>
-        <nav className="fd-pad" style={{ maxWidth: 1240, margin: "0 auto", padding: "0 32px", height: 60, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
-          <Link href="/" style={{ display: "flex", alignItems: "baseline", gap: 10, color: "#EDEDED" }}>
-            <span style={{ fontWeight: 700, letterSpacing: "0.12em", fontSize: 13, fontFamily: SG }}>KARASOV <span style={{ color: GOLD }}>SYSTEMS</span></span>
-          </Link>
-          <div style={{ display: "flex", alignItems: "center", gap: 22 }}>
-            <Link href="/" className="fd-hide ks-navlink" style={{ color: "#8A8A8A", fontSize: 13 }}>← Back to site</Link>
-            <Link href="/answers" className="fd-hide ks-navlink" style={{ color: "#8A8A8A", fontSize: 13 }}>Answers</Link>
-            <a href={CAL} target="_blank" rel="noopener noreferrer" className="ks-navcta" style={{ border: "1px solid rgba(212,168,83,0.5)", color: GOLD, fontWeight: 600, fontSize: 13, padding: "9px 18px", borderRadius: 6, fontFamily: SG }}>Book a call</a>
-          </div>
-        </nav>
-      </header>
+      <SiteHeader />
 
       <main>
         {/* Hero */}
@@ -300,7 +196,7 @@ export default function AboutPage() {
         <Section n="08 — TRACK RECORD" title="Where it has run">
           <Bullets
             items={[
-              <><span style={strong}>Ataman Studio</span> — Los Angeles design-build firm. Lead operations pipeline, 10,000+ production executions. <Link href="/#cases" className="ks-gold" style={{ color: GOLD, textDecoration: "underline", textUnderlineOffset: 3 }}>Read the case study</Link></>,
+              <><span style={strong}>Ataman Studio</span> — Los Angeles design-build firm. Lead operations pipeline, 10,000+ production executions. <GoldLink href="/case-studies/ataman-studio">Read the case study</GoldLink></>,
               <><span style={strong}>US construction company, East Coast</span> — multilingual field operations and company knowledge system, processing voice reports, attendance, operational exceptions, company email and attachments into management-ready information. Under NDA.</>,
               <>Prize winner, AI Agent Olympics — Milan AI Week 2026, Europe’s largest AI event (2,382 participants). <a href="https://sentinel-audit.co" target="_blank" rel="noopener noreferrer" className="ks-gold" style={{ color: GOLD, textDecoration: "underline", textUnderlineOffset: 3 }}>SENTINEL</a></>,
             ]}
