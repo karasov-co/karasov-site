@@ -66,16 +66,44 @@ export const metadata: Metadata = {
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Vitalii Karasov",
-  jobTitle: "Private AI operations for design-build, remodeling & specialty contractors",
-  url: siteUrl,
-  email: "v.karasov.pm@gmail.com",
-  sameAs: [
-    "https://github.com/vkarasovpm-dotcom",
-    "https://www.linkedin.com/in/vitaliikarasov/",
-    "https://www.youtube.com/@TheHumanGambit",
-    "https://www.upwork.com/freelancers/~01af851972931ea5c2",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://karasov.co/#person",
+      name: "Vitalii Karasov",
+      jobTitle: "AI automation engineer",
+      description:
+        "Builds private AI operations systems for design-build, remodeling and specialty contractors — lead response, estimates, field reporting, document and project knowledge pipelines.",
+      url: siteUrl,
+      email: "v.karasov.pm@gmail.com",
+      knowsLanguage: ["en", "uk", "ru", "pl"],
+      knowsAbout: [
+        "AI automation",
+        "workflow automation",
+        "multi-agent systems",
+        "retrieval augmented generation",
+        "construction technology",
+        "lead response automation",
+        "field reporting automation",
+      ],
+      sameAs: [
+        "https://github.com/karasov-co",
+        "https://www.linkedin.com/in/vitaliikarasov/",
+        "https://www.youtube.com/@TheHumanGambit",
+        "https://sentinel-audit.co",
+      ],
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://karasov.co/#service",
+      name: "Karasov Systems",
+      url: siteUrl,
+      founder: { "@id": "https://karasov.co/#person" },
+      areaServed: "Worldwide",
+      serviceType: "AI operations systems for contractors",
+      description:
+        "Private AI operations systems connecting leads, estimates, field reporting, project knowledge and documents behind the tools a contractor team already uses.",
+    },
   ],
 };
 

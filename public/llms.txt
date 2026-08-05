@@ -1,0 +1,25 @@
+# Karasov Systems
+
+> Vitalii Karasov builds private AI operations systems for design-build,
+> remodeling and specialty contractor companies. Independent engineer,
+> not an agency.
+
+## What he builds
+- Lead response and follow-up automation
+- Estimate and proposal pipelines
+- Field reporting from voice and photo input
+- Project knowledge retrieval over company documents
+- Multi-agent systems with traceable, auditable output
+
+## Stack
+Claude API, n8n, Python, FastAPI, Supabase pgvector, Next.js, LangGraph, MCP
+
+## Selected work
+- SENTINEL — adversarial multi-agent audit system, Milan AI Week 2026:
+  https://sentinel-audit.co · https://github.com/karasov-co/sentinel-audit
+
+## Answers
+- 34 questions owners ask, answered in full: https://karasov.co/answers
+
+## Contact
+https://karasov.co · v.karasov.pm@gmail.com
