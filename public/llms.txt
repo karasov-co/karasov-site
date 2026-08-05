@@ -18,6 +18,13 @@ Claude API, n8n, Python, FastAPI, Supabase pgvector, Next.js, LangGraph, MCP
 - SENTINEL — adversarial multi-agent audit system, Milan AI Week 2026:
   https://sentinel-audit.co · https://github.com/karasov-co/sentinel-audit
 
+## Background
+- Full professional background, education and credentials: https://karasov.co/about
+  Five years of operations and project management before production AI. Crisis-response
+  operations at SOS Children's Villages Poland (2022-2023): 1.5M+ PLN portfolio,
+  personal data of 2,000+ people, zero non-compliance findings across UN and EU audits.
+  MA Project Management (Uczelnia Lazarskiego), PRINCE2 Foundation, RODO/GDPR certified.
+
 ## Answers
 - 34 questions owners ask, answered in full: https://karasov.co/answers
 

@@ -74,7 +74,7 @@ const jsonLd = {
       "@type": "Person",
       "@id": "https://karasov.co/#person",
       name: "Vitalii Karasov",
-      jobTitle: "AI automation engineer",
+      jobTitle: "AI operations engineer",
       description:
         "Builds private AI operations systems for design-build, remodeling and specialty contractors — lead response, estimates, field reporting, document and project knowledge pipelines.",
       url: siteUrl,

@@ -6,5 +6,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: "https://karasov.co/", priority: 1, changeFrequency: "weekly" },
     { url: "https://karasov.co/answers", priority: 0.8, changeFrequency: "monthly" },
+    { url: "https://karasov.co/about", priority: 0.8, changeFrequency: "monthly" },
   ];
 }

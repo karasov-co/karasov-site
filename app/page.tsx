@@ -531,6 +531,7 @@ export default function Page() {
               <p style={{ margin: "0 0 14px", fontSize: 15, color: "#9A9A9A", lineHeight: 1.8 }}>In 2026 my solo build won at the AI Agent Olympics at Milan AI Week — Europe’s largest AI event.</p>
               <p style={{ margin: "0 0 14px", fontSize: 15, color: "#EDEDED", lineHeight: 1.8, fontWeight: 500 }}>Now I build one thing: private operational systems for owner-led design-build, remodeling and specialty contractor companies. Deep, not wide.</p>
               <p style={{ margin: "0 0 28px", fontSize: 15, color: "#9A9A9A", lineHeight: 1.8 }}><span style={{ color: "#EDEDED", fontWeight: 500 }}>The delivery network.</span> On larger builds I bring in trusted specialists — design, development support, QA — but every project stays under my direct scope and my code review. You always know exactly who touched what, and you always talk to me.</p>
+              <p style={{ margin: "-14px 0 28px", fontSize: 14, color: "#9A9A9A", lineHeight: 1.7 }}><Link href="/about" className="ks-gold" style={{ color: GOLD, textDecoration: "underline", textUnderlineOffset: 4 }}>Full background — operations, education and credentials →</Link></p>
 
               <div style={{ border: "1px solid #1E1E1E", borderRadius: 12, overflow: "hidden" }}>
                 <div style={{ padding: "20px 22px" }}>
