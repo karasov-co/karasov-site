@@ -50,6 +50,7 @@ export function SiteHeader() {
           <Link href="/services/ai-automation-for-contractors" className="fd-hide ks-navlink" style={{ color: "#8A8A8A", fontSize: 13 }}>Services</Link>
           <Link href="/answers" className="fd-hide ks-navlink" style={{ color: "#8A8A8A", fontSize: 13 }}>Answers</Link>
           <Link href="/about" className="fd-hide ks-navlink" style={{ color: "#8A8A8A", fontSize: 13 }}>About</Link>
+          <Link href="/verified" className="fd-hide ks-navlink" style={{ color: "#8A8A8A", fontSize: 13 }}>Verified</Link>
           <a href={CAL} target="_blank" rel="noopener noreferrer" className="ks-navcta" style={{ border: "1px solid rgba(212,168,83,0.5)", color: GOLD, fontWeight: 600, fontSize: 13, padding: "9px 18px", borderRadius: 6, fontFamily: SG }}>Book a call</a>
         </div>
       </nav>
@@ -190,10 +191,11 @@ export function EmailCta({
   );
 }
 
-// Upwork profile URL. Left empty deliberately: with an empty string the
-// "Verify these reviews" line is not rendered, rather than shipping a link
-// that may not resolve. Set it to the profile URL to switch the line on.
-export const UPWORK_PROFILE_URL = "";
+// Upwork profile URL. Typed as string rather than inferred as a literal so
+// the empty-string check below stays valid: set it to "" and the
+// "Verify these reviews" line stops rendering.
+export const UPWORK_PROFILE_URL: string =
+  "https://www.upwork.com/freelancers/~01af851972931ea5c2?mp_source=share";
 
 const TESTIMONIALS: { quote: string; meta: string }[] = [
   {
@@ -234,13 +236,17 @@ export function Testimonials({ alt = false }: { alt?: boolean }) {
           <span style={strong}>reliable · committed to quality · solution oriented · clear communicator · detail oriented.</span>
         </p>
 
-        {UPWORK_PROFILE_URL !== "" && (
-          <p style={{ margin: "14px 0 0", fontSize: 14 }}>
-            <GoldLink href={UPWORK_PROFILE_URL} external>
-              Verify these reviews →
-            </GoldLink>
-          </p>
-        )}
+        <p style={{ margin: "14px 0 0", fontSize: 14, lineHeight: 1.9 }}>
+          {UPWORK_PROFILE_URL !== "" && (
+            <>
+              <GoldLink href={UPWORK_PROFILE_URL} external>
+                Verify these reviews →
+              </GoldLink>
+              {" · "}
+            </>
+          )}
+          <GoldLink href="/verified">Every verifiable source, linked at origin →</GoldLink>
+        </p>
       </div>
     </section>
   );

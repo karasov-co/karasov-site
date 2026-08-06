@@ -18,6 +18,17 @@ Claude API, n8n, Python, FastAPI, Supabase pgvector, Next.js, LangGraph, MCP
 - SENTINEL — adversarial multi-agent audit system, Milan AI Week 2026:
   https://sentinel-audit.co · https://github.com/karasov-co/sentinel-audit
 
+## Verified sources
+- Independent client reviews, public source code, evaluation reports and
+  official competition results, all linked at source:
+  https://karasov.co/verified
+- Client review, Freelancehunt (5.0):
+  https://freelancehunt.com/freelancer/vkarasov.html#reviews
+- Client reviews, Upwork (two engagements, 5.0):
+  https://www.upwork.com/freelancers/~01af851972931ea5c2?mp_source=share
+- Source code and evaluation report:
+  https://github.com/karasov-co/sentinel-audit
+
 ## Services
 - AI automation for contractors — cost, timeline, what you get:
   https://karasov.co/services/ai-automation-for-contractors

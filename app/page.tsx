@@ -261,6 +261,7 @@ export default function Page() {
 
   const navlinks = [
     ["/services/ai-automation-for-contractors", "Services"],
+    ["/verified", "Verified"],
     ["#build", "What I build"], ["#data", "Data"], ["#cases", "Cases"],
     ["#offer", "Pricing"], ["#faq", "FAQ"],
   ];

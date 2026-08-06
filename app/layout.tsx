@@ -94,6 +94,8 @@ const jsonLd = {
         "https://www.linkedin.com/in/vitaliikarasov/",
         "https://www.youtube.com/@TheHumanGambit",
         "https://sentinel-audit.co",
+        "https://freelancehunt.com/freelancer/vkarasov.html",
+        "https://www.upwork.com/freelancers/~01af851972931ea5c2?mp_source=share",
       ],
     },
     {

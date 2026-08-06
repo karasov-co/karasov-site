@@ -1,12 +1,13 @@
 import type { MetadataRoute } from "next";
 
-// Legacy routes (/lab, /work/*) are deliberately excluded: they carry the old
-// personal-site positioning and are not linked from the current site.
+// The legacy /lab and /work/* routes were deleted; next.config.ts redirects
+// them permanently to their current equivalents.
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: "https://karasov.co/", priority: 1, changeFrequency: "weekly" },
     { url: "https://karasov.co/answers", priority: 0.8, changeFrequency: "monthly" },
     { url: "https://karasov.co/about", priority: 0.8, changeFrequency: "monthly" },
+    { url: "https://karasov.co/verified", priority: 0.9, changeFrequency: "monthly" },
     { url: "https://karasov.co/services/ai-automation-for-contractors", priority: 0.9, changeFrequency: "monthly" },
     { url: "https://karasov.co/services/lead-response-automation", priority: 0.8, changeFrequency: "monthly" },
     { url: "https://karasov.co/services/field-reporting-automation", priority: 0.8, changeFrequency: "monthly" },
